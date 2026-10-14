@@ -1,0 +1,50 @@
+media:
+  input: public/images
+  output: /images
+
+content:
+  - name: homepage
+    label: Homepage
+    type: file
+    path: src/data/home.json
+    format: json
+    fields:
+      - name: siteName
+        label: Site name
+        type: string
+      - name: eyebrow
+        label: Intro label
+        type: string
+      - name: headline
+        label: Headline
+        type: string
+      - name: intro
+        label: Introduction paragraph
+        type: text
+      - name: personalNote
+        label: Personal note
+        type: text
+      - name: worksLabel
+        label: Portfolio link label
+        type: string
+      - name: contactLabel
+        label: Contact link label
+        type: string
+      - name: essayTitle
+        label: Essay title
+        type: string
+      - name: essay
+        label: Essay body (separate paragraphs with a blank line)
+        type: text
+      - name: siteSectionTitle
+        label: Site section heading
+        type: string
+      - name: siteSectionCopy
+        label: Site section paragraph
+        type: text
+      - name: footerQuote
+        label: Footer quote
+        type: text
+      - name: footerQuoteAttribution
+        label: Quote attribution
+        type: string

@@ -25,7 +25,7 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', {
         <a role="link" tabindex="0" aria-disabled="true" data-placeholder="Shelf" aria-label="Shelf, coming soon">Shelf <span class="nav-soon">Soon</span></a>
         <a href={emailUrl}>Contact</a>
       </nav>
-      <p class="footer-phrase">made with <span class="footer-heart" aria-label="love">♥</span> and <span class="footer-signoff-word">persistence</span></p>
+      <p class="footer-phrase"><span class="footer-phrase-prefix">Made with <span class="footer-heart" aria-label="love">♥</span> and</span><span class="footer-signoff-word" aria-live="off">Persistence</span></p>
     </div>
     <div class="footer-bottom">
       <p class="footer-copyright">© <span id="copyright-year">2026</span> Kiruthika Ramesh. All rights reserved.</p>
@@ -49,8 +49,16 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', {
   const year = document.querySelector('#copyright-year');
   const istClock = document.querySelector('#ist-clock');
   const footerNavigation = document.querySelector('.footer-nav');
+  const footer = document.querySelector('.site-footer');
+  const signoffWord = document.querySelector('.footer-signoff-word');
   const status = document.querySelector('#placeholder-status');
   let statusTimer: number | undefined;
+  let signoffTimer: number | undefined;
+  let signoffChangeTimer: number | undefined;
+  let footerIsVisible = false;
+  const signoffWords = ['Curiosity', 'Experimentation', 'Persistence'];
+  let signoffIndex = signoffWords.indexOf(signoffWord.textContent.trim());
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   const updateFooter = () => {
     const now = new Date();
@@ -74,6 +82,38 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', {
 
   updateFooter();
   window.setInterval(updateFooter, 60_000);
+
+  const stopSignoffRotation = () => {
+    window.clearInterval(signoffTimer);
+    signoffTimer = undefined;
+  };
+  const rotateSignoff = () => {
+    signoffIndex = (signoffIndex + 1) % signoffWords.length;
+    signoffWord.classList.add('is-changing');
+    window.clearTimeout(signoffChangeTimer);
+    signoffChangeTimer = window.setTimeout(() => {
+      signoffWord.textContent = signoffWords[signoffIndex];
+      window.requestAnimationFrame(() => signoffWord.classList.remove('is-changing'));
+    }, 120);
+  };
+  const syncSignoffRotation = () => {
+    stopSignoffRotation();
+    if (reducedMotion.matches) {
+      signoffWord.textContent = 'Persistence';
+      signoffIndex = signoffWords.length - 1;
+      return;
+    }
+    if (footerIsVisible) signoffTimer = window.setInterval(rotateSignoff, 2400);
+  };
+  if ('IntersectionObserver' in window) {
+    const footerObserver = new IntersectionObserver(([entry]) => {
+      footerIsVisible = entry.isIntersecting;
+      syncSignoffRotation();
+    }, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
+    footerObserver.observe(footer);
+  }
+  syncSignoffRotation();
+  reducedMotion.addEventListener('change', syncSignoffRotation);
 
   footerNavigation.addEventListener('click', (event) => {
     const link = (event.target as HTMLElement).closest('[data-placeholder]') as HTMLElement | null;

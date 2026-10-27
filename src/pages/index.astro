@@ -1,19 +1,12 @@
 ---
 import home from '../data/home.json';
+import SiteFooter from '../components/SiteFooter.astro';
 const greeting = "Hi, I'm Kiruthika.";
 const introCopy = home.intro.startsWith(greeting) ? home.intro.slice(greeting.length).trimStart() : home.intro;
 const introduction = [...introCopy.split('\n\n'), home.personalNote].filter(Boolean);
 const portfolioUrl = 'https://ripe-stoat-21e.notion.site/Kiruthika-Ramesh-Portfolio-b938168891d8823892b08165cdc90adf?pvs=74';
-const linkedInUrl = 'https://www.linkedin.com/in/kiruthika-ramesh/';
 const emailUrl = 'mailto:kiruthikar123@gmail.com';
 const githubUrl = 'https://github.com/kiruthika-r-01';
-const letterboxdUrl = 'https://letterboxd.com/kirthika_/';
-const buildIstTime = new Intl.DateTimeFormat('en-US', {
-  timeZone: 'Asia/Kolkata',
-  hour: '2-digit',
-  minute: '2-digit',
-  hour12: true,
-}).format(new Date());
 ---
 <!doctype html>
 <html lang="en" data-theme="light">
@@ -81,9 +74,8 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', {
       *, *::before, *::after { box-sizing: border-box; }
       html { scroll-behavior: smooth; background: var(--page); }
       body { margin: 0; background: var(--page); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.68; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transition: background-color 180ms ease, color 180ms ease; }
-      a { color: inherit; text-decoration: none; }
       button, a { -webkit-tap-highlight-color: transparent; }
-      a:focus-visible, button:focus-visible { outline: 2px solid var(--brand); outline-offset: 5px; }
+      button:focus-visible { outline: 2px solid var(--brand); outline-offset: 5px; }
       .skip-link { position: fixed; z-index: 20; top: 10px; left: 10px; padding: 10px 14px; transform: translateY(-150%); background: var(--ink); color: var(--page); }
       .skip-link:focus { transform: translateY(0); }
       .site-header { position: sticky; z-index: 10; top: 0; height: var(--header-height); border-bottom: 1px solid var(--line); background: var(--page); }
@@ -119,7 +111,7 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', {
       .intro-greeting { font-family: var(--hand); font-size: 24px; font-weight: 600; line-height: 1; color: var(--brand); }
       .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 27px; margin-top: 30px; }
       .hero-link { min-height: 47px; display: inline-flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--line); font-size: 16px; font-weight: 600; transition: border-color 150ms ease, color 150ms ease; }
-      .hero-link:hover { border-color: var(--brand); color: var(--ink); }
+      .hero-link:hover { border-color: var(--brand); color: var(--brand); }
       .hero-link svg { width: 15px; height: 15px; flex: 0 0 auto; }
       .hero-link svg path { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
       .coming-soon { padding: 3px 7px; border-radius: 999px; color: var(--ink); background: color-mix(in srgb, var(--brand) 16%, var(--page)); font-size: 11px; font-weight: 500; }
@@ -151,35 +143,10 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', {
       .murakami-quote { margin: 35px auto 0; padding: 43px 24px 47px; border-top: 1px solid var(--line); text-align: center; }
       .murakami-quote blockquote { max-width: 750px; margin: 0 auto 8px; color: var(--ink); font-size: 14px; line-height: 1.55; }
       .murakami-quote figcaption { color: var(--muted); font-size: 13px; }
-      footer { border-top: 1px solid var(--line); }
-      .footer-inner { width: min(100% - 80px, 1260px); display: grid; gap: 23px; margin: 0 auto; padding: 24px 0 27px; color: var(--muted); font-size: 14px; }
-      .footer-top, .footer-bottom { display: grid; align-items: center; }
-      .footer-top { grid-template-columns: minmax(0, 1fr) auto; gap: 25px; }
-      .footer-bottom { position: relative; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr); gap: 20px; padding-top: 20px; border-top: 1px solid var(--line); }
-      .footer-top { min-height: 30px; }
-      .footer-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 9px 22px; }
-      .footer-nav a, .social-links a { transition: color 150ms ease; }
-      .footer-nav a:hover, .social-links a:hover { color: var(--brand); }
-      .footer-nav a[data-placeholder] { color: var(--muted); }
-      .footer-nav .nav-soon { display: inline; position: static; margin-left: 4px; color: var(--muted); font-size: 10px; }
-      .footer-phrase { margin: 0; color: var(--ink); text-align: right; white-space: nowrap; }
-      .footer-heart, .rotating-word { color: var(--brand); }
-      .footer-heart { font-size: 1.18em; }
-      .rotating-word { display: inline-block; min-width: 4ch; color: var(--brand); font-family: var(--hand); font-size: 14px; font-weight: 600; line-height: 1.25; transition: opacity 140ms ease, transform 140ms ease; }
-      .rotating-word.is-changing { opacity: 0; transform: translateY(3px); }
-      .footer-copyright { margin: 0; }
-      .footer-location { display: flex; align-items: center; justify-content: center; gap: 8px; min-width: 0; text-align: center; white-space: nowrap; }
-      .footer-location p { margin: 0; }
-      .footer-location time { white-space: nowrap; }
-      .social-links { display: flex; justify-content: flex-end; gap: 18px; }
-      .social-links a { width: 24px; height: 24px; display: grid; place-items: center; }
-      .social-links img { display: block; width: 20px; height: 20px; object-fit: contain; filter: var(--social-icon-filter); }
-      .placeholder-status { position: fixed; z-index: 30; right: 20px; bottom: 20px; max-width: min(360px, calc(100vw - 40px)); padding: 11px 16px; border: 1px solid var(--line); border-radius: 3px; background: var(--ink); color: var(--page); font-size: 14px; opacity: 0; pointer-events: none; transform: translateY(8px); transition: opacity 150ms ease, transform 150ms ease; }
-      .placeholder-status.is-visible { opacity: 1; transform: translateY(0); }
       .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
       @media (max-width: 1060px) {
         :root { --header-height: 76px; }
-        .header-inner, main, .footer-inner { width: min(100% - 56px, 1260px); }
+        .header-inner, main { width: min(100% - 56px, 1260px); }
         .primary-nav { gap: clamp(12px, 1.55vw, 20px); }
         .primary-nav a { font-size: 13px; }
         .brand img { width: 68px; }
@@ -205,7 +172,7 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', {
       @media (max-width: 620px) {
         :root { --header-height: 70px; }
         body { font-size: 16px; }
-        .header-inner, main, .footer-inner { width: min(100% - 40px, 1260px); }
+        .header-inner, main { width: min(100% - 40px, 1260px); }
         .brand img { width: 62px; height: 50px; }
         .header-inner { gap: 12px; }
         .theme-toggle { order: 3; }
@@ -233,18 +200,6 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', {
         .testimonial-highlight { margin-bottom: 8px; font-size: clamp(24px, 5.8vw, 27px); line-height: 1.2; }
         .testimonial-quote p { margin-bottom: 15px; font-size: 16px; line-height: 1.67; }
         .murakami-quote { margin-top: 22px; padding: 34px 0 38px; }
-        .footer-inner { gap: 18px; padding: 22px 0; font-size: 13px; }
-        .footer-top, .footer-bottom { grid-template-columns: 1fr; gap: 16px; }
-        .footer-phrase { text-align: left; }
-        .footer-nav { gap: 9px 16px; }
-        .footer-bottom { justify-items: center; gap: 14px; }
-        .footer-copyright { justify-self: start; }
-        .footer-location { justify-self: center; grid-row: 2; }
-        .social-links { justify-self: end; grid-row: 1; }
-      }
-      @media (max-width: 380px) {
-        .footer-nav { gap: 8px 12px; font-size: 12px; }
-        .footer-phrase { white-space: normal; }
       }
       @media (prefers-reduced-motion: reduce) {
         *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
@@ -271,7 +226,7 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', {
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" /></svg>
         </button>
         <nav class="primary-nav" id="primary-navigation" aria-label="Main navigation">
-          <a role="link" tabindex="0" aria-disabled="true" data-placeholder="About" aria-label="About, coming soon">About <span class="nav-soon" aria-hidden="true">Soon</span></a>
+          <a href="/about/">About</a>
           <a role="link" tabindex="0" aria-disabled="true" data-placeholder="Career" aria-label="Career, coming soon">Career <span class="nav-soon" aria-hidden="true">Soon</span></a>
           <a href={portfolioUrl}>Selected Works</a>
           <a role="link" tabindex="0" aria-disabled="true" data-placeholder="Writings" aria-label="Writings, coming soon">Writings <span class="nav-soon" aria-hidden="true">Soon</span></a>
@@ -361,44 +316,7 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', {
       </figure>
     </main>
 
-    <footer>
-      <div class="footer-inner">
-        <div class="footer-top">
-          <nav class="footer-nav" aria-label="Footer navigation">
-            <a role="link" tabindex="0" aria-disabled="true" data-placeholder="About" aria-label="About, coming soon">About <span class="nav-soon">Soon</span></a>
-            <a role="link" tabindex="0" aria-disabled="true" data-placeholder="Career" aria-label="Career, coming soon">Career <span class="nav-soon">Soon</span></a>
-            <a href={portfolioUrl}>Selected Works</a>
-            <a role="link" tabindex="0" aria-disabled="true" data-placeholder="Writings" aria-label="Writings, coming soon">Writings <span class="nav-soon">Soon</span></a>
-            <a role="link" tabindex="0" aria-disabled="true" data-placeholder="Shelf" aria-label="Shelf, coming soon">Shelf <span class="nav-soon">Soon</span></a>
-            <a href={emailUrl}>Contact</a>
-          </nav>
-          <p class="footer-phrase">made with <span class="footer-heart" aria-label="love">♥</span> and <span class="rotating-word" id="rotating-word">curiosity</span></p>
-        </div>
-        <div class="footer-bottom">
-          <p class="footer-copyright">© <span id="copyright-year">2026</span> Kiruthika Ramesh. All rights reserved.</p>
-          <div class="footer-location">
-            <p>Chennai, India</p>
-            <span aria-hidden="true">·</span>
-            <time id="ist-clock" datetime={new Date().toISOString()}>{buildIstTime} IST</time>
-          </div>
-          <nav class="social-links" aria-label="Social links">
-            <a href={linkedInUrl} target="_blank" rel="noreferrer" aria-label="LinkedIn">
-              <img src="/icons/linkedin.svg" alt="" width="20" height="20" />
-            </a>
-            <a href={emailUrl} aria-label="Email">
-              <img src="/icons/gmail.svg" alt="" width="20" height="20" />
-            </a>
-            <a href={githubUrl} target="_blank" rel="noreferrer" aria-label="GitHub">
-              <img src="/icons/github.svg" alt="" width="20" height="20" />
-            </a>
-            <a href={letterboxdUrl} target="_blank" rel="noreferrer" aria-label="Letterboxd">
-              <img src="/icons/letterboxd.svg" alt="" width="20" height="20" />
-            </a>
-          </nav>
-        </div>
-      </div>
-    </footer>
-    <div class="placeholder-status" id="placeholder-status" role="status" aria-live="polite"></div>
+    <SiteFooter />
 
     <script is:inline>
       (() => {
@@ -406,7 +324,6 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', {
         const toggle = document.querySelector('.theme-toggle');
         const mobileMenuButton = document.querySelector('.mobile-menu-button');
         const navigation = document.querySelector('#primary-navigation');
-        const year = document.querySelector('#copyright-year');
         const status = document.querySelector('#placeholder-status');
         const testimonialLayout = document.querySelector('.testimonial-layout');
         const testimonialName = document.querySelector('#testimonial-name');
@@ -414,15 +331,8 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', {
         const testimonialCompany = document.querySelector('#testimonial-company');
         const testimonialPortrait = document.querySelector('#testimonial-portrait');
         const testimonialPanels = [...document.querySelectorAll('[data-testimonial-panel]')];
-        const istClock = document.querySelector('#ist-clock');
-        const footer = document.querySelector('footer');
-        const rotatingWord = document.querySelector('#rotating-word');
         const themePreference = window.matchMedia('(prefers-color-scheme: dark)');
-        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
         let statusTimer;
-        let phraseTimer;
-        let phraseIndex = 0;
-        const phrases = ['curiosity', 'persistence', 'experimentation', 'playfulness'];
 
         const showPlaceholder = (messageOrLink) => {
           status.textContent = typeof messageOrLink === 'string'
@@ -433,18 +343,6 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', {
           statusTimer = window.setTimeout(() => status.classList.remove('is-visible'), 2600);
         };
 
-        const updateClock = () => {
-          const now = new Date();
-          const time = new Intl.DateTimeFormat('en-US', {
-            timeZone: 'Asia/Kolkata',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: true,
-          }).format(now);
-          istClock.textContent = time + ' IST';
-          istClock.dateTime = now.toISOString();
-        };
-
         const updateToggle = () => {
           const isDark = root.dataset.theme === 'dark';
           toggle.setAttribute('aria-checked', String(isDark));
@@ -453,10 +351,6 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', {
         };
 
         updateToggle();
-        year.textContent = String(new Date().getFullYear());
-        updateClock();
-        window.setInterval(updateClock, 60_000);
-
         toggle.addEventListener('click', () => {
           const nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
           root.dataset.theme = nextTheme;
@@ -503,21 +397,6 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', {
           showPlaceholder('AI lab & notes is in progress.');
         });
 
-        const footerNavigation = document.querySelector('.footer-nav');
-        footerNavigation.addEventListener('click', (event) => {
-          const link = event.target.closest('[data-placeholder]');
-          if (!link) return;
-          event.preventDefault();
-          showPlaceholder(link);
-        });
-        footerNavigation.addEventListener('keydown', (event) => {
-          const link = event.target.closest('[data-placeholder]');
-          if (link && event.key === 'Enter') {
-            event.preventDefault();
-            showPlaceholder(link);
-          }
-        });
-
         document.querySelectorAll('[data-testimonial-switch]').forEach((button) => {
           button.addEventListener('click', () => {
             const selected = button.dataset.testimonialSwitch;
@@ -538,25 +417,6 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', {
           });
         });
 
-        if ('IntersectionObserver' in window && !reducedMotion.matches) {
-          const observer = new IntersectionObserver(([entry]) => {
-            if (entry.isIntersecting && !phraseTimer) {
-              phraseTimer = window.setInterval(() => {
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                rotatingWord.classList.add('is-changing');
-                window.setTimeout(() => {
-                  rotatingWord.textContent = phrases[phraseIndex];
-                  rotatingWord.classList.remove('is-changing');
-                }, 140);
-              }, 3000);
-            } else if (!entry.isIntersecting && phraseTimer) {
-              window.clearInterval(phraseTimer);
-              phraseTimer = undefined;
-              rotatingWord.classList.remove('is-changing');
-            }
-          }, { rootMargin: '220px 0px' });
-          observer.observe(footer);
-        }
       })();
     </script>
   </body>

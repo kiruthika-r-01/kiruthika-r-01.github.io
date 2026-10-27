@@ -1,0 +1,443 @@
+---
+import SiteFooter from '../components/SiteFooter.astro';
+
+const canonicalUrl = 'https://imkiruthika.in/about/';
+const title = 'About Kiruthika Ramesh | High Agency Marketing Generalist';
+const description = 'Meet Kiruthika Ramesh, a high-agency marketing generalist working across content, SEO, AEO, GTM and design, while exploring marketing automation.';
+const openGraphDescription = 'Meet Kiruthika Ramesh and learn how curiosity has shaped her work across content, SEO, AEO, go-to-market strategy and design.';
+const siteUrl = 'https://imkiruthika.in/';
+const portfolioUrl = 'https://ripe-stoat-21e.notion.site/Kiruthika-Ramesh-Portfolio-b938168891d8823892b08165cdc90adf?pvs=74';
+const playlistUrl = 'https://open.spotify.com/playlist/4MBuUg744i68jhgNALnzo4?si=PAkqtjYKT2a1hP1EBywrjg';
+
+const sections = [
+  {
+    id: '00',
+    title: 'Against the grain',
+    tagline: 'Restless',
+    paragraphs: [
+      "When you grow up curious and different in a place known for its repetitiveness and mediocrity, you eventually figure out that you want to run toward the exact things people say you can't do. For me, that was writing and marketing. People told me directly and indirectly that it wasn't a realistic path, which naturally meant I wanted to give it my all.",
+    ],
+  },
+  {
+    id: '01',
+    title: 'Pulling at threads',
+    tagline: 'Curious',
+    paragraphs: [
+      "I studied Computer Applications and started out as a content writer, with very little knowledge of the wider marketing discipline. I didn't stay in a single lane for long, not because I couldn't handle the writing, but because you can only write so many blogs before you start wondering where the landing page leads, how the campaign brings people there, and what the sales team is actually doing with the leads. I started pulling at those threads, which led me into SEO, website management, building sales decks, and go-to-market strategy. I call myself a marketing generalist now. It wasn't a grand career plan so much as a need to understand how the different pieces fit together, and I usually learn that by getting involved and doing the work myself.",
+    ],
+  },
+  {
+    id: '02',
+    title: 'The bigger picture',
+    tagline: 'Patterns',
+    paragraphs: [
+      'I see marketing as orchestrating a play. There is a script, a set, lighting, actors, and a whole lot of work happening backstage. You can do a wonderful job with your specific part, but the production only works if all those elements talk to each other. I like being the person who can step into different roles when needed, rather than just watching from the audience. Working in lean, technology-focused teams has given me the room to operate like this. It showed me the actual value of taking ownership—having the freedom to step outside your job description and take responsibility for a project simply because a problem needs solving. Design is one of those areas I keep coming back to; I love it, and I will always find an excuse to figure out how an idea should look on a screen.',
+    ],
+  },
+  {
+    id: '03',
+    title: 'Elsewhere',
+    tagline: 'Obsessions',
+    paragraphs: [
+      'Lately, I am going back to where I started with coding. There is something satisfying about returning to a subject years later with a completely different set of problems in mind. I want to see how far I can take AI and code to automate the repetitive parts of marketing, experimenting with what I can build myself instead of always relying on off-the-shelf software. I am also helping a friend with their e-commerce business and exploring paid ads, adding to a list of things to learn that grows a lot faster than my ability to get around to them.',
+      "Outside of work, I spend my time reading classic philosophy and Kurt Vonnegut novels, or drinking cold brew while trying to get a double crochet stitch right. I am very much a beginner, so we'll see how that goes. I listen to Qawwali music, rewatch Schitt's Creek with absolutely no intention of stopping, and I've recently been exploring Rakhshan Banietemad's films alongside Rajnikanth's retro filmography (yes, the Jailer effect is real). None of this is meant to optimize my productivity or teach me a lesson about B2B SaaS, which is exactly why I do it.",
+    ],
+  },
+];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  '@id': canonicalUrl,
+  url: canonicalUrl,
+  name: title,
+  description,
+  about: { '@id': siteUrl + '#person' },
+  mainEntity: { '@id': siteUrl + '#person' },
+};
+---
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#F7F6F2" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <title>{title}</title>
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/svg+xml" href="/kr-favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,100..1000&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Kiruthika Ramesh" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={openGraphDescription} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={openGraphDescription} />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    <script is:inline>
+      (() => {
+        document.documentElement.classList.add('js');
+        try {
+          const savedTheme = localStorage.getItem('site-theme');
+          const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.dataset.theme = savedTheme === 'light' || savedTheme === 'dark'
+            ? savedTheme
+            : systemPrefersDark ? 'dark' : 'light';
+        } catch {
+          document.documentElement.dataset.theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+      })();
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --page: #F7F6F2;
+        --surface: #eee8dc;
+        --ink: #24231f;
+        --muted: #67655e;
+        --line: #d8d2c6;
+        --brand: #F94D03;
+        --number-muted: #E2A28B;
+        --number-hover: #C97859;
+        --sans: 'Google Sans Flex', 'Google Sans', Arial, sans-serif;
+        --hand: 'Caveat', cursive;
+        --header-height: 82px;
+      }
+      :root[data-theme='dark'] {
+        color-scheme: dark;
+        --page: #171815;
+        --surface: #20211d;
+        --ink: #f2eee5;
+        --muted: #b0ada4;
+        --line: #3b3c35;
+        --brand: #ff6a2b;
+        --number-muted: #80513A;
+        --number-hover: #AA6A49;
+        --social-icon-filter: invert(1);
+        --logo-filter: invert(1);
+      }
+      *, *::before, *::after { box-sizing: border-box; }
+      html { min-height: 100%; background: var(--page); }
+      body { min-height: 100vh; margin: 0; background: var(--page); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.68; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transition: background-color 180ms ease, color 180ms ease; }
+      button, a { -webkit-tap-highlight-color: transparent; }
+      button:focus-visible { outline: 2px solid var(--brand); outline-offset: 5px; }
+      .skip-link { position: fixed; z-index: 20; top: 10px; left: 10px; padding: 10px 14px; transform: translateY(-150%); background: var(--ink); color: var(--page); }
+      .skip-link:focus { transform: translateY(0); }
+      .site-header { position: sticky; z-index: 10; top: 0; height: var(--header-height); border-bottom: 1px solid var(--line); background: var(--page); }
+      .header-inner { width: min(100% - 80px, 1380px); height: 100%; margin: 0 auto; display: flex; align-items: center; gap: clamp(20px, 3vw, 44px); }
+      .brand { display: inline-flex; align-items: center; flex: 0 0 auto; line-height: 0; }
+      .brand img { display: block; width: 75px; height: 58px; object-fit: contain; filter: var(--logo-filter, none); }
+      .primary-nav { display: flex; align-items: center; justify-content: flex-end; gap: clamp(14px, 2.1vw, 30px); flex: 1; }
+      .primary-nav a { position: relative; white-space: nowrap; font-size: 14px; font-weight: 500; line-height: 1.2; }
+      .primary-nav a::after { content: ''; position: absolute; right: 0; bottom: -7px; left: 0; height: 2px; background: var(--brand); transform: scaleX(0); transform-origin: left; transition: transform 160ms ease; }
+      .primary-nav a:hover::after, .primary-nav a[aria-current='page']::after { transform: scaleX(1); }
+      .nav-soon { display: none; position: absolute; top: 18px; right: 0; color: var(--muted); font-size: 9px; letter-spacing: .04em; }
+      .primary-nav a[data-placeholder] { color: var(--muted); }
+      .primary-nav a[data-placeholder] .nav-soon { display: block; }
+      .theme-toggle { width: 58px; height: 34px; position: relative; display: inline-flex; align-items: center; flex: 0 0 auto; padding: 3px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); cursor: pointer; }
+      .switch-thumb { width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; color: var(--brand); background: var(--page); transform: translateX(0); transition: transform 180ms ease, background-color 180ms ease; }
+      :root[data-theme='dark'] .switch-thumb { transform: translateX(23px); }
+      .cat-icon { width: 18px; height: 18px; overflow: visible; }
+      .cat-icon path, .cat-icon circle { fill: none; stroke: currentColor; stroke-width: 1.55; stroke-linecap: round; stroke-linejoin: round; }
+      .cat-awake, .cat-sleep { transition: opacity 140ms ease; }
+      .cat-sleep { opacity: 0; }
+      :root[data-theme='dark'] .cat-awake { opacity: 0; }
+      :root[data-theme='dark'] .cat-sleep { opacity: 1; }
+      .mobile-menu-button { display: none; align-items: center; justify-content: center; width: 42px; height: 42px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: transparent; color: var(--ink); cursor: pointer; }
+      .mobile-menu-button svg { width: 20px; height: 20px; }
+      .mobile-menu-button path { stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; }
+      .skip-link, .index-page, .reading-layout { width: min(100% - 80px, 1260px); margin-right: auto; margin-left: auto; }
+      .index-page { min-height: min(620px, calc(100svh - var(--header-height))); display: flex; flex-direction: column; justify-content: center; padding: 60px 0 74px; }
+      @media (min-width: 621px) and (max-height: 820px) {
+        body:not(.is-reading) .index-page {
+          --index-vertical-padding: clamp(56px, calc(100svh - 634px), 134px);
+          min-height: min(620px, calc(100svh - var(--header-height)));
+          padding-block: calc(var(--index-vertical-padding) / 2);
+        }
+        body:not(.is-reading) .index-link {
+          min-height: clamp(94px, calc((100svh - var(--header-height) - var(--index-vertical-padding) - 16px) / 4), 134px);
+        }
+      }
+      .index-list { margin: 0; padding: 0; list-style: none; }
+      .index-link { min-height: clamp(94px, 12vw, 134px); display: grid; grid-template-columns: minmax(86px, .22fr) minmax(0, 1fr) 36px; align-items: center; gap: clamp(18px, 4vw, 56px); border-bottom: 1px solid var(--line); transition: color 170ms ease; }
+      .index-list li:first-child .index-link { border-top: 1px solid var(--line); }
+      .index-number { color: var(--number-muted); font-size: clamp(50px, 7.6vw, 90px); font-weight: 700; line-height: .9; letter-spacing: -.08em; transition: color 170ms ease; }
+      .index-title { font-size: clamp(30px, 4.1vw, 52px); font-weight: 650; line-height: 1.06; letter-spacing: -.06em; transition: transform 190ms ease; }
+      .index-arrow { color: var(--brand); font-size: 31px; font-weight: 350; line-height: 1; transition: transform 190ms ease; }
+      .index-link:hover .index-number, .index-link:focus-visible .index-number { color: var(--number-hover); }
+      .index-link:hover .index-title, .index-link:focus-visible .index-title { transform: translateX(5px); }
+      .index-link:hover .index-arrow, .index-link:focus-visible .index-arrow { transform: translateX(5px); }
+      .reading-layout { display: none; grid-template-columns: minmax(230px, .38fr) minmax(0, 1fr); min-height: calc(100svh - var(--header-height)); }
+      .section-sidebar { position: sticky; top: var(--header-height); align-self: start; height: calc(100svh - var(--header-height)); min-height: 560px; padding: clamp(35px, 5vw, 70px) clamp(25px, 3.6vw, 52px) 36px 0; border-right: 1px solid var(--line); }
+      .sidebar-number { margin: -13px 0 12px -7px; color: var(--number-muted); font-size: clamp(100px, 12vw, 160px); font-weight: 700; line-height: .9; letter-spacing: -.09em; }
+      .section-nav { display: grid; gap: 5px; }
+      .section-nav a { min-height: 40px; display: flex; align-items: center; gap: 15px; padding: 7px 10px 7px 8px; border-radius: 2px; color: var(--muted); font-size: 15px; line-height: 1.35; transition: color 150ms ease, background-color 150ms ease; }
+      .section-nav a:not([aria-current='true']):hover, .section-nav a:not([aria-current='true']):focus-visible { color: var(--brand); }
+      .section-nav a[aria-current='true'] { background: var(--surface); color: var(--ink); font-weight: 600; }
+      .section-nav a[aria-current='true'] .nav-index { color: var(--brand); }
+      .nav-index { flex: 0 0 auto; color: var(--muted); font-weight: 600; font-variant-numeric: tabular-nums; transition: color 150ms ease; }
+      .section-nav a:not([aria-current='true']):hover .nav-index, .section-nav a:not([aria-current='true']):focus-visible .nav-index { color: var(--number-hover); }
+      .all-sections { display: inline-flex; min-height: 42px; align-items: center; margin-top: 21px; padding-top: 13px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+      .all-sections:hover { color: var(--brand); }
+      .section-sidebar .career-context-link { display: block; width: fit-content; margin-top: 22px; color: var(--muted); font-size: 14px; font-weight: 400; line-height: 1.35; }
+      .section-sidebar .career-context-link:is(:hover, :focus-visible, :active) { color: var(--brand); }
+      .career-context-arrow { display: inline-block; margin-left: .1em; font-size: .8em; line-height: 1; }
+      .career-context-link[hidden] { display: none; }
+      .reading-content { min-width: 0; padding: clamp(44px, 6.3vw, 86px) clamp(20px, 4.2vw, 64px) 90px; }
+      .story { display: none; max-width: 760px; margin: 0 auto; }
+      .story.is-active { display: block; animation: story-in 360ms cubic-bezier(.2,.7,.2,1) both; }
+      @keyframes story-in { from { opacity: .35; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+      .story-tagline { margin: 0 0 4px; color: var(--brand); font-family: var(--hand); font-size: 25px; font-weight: 600; line-height: 1.1; }
+      .story h1 { max-width: 620px; margin: 0; font-size: clamp(43px, 5.5vw, 68px); font-weight: 650; line-height: 1.02; letter-spacing: -.067em; text-wrap: balance; }
+      .story-rule { width: 40px; height: 2px; margin: 24px 0 16px; border: 0; background: var(--brand); }
+      .story-copy { max-width: 690px; }
+      .story-copy p { margin: 0 0 20px; font-size: 17px; line-height: 1.68; }
+      .story-copy p:last-child { margin-bottom: 0; }
+      .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+      body.is-reading .index-page { display: none; }
+      body.is-reading .reading-layout { display: grid; }
+      html:not(.js) body:has(.story:target) .index-page { display: none; }
+      html:not(.js) body:has(.story:target) .reading-layout { display: grid; }
+      html:not(.js) .story:target { display: block; }
+      @media (max-width: 1060px) {
+        :root { --header-height: 76px; }
+        .header-inner, .index-page, .reading-layout { width: min(100% - 56px, 1260px); }
+        .primary-nav { gap: clamp(12px, 1.55vw, 20px); }
+        .primary-nav a { font-size: 13px; }
+        .brand img { width: 68px; }
+        .reading-layout { grid-template-columns: minmax(205px, .36fr) minmax(0, 1fr); }
+      }
+      @media (max-width: 820px) {
+        .header-inner { gap: 14px; }
+        .primary-nav { display: none; position: absolute; top: calc(var(--header-height) - 1px); right: 0; left: 0; align-items: stretch; padding: 15px 28px 23px; border-bottom: 1px solid var(--line); background: var(--page); }
+        .primary-nav.is-open { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
+        .primary-nav a { min-height: 46px; display: flex; align-items: center; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+        .primary-nav a::after { display: none; }
+        .nav-soon { position: static; display: inline !important; margin-left: 12px; font-size: 10px; }
+        .mobile-menu-button { display: inline-flex; margin-left: auto; }
+        .reading-layout { grid-template-columns: minmax(180px, .34fr) minmax(0, 1fr); }
+        .section-sidebar { padding-right: 20px; }
+        .section-nav a { gap: 9px; padding-right: 5px; font-size: 14px; }
+        .reading-content { padding-right: 0; padding-left: clamp(24px, 4vw, 42px); }
+      }
+      @media (max-width: 620px) {
+        :root { --header-height: 70px; }
+        body { font-size: 16px; }
+        .header-inner, .index-page, .reading-layout { width: min(100% - 40px, 1260px); }
+        .brand img { width: 62px; height: 50px; }
+        .header-inner { gap: 12px; }
+        .theme-toggle { order: 3; }
+        .mobile-menu-button { order: 2; }
+        .primary-nav { padding-right: 20px; padding-left: 20px; }
+        .index-page { min-height: calc(100svh - var(--header-height)); padding: 34px 0 48px; }
+        .index-link { min-height: 90px; grid-template-columns: 58px minmax(0, 1fr) 24px; gap: 13px; }
+        .index-number { font-size: clamp(43px, 13vw, 66px); }
+        .index-title { font-size: clamp(23px, 6.2vw, 33px); }
+        .index-arrow { font-size: 25px; }
+        .reading-layout { display: none; grid-template-columns: 1fr; min-height: auto; }
+        .section-sidebar { position: static; height: auto; min-height: 0; padding: 22px 0 18px; border-right: 0; border-bottom: 1px solid var(--line); }
+        .sidebar-number { display: none; }
+        .section-nav { grid-template-columns: 1fr 1fr; gap: 3px 7px; }
+        .section-nav a { min-height: 43px; gap: 8px; font-size: 13px; }
+        .all-sections { min-height: 36px; margin-top: 9px; padding-top: 8px; font-size: 13px; }
+        .section-sidebar .career-context-link { font-size: 13px; }
+        .reading-content { padding: 29px 0 68px; }
+        .story h1 { max-width: 560px; font-size: clamp(42px, 12vw, 55px); }
+        .story-tagline { font-size: 23px; }
+        .story-rule { margin: 20px 0 14px; }
+        .story-copy p { margin-bottom: 17px; font-size: 16px; line-height: 1.67; }
+      }
+      @media (max-width: 380px) {
+        .header-inner, .index-page, .reading-layout { width: min(100% - 32px, 1260px); }
+        .index-link { min-height: 82px; grid-template-columns: 49px minmax(0, 1fr) 20px; gap: 9px; }
+        .index-number { font-size: 43px; }
+        .index-title { font-size: 22px; }
+        .section-nav { gap: 2px; }
+        .section-nav a { gap: 6px; padding-right: 3px; padding-left: 5px; font-size: 12px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      }
+    </style>
+  </head>
+  <body class="about-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="/" aria-label="Kiruthika Ramesh home"><img src="/kr-logo.svg" alt="" width="75" height="58" /></a>
+        <button class="mobile-menu-button" type="button" aria-label="Open navigation" aria-controls="primary-navigation" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" /></svg>
+        </button>
+        <nav class="primary-nav" id="primary-navigation" aria-label="Main navigation">
+          <a href="/about/" aria-current="page">About</a>
+          <a role="link" tabindex="0" aria-disabled="true" data-placeholder="Career" aria-label="Career, coming soon">Career <span class="nav-soon" aria-hidden="true">Soon</span></a>
+          <a href={portfolioUrl}>Selected Works</a>
+          <a role="link" tabindex="0" aria-disabled="true" data-placeholder="Writings" aria-label="Writings, coming soon">Writings <span class="nav-soon" aria-hidden="true">Soon</span></a>
+          <a role="link" tabindex="0" aria-disabled="true" data-placeholder="Shelf" aria-label="Shelf, coming soon">Shelf <span class="nav-soon" aria-hidden="true">Soon</span></a>
+          <a href="mailto:kiruthikar123@gmail.com">Contact</a>
+        </nav>
+        <button class="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Switch to dark theme" title="Switch to dark theme">
+          <span class="switch-thumb" aria-hidden="true">
+            <svg class="cat-icon" viewBox="0 0 24 24">
+              <path d="M5 10 4.2 5.2 9 7.5a8 8 0 0 1 6 0l4.8-2.3L19 10a7 7 0 1 1-14 0Z" />
+              <path class="cat-awake" d="M8.3 11v1.1m7.4-1.1v1.1M9.6 15c1.4 1.1 3.4 1.1 4.8 0M5.8 13.2 3.8 12.7m14.4.5 2-.5" />
+              <path class="cat-sleep" d="M7.9 12.1q1-.9 2 0m4.2 0q1-.9 2 0m-5.1 2.8q1.5 1 3 0m3.4-8.2h2l-2 2h2" />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <div class="index-page" aria-label="About sections">
+        <h1 class="sr-only">About sections</h1>
+        <ol class="index-list">
+          {sections.map((section) => (
+            <li>
+              <a class="index-link" href={`#${section.id}`} data-section-link={section.id}>
+                <span class="index-number" aria-hidden="true">{section.id}</span>
+                <span class="index-title">{section.title}</span>
+                <span class="index-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div class="reading-layout" aria-label="About section reading view">
+        <aside class="section-sidebar" aria-label="Section navigation">
+          <div class="sidebar-number" id="sidebar-number" aria-hidden="true">00</div>
+          <nav class="section-nav" aria-label="About sections">
+            {sections.map((section) => (
+              <a href={`#${section.id}`} data-section-link={section.id}>
+                <span class="nav-index" aria-hidden="true">{section.id}</span>
+                <span>{section.title}</span>
+              </a>
+            ))}
+          </nav>
+          <a class="all-sections" href="/about/" id="all-sections">All sections</a>
+          <a class="career-context-link" href="/career" id="career-context-link" hidden>Curious about the work?<span class="career-context-arrow" id="career-context-arrow" aria-hidden="true">→</span></a>
+        </aside>
+        <div class="reading-content" aria-live="polite">
+          {sections.map((section) => (
+            <article class="story" id={section.id} data-story={section.id} aria-labelledby={`story-title-${section.id}`}>
+              <p class="story-tagline">{section.tagline}</p>
+              <h1 id={`story-title-${section.id}`} tabindex="-1">{section.title}</h1>
+              <hr class="story-rule" />
+              <div class="story-copy">
+                {section.paragraphs.map((paragraph) => (
+                  <p>{section.id === '03' && paragraph.includes('Qawwali music')
+                    ? <>{paragraph.slice(0, paragraph.indexOf('Qawwali music'))}<a href={playlistUrl} target="_blank" rel="noopener noreferrer">Qawwali music</a>{paragraph.slice(paragraph.indexOf('Qawwali music') + 'Qawwali music'.length)}</>
+                    : paragraph}</p>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </main>
+
+    <SiteFooter />
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const body = document.body;
+        const toggle = document.querySelector('.theme-toggle');
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const navigation = document.querySelector('#primary-navigation');
+        const status = document.querySelector('#placeholder-status');
+        const careerContextLink = document.querySelector('#career-context-link');
+        const validIds = new Set(['00', '01', '02', '03']);
+        const articles = [...document.querySelectorAll('[data-story]')];
+        const sectionLinks = [...document.querySelectorAll('[data-section-link]')];
+        const themePreference = window.matchMedia('(prefers-color-scheme: dark)');
+        let statusTimer;
+
+        const setActiveSection = (id) => {
+          const validId = validIds.has(id) ? id : null;
+          careerContextLink.hidden = validId !== '03';
+          body.classList.toggle('is-reading', Boolean(validId));
+          articles.forEach((article) => {
+            const active = article.dataset.story === validId;
+            article.classList.toggle('is-active', active);
+            article.setAttribute('aria-hidden', String(!active));
+          });
+          document.querySelector('#sidebar-number').textContent = validId || '00';
+          document.querySelectorAll('.section-nav a').forEach((link) => {
+            if (link.dataset.sectionLink === validId) link.setAttribute('aria-current', 'true');
+            else link.removeAttribute('aria-current');
+          });
+          if (!validId && location.hash && !validIds.has(location.hash.slice(1)) && location.hash !== '#all-sections') {
+            history.replaceState(null, '', location.pathname + location.search);
+          }
+        };
+
+        const updateToggle = () => {
+          const isDark = root.dataset.theme === 'dark';
+          toggle.setAttribute('aria-checked', String(isDark));
+          toggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+          toggle.setAttribute('title', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+        };
+        const showPlaceholder = (link) => {
+          status.textContent = link.dataset.placeholder + ' page is coming later.';
+          status.classList.add('is-visible');
+          window.clearTimeout(statusTimer);
+          statusTimer = window.setTimeout(() => status.classList.remove('is-visible'), 2600);
+        };
+
+        setActiveSection(location.hash.slice(1));
+        updateToggle();
+        toggle.addEventListener('click', () => {
+          const nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+          root.dataset.theme = nextTheme;
+          try { localStorage.setItem('site-theme', nextTheme); } catch {}
+          updateToggle();
+        });
+        themePreference.addEventListener('change', (event) => {
+          try { if (localStorage.getItem('site-theme')) return; } catch {}
+          root.dataset.theme = event.matches ? 'dark' : 'light';
+          updateToggle();
+        });
+        mobileMenuButton.addEventListener('click', () => {
+          const open = mobileMenuButton.getAttribute('aria-expanded') !== 'true';
+          mobileMenuButton.setAttribute('aria-expanded', String(open));
+          mobileMenuButton.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+          navigation.classList.toggle('is-open', open);
+        });
+        navigation.addEventListener('click', (event) => {
+          const link = event.target.closest('[data-placeholder]');
+          if (link) {
+            event.preventDefault();
+            showPlaceholder(link);
+            return;
+          }
+          mobileMenuButton.setAttribute('aria-expanded', 'false');
+          mobileMenuButton.setAttribute('aria-label', 'Open navigation');
+          navigation.classList.remove('is-open');
+        });
+        navigation.addEventListener('keydown', (event) => {
+          const link = event.target.closest('[data-placeholder]');
+          if (link && event.key === 'Enter') { event.preventDefault(); showPlaceholder(link); }
+        });
+        sectionLinks.forEach((link) => link.addEventListener('click', (event) => {
+          event.preventDefault();
+          const id = link.dataset.sectionLink;
+          if (location.hash.slice(1) !== id) history.pushState(null, '', '#' + id);
+          setActiveSection(id);
+        }));
+        document.querySelector('#all-sections').addEventListener('click', (event) => {
+          event.preventDefault();
+          if (location.hash) history.pushState(null, '', location.pathname + location.search);
+          setActiveSection(null);
+        });
+        window.addEventListener('popstate', () => setActiveSection(location.hash.slice(1)));
+        window.addEventListener('hashchange', () => setActiveSection(location.hash.slice(1)));
+      })();
+    </script>
+  </body>
+</html>

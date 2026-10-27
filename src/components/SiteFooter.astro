@@ -1,0 +1,91 @@
+---
+import '../styles/site.css';
+
+const portfolioUrl = 'https://ripe-stoat-21e.notion.site/Kiruthika-Ramesh-Portfolio-b938168891d8823892b08165cdc90adf?pvs=74';
+const linkedInUrl = 'https://www.linkedin.com/in/kiruthika-ramesh/';
+const emailUrl = 'mailto:kiruthikar123@gmail.com';
+const githubUrl = 'https://github.com/kiruthika-r-01';
+const letterboxdUrl = 'https://letterboxd.com/kirthika_/';
+const buildIstTime = new Intl.DateTimeFormat('en-US', {
+  timeZone: 'Asia/Kolkata',
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: true,
+}).format(new Date());
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="/about/">About</a>
+        <a role="link" tabindex="0" aria-disabled="true" data-placeholder="Career" aria-label="Career, coming soon">Career <span class="nav-soon">Soon</span></a>
+        <a href={portfolioUrl}>Selected Works</a>
+        <a role="link" tabindex="0" aria-disabled="true" data-placeholder="Writings" aria-label="Writings, coming soon">Writings <span class="nav-soon">Soon</span></a>
+        <a role="link" tabindex="0" aria-disabled="true" data-placeholder="Shelf" aria-label="Shelf, coming soon">Shelf <span class="nav-soon">Soon</span></a>
+        <a href={emailUrl}>Contact</a>
+      </nav>
+      <p class="footer-phrase">made with <span class="footer-heart" aria-label="love">♥</span> and <span class="footer-signoff-word">persistence</span></p>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copyright">© <span id="copyright-year">2026</span> Kiruthika Ramesh. All rights reserved.</p>
+      <div class="footer-location" aria-label="Location and local time">
+        <span>Chennai, India</span>
+        <span aria-hidden="true">·</span>
+        <time id="ist-clock" datetime={new Date().toISOString()}>{buildIstTime} IST</time>
+      </div>
+      <nav class="social-links" aria-label="Social links">
+        <a href={linkedInUrl} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><img src="/icons/linkedin.svg" alt="" width="20" height="20" /></a>
+        <a href={emailUrl} aria-label="Email"><img src="/icons/gmail.svg" alt="" width="20" height="20" /></a>
+        <a href={githubUrl} target="_blank" rel="noopener noreferrer" aria-label="GitHub"><img src="/icons/github.svg" alt="" width="20" height="20" /></a>
+        <a href={letterboxdUrl} target="_blank" rel="noopener noreferrer" aria-label="Letterboxd"><img src="/icons/letterboxd.svg" alt="" width="20" height="20" /></a>
+      </nav>
+    </div>
+  </div>
+  <div class="placeholder-status" id="placeholder-status" role="status" aria-live="polite"></div>
+</footer>
+
+<script>
+  const year = document.querySelector('#copyright-year');
+  const istClock = document.querySelector('#ist-clock');
+  const footerNavigation = document.querySelector('.footer-nav');
+  const status = document.querySelector('#placeholder-status');
+  let statusTimer: number | undefined;
+
+  const updateFooter = () => {
+    const now = new Date();
+    const time = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'Asia/Kolkata',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    }).format(now);
+    year.textContent = String(now.getFullYear());
+    istClock.textContent = time + ' IST';
+    istClock.dateTime = now.toISOString();
+  };
+
+  const showPlaceholder = (link: HTMLElement) => {
+    status.textContent = link.dataset.placeholder + ' page is coming later.';
+    status.classList.add('is-visible');
+    window.clearTimeout(statusTimer);
+    statusTimer = window.setTimeout(() => status.classList.remove('is-visible'), 2600);
+  };
+
+  updateFooter();
+  window.setInterval(updateFooter, 60_000);
+
+  footerNavigation.addEventListener('click', (event) => {
+    const link = (event.target as HTMLElement).closest('[data-placeholder]') as HTMLElement | null;
+    if (!link) return;
+    event.preventDefault();
+    showPlaceholder(link);
+  });
+  footerNavigation.addEventListener('keydown', (event) => {
+    const link = (event.target as HTMLElement).closest('[data-placeholder]') as HTMLElement | null;
+    if (link && event.key === 'Enter') {
+      event.preventDefault();
+      showPlaceholder(link);
+    }
+  });
+</script>

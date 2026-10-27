@@ -33,10 +33,11 @@ p a[href] {
 .footer-nav a { display: inline-flex; align-items: baseline; white-space: nowrap; }
 .footer-nav a[aria-disabled='true'] { color: var(--muted); }
 .footer-nav .nav-soon { display: inline; position: static; margin-left: 4px; color: var(--muted); font-size: 10px; }
-.footer-phrase { margin: 0; color: var(--ink); text-align: right; white-space: nowrap; }
+.footer-phrase { width: max-content; display: flex; justify-self: end; align-items: baseline; gap: .28em; margin: 0; color: var(--ink); white-space: nowrap; }
 .footer-heart, .footer-signoff-word { color: var(--brand); }
 .footer-heart { font-size: 1.18em; }
-.footer-signoff-word { font-family: var(--hand); font-size: 14px; font-weight: 600; line-height: 1.25; }
+.footer-signoff-word { display: inline-block; flex: 0 0 7em; color: #F94D03; font-family: var(--hand); font-size: 14px; font-weight: 600; line-height: 1.25; text-align: left; transition: opacity 150ms ease, transform 150ms ease; }
+.footer-signoff-word.is-changing { opacity: 0; transform: translateY(2px); }
 .footer-bottom { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 20px; padding-top: 20px; border-top: 1px solid var(--line); }
 .footer-copyright { min-width: 0; margin: 0; }
 .footer-location { min-width: 0; display: flex; align-items: center; justify-content: center; gap: 8px; text-align: center; white-space: nowrap; }
@@ -56,13 +57,13 @@ p a[href] {
   .footer-inner { gap: 0; padding: 22px 0 26px; font-size: 13px; }
   .footer-top { display: flex; flex-direction: column; align-items: stretch; gap: 0; }
   .footer-nav { justify-content: flex-start; gap: 12px 16px; }
-  .footer-phrase { margin-top: 30px; text-align: left; white-space: normal; }
+  .footer-phrase { align-self: flex-start; justify-self: auto; margin-top: 30px; white-space: normal; }
   .footer-bottom { display: flex; flex-direction: column; align-items: stretch; gap: 0; margin-top: 22px; padding-top: 17px; }
   .social-links { order: 0; justify-content: center; gap: 20px; }
   .social-links a { width: 44px; height: 44px; }
   .footer-location { order: 1; flex-wrap: wrap; column-gap: 8px; row-gap: 0; margin-top: 10px; white-space: normal; }
   .footer-location time { white-space: nowrap; }
-  .footer-copyright { order: 2; margin-top: 26px; text-align: left; }
+  .footer-copyright { order: 2; margin-top: 26px; text-align: center; }
 }
 
 @media (max-width: 620px) {
@@ -77,4 +78,5 @@ p a[href] {
 
 @media (prefers-reduced-motion: reduce) {
   a[href] { transition-duration: .01ms !important; }
+  .footer-signoff-word { transition-duration: .01ms !important; }
 }

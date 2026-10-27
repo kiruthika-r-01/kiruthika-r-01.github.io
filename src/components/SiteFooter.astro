@@ -2,6 +2,7 @@
 import '../styles/site.css';
 
 const portfolioUrl = 'https://ripe-stoat-21e.notion.site/Kiruthika-Ramesh-Portfolio-b938168891d8823892b08165cdc90adf?pvs=74';
+const careerUrl = `${import.meta.env.BASE_URL}career/`;
 const linkedInUrl = 'https://www.linkedin.com/in/kiruthika-ramesh/';
 const emailUrl = 'mailto:kiruthikar123@gmail.com';
 const githubUrl = 'https://github.com/kiruthika-r-01';
@@ -19,7 +20,7 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', {
     <div class="footer-top">
       <nav class="footer-nav" aria-label="Footer navigation">
         <a href="/about/">About</a>
-        <a role="link" tabindex="0" aria-disabled="true" data-placeholder="Career" aria-label="Career, coming soon">Career <span class="nav-soon">Soon</span></a>
+        <a href={careerUrl}>Career</a>
         <a href={portfolioUrl}>Selected Works</a>
         <a role="link" tabindex="0" aria-disabled="true" data-placeholder="Writings" aria-label="Writings, coming soon">Writings <span class="nav-soon">Soon</span></a>
         <a role="link" tabindex="0" aria-disabled="true" data-placeholder="Shelf" aria-label="Shelf, coming soon">Shelf <span class="nav-soon">Soon</span></a>

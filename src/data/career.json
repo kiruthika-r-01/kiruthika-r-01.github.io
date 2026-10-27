@@ -1,0 +1,114 @@
+{
+  "experiences": [
+    {
+      "company": "Freelance",
+      "role": "Content & Marketing Projects",
+      "dates": "2024 – Present",
+      "ongoing": true,
+      "highlights": [
+        {
+          "text": "Deliver content and marketing design for SaaS and IT brands across blog content, LinkedIn, website copy, pitch decks, and sales collateral.",
+          "emphasis": []
+        },
+        {
+          "text": "Take projects from brief through research, messaging, writing, and visual execution.",
+          "emphasis": []
+        }
+      ]
+    },
+    {
+      "company": "Atlas Systems",
+      "role": "Marketing Executive",
+      "dates": "February 2025 – February 2026",
+      "highlights": [
+        {
+          "text": "Added 2,455 organic LinkedIn followers in 311 days, growing the page to 10,768 followers.",
+          "emphasis": ["2,455 organic LinkedIn followers in 311 days", "10,768 followers"]
+        },
+        {
+          "text": "Led messaging and design direction for a demo-page revamp focused on the conversion experience and inbound lead quality.",
+          "emphasis": []
+        },
+        {
+          "text": "Authored and designed The SQL Server 2016 End of Support Playbook for CIOs and IT leaders.",
+          "emphasis": [],
+          "italic": "The SQL Server 2016 End of Support Playbook"
+        },
+        {
+          "text": "Ran AEO experiments involving FAQs, glossary pages, and TL;DR sections.",
+          "emphasis": []
+        }
+      ]
+    },
+    {
+      "company": "Skcript",
+      "role": "Growth Marketing Specialist",
+      "dates": "February 2024 – August 2024",
+      "highlights": [
+        {
+          "text": "Grew the company's LinkedIn page from 300 to 3,500 followers organically in three months.",
+          "emphasis": ["300 to 3,500 followers organically in three months"]
+        },
+        {
+          "text": "Reactivated approximately 30 churned users, with 12 returning to paid subscriptions.",
+          "emphasis": ["30 churned users", "12 returning to paid subscriptions"]
+        },
+        {
+          "text": "Built trigger-based HubSpot email workflows based on lifecycle stage and user behaviour.",
+          "emphasis": []
+        },
+        {
+          "text": "Built and enriched a database of 1,000+ ICP-fit contacts using LinkedIn Sales Navigator, Apollo, and Clay.",
+          "emphasis": []
+        }
+      ]
+    },
+    {
+      "company": "Prudent AI",
+      "role": "Content Specialist",
+      "dates": "July 2023 – January 2024",
+      "highlights": [
+        {
+          "text": "Created nine blog posts and a technical e-book as part of content marketing efforts associated with a 100% increase in demo sign-ups.",
+          "emphasis": ["100% increase in demo sign-ups"]
+        },
+        {
+          "text": "Produced LinkedIn advertising content and visual assets, supporting follower growth from 500 to 2,000.",
+          "emphasis": ["500 to 2,000"]
+        },
+        {
+          "text": "Ran targeted e-book promotion that generated 20 leads at a reported 10% conversion rate.",
+          "emphasis": ["20 leads", "10% conversion rate"]
+        },
+        {
+          "text": "Translated technical product concepts into content for business and technology audiences.",
+          "emphasis": []
+        }
+      ]
+    }
+  ],
+  "tools": [
+    { "name": "HubSpot", "logo": "/images/tools/hubspot.png" },
+    { "name": "Google Analytics", "mark": "GA", "logo": "" },
+    { "name": "Google Search Console", "logo": "/images/tools/google-search-console.webp" },
+    { "name": "Semrush", "logo": "/images/tools/semrush.png" },
+    { "name": "Ahrefs", "logo": "/images/tools/ahrefs.webp" },
+    { "name": "Figma", "logo": "/images/tools/figma.webp" },
+    { "name": "Canva", "logo": "/images/tools/canva.png" },
+    { "name": "Apollo", "logo": "/images/tools/apollo.svg" },
+    { "name": "Clay", "logo": "/images/tools/clay.jpg" },
+    { "name": "LinkedIn Sales Navigator", "logo": "/images/tools/linkedin-sales-navigator.webp" },
+    { "name": "Mailchimp", "logo": "/images/tools/mailchimp.webp" }
+  ],
+  "competencies": [
+    "Content Marketing",
+    "SEO",
+    "AEO",
+    "Marketing Design",
+    "GTM",
+    "Email Marketing",
+    "Marketing Automation",
+    "Sales Enablement",
+    "Product Marketing"
+  ]
+}

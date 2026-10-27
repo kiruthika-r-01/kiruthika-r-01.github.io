@@ -1,6 +1,12 @@
 media:
-  input: public/images
-  output: /images
+  - name: images
+    label: Site images
+    input: public/images
+    output: /images
+  - name: tool-logos
+    label: Tool logos
+    input: public/images/tools
+    output: /images/tools
 
 content:
   - name: homepage
@@ -48,3 +54,75 @@ content:
       - name: footerQuoteAttribution
         label: Quote attribution
         type: string
+  - name: career
+    label: Career page
+    type: file
+    path: src/data/career.json
+    format: json
+    fields:
+      - name: experiences
+        label: Career experiences (display order)
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{company}"
+        fields:
+          - name: company
+            label: Company or organisation
+            type: string
+            required: true
+          - name: role
+            label: Role
+            type: string
+            required: true
+          - name: dates
+            label: Dates
+            type: string
+            required: true
+          - name: ongoing
+            label: Ongoing practice that overlaps other roles
+            type: boolean
+          - name: highlights
+            label: Achievements
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Achievement {index}"
+            fields:
+              - name: text
+                label: Achievement text
+                type: text
+                required: true
+              - name: emphasis
+                label: Orange emphasis phrases
+                type: string
+                list: true
+              - name: italic
+                label: Italic phrase, if applicable
+                type: string
+      - name: tools
+        label: Tools (display order)
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{name}"
+        fields:
+          - name: name
+            label: Tool name
+            type: string
+            required: true
+          - name: mark
+            label: Short text mark when no suitable image is available
+            type: string
+          - name: logo
+            label: Logo
+            type: image
+            options:
+              media: tool-logos
+      - name: competencies
+        label: Competencies (display order)
+        type: string
+        list: true

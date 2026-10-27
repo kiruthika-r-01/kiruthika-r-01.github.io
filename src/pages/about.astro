@@ -8,6 +8,7 @@ const openGraphDescription = 'Meet Kiruthika Ramesh and learn how curiosity has 
 const siteUrl = 'https://imkiruthika.in/';
 const portfolioUrl = 'https://ripe-stoat-21e.notion.site/Kiruthika-Ramesh-Portfolio-b938168891d8823892b08165cdc90adf?pvs=74';
 const playlistUrl = 'https://open.spotify.com/playlist/4MBuUg744i68jhgNALnzo4?si=PAkqtjYKT2a1hP1EBywrjg';
+const careerUrl = `${import.meta.env.BASE_URL}career/`;
 
 const sections = [
   {
@@ -275,7 +276,7 @@ const structuredData = {
         </button>
         <nav class="primary-nav" id="primary-navigation" aria-label="Main navigation">
           <a href="/about/" aria-current="page">About</a>
-          <a role="link" tabindex="0" aria-disabled="true" data-placeholder="Career" aria-label="Career, coming soon">Career <span class="nav-soon" aria-hidden="true">Soon</span></a>
+          <a href={careerUrl}>Career</a>
           <a href={portfolioUrl}>Selected Works</a>
           <a role="link" tabindex="0" aria-disabled="true" data-placeholder="Writings" aria-label="Writings, coming soon">Writings <span class="nav-soon" aria-hidden="true">Soon</span></a>
           <a role="link" tabindex="0" aria-disabled="true" data-placeholder="Shelf" aria-label="Shelf, coming soon">Shelf <span class="nav-soon" aria-hidden="true">Soon</span></a>
@@ -321,7 +322,7 @@ const structuredData = {
             ))}
           </nav>
           <a class="all-sections" href="/about/" id="all-sections">All sections</a>
-          <a class="career-context-link" href="/career" id="career-context-link" hidden>Curious about the work?<span class="career-context-arrow" id="career-context-arrow" aria-hidden="true">→</span></a>
+          <a class="career-context-link" href={careerUrl} id="career-context-link" hidden>Curious about the work?<span class="career-context-arrow" id="career-context-arrow" aria-hidden="true">→</span></a>
         </aside>
         <div class="reading-content" aria-live="polite">
           {sections.map((section) => (

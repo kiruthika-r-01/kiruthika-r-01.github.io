@@ -126,3 +126,17 @@ content:
         label: Competencies (display order)
         type: string
         list: true
+  - name: now
+    label: Now (About page)
+    type: file
+    path: src/data/now.json
+    format: json
+    fields:
+      - name: updated
+        label: Month this was last true (e.g. November 2026)
+        type: string
+        required: true
+      - name: text
+        label: What you're doing now
+        type: text
+        required: true

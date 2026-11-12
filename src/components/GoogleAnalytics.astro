@@ -1,0 +1,17 @@
+---
+/**
+ * Google Analytics 4 (gtag.js).
+ * Include once inside <head> on every page. Rendered inline so Astro
+ * doesn't bundle or hoist it; the gtag.js library itself loads async.
+ */
+const GA_MEASUREMENT_ID = 'G-8FV605LXLV';
+---
+
+<script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}></script>
+<script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  window.gtag = gtag;
+  gtag('js', new Date());
+  gtag('config', GA_MEASUREMENT_ID);
+</script>

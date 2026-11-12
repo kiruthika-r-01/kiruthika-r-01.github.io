@@ -1,0 +1,87 @@
+---
+/**
+ * 404: one screen, a quiet sunset. The sky warms toward the horizon, the sun sits on it,
+ * a pixel sea below. The crow stands at the water's edge and says one line
+ * (an SEO joke: the page ranks first, for nothing).
+ */
+import SiteLayout from '../layouts/SiteLayout.astro';
+import Crow from '../components/Crow.astro';
+const line = 'This page ranks #1 for nothing.';
+---
+<SiteLayout title="Page not found | Kiruthika Ramesh" description="This page doesn't exist." robots="noindex, follow">
+  <section class="lost" aria-labelledby="lost-title">
+    <div class="wrap lost-copy">
+      <p class="lost-code">404</p>
+      <h1 id="lost-title">This page doesn't exist.</h1>
+      <a class="lost-home" href="/">Back to the homepage <span aria-hidden="true">→</span></a>
+    </div>
+
+    <div class="scene" aria-hidden="true">
+      <span class="sky"></span>
+      <span class="sun"></span>
+      <span class="sea"><span class="swell swell-a"></span><span class="swell swell-b"></span><span class="swell swell-c"></span><span class="glint"></span></span>
+    </div>
+
+    <figure class="crow-says wrap">
+      <span class="bubble">{line}</span>
+      <Crow size={6} label="A small crow in round glasses" />
+    </figure>
+  </section>
+</SiteLayout>
+
+<style>
+  .lost {
+    position: relative; overflow: hidden; isolation: isolate;
+    min-height: calc(100svh - var(--hh, var(--header-height)));
+    display: block; padding-top: clamp(28px, 7svh, 88px);
+    --horizon: 38%;          /* distance of the waterline from the bottom of the fold */
+  }
+  .lost-copy { position: relative; z-index: 3; }
+  .lost-code { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  h1 { margin-top: 6px; font-size: clamp(30px, min(4vw, 6svh), 56px); font-weight: 500; line-height: 1.05; letter-spacing: -.035em; }
+  .lost-home { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 14px; color: var(--ink); font-weight: 500; text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--ink) 30%, transparent); transition: color .2s ease, border-color .2s ease; }
+  .lost-home:hover, .lost-home:focus-visible, .lost-home:active { color: var(--brand); border-color: var(--brand); }
+
+  /* ---- the sunset, filling the fold behind everything */
+  .scene { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .sky { position: absolute; inset: 0 0 var(--horizon); background: linear-gradient(to bottom, var(--page) 35%, color-mix(in srgb, #FF9A55 14%, var(--page)) 80%, color-mix(in srgb, #FF6A2B 22%, var(--page))); }
+  .sun {
+    position: absolute; left: 66%; bottom: var(--horizon); width: clamp(140px, 22vw, 320px); aspect-ratio: 2 / 1; transform: translateX(-50%);
+    border-radius: 999px 999px 0 0; background: linear-gradient(#FFB06A, #FF6A2B 60%, #F2560C);
+    box-shadow: 0 -20px 90px -10px rgba(255, 106, 43, .35);
+  }
+  .sea { position: absolute; left: 0; right: 0; bottom: 0; height: var(--horizon); background: linear-gradient(color-mix(in srgb, #3F5A66 16%, var(--page)), color-mix(in srgb, #3F5A66 8%, var(--page))); }
+  .swell {
+    position: absolute; left: 0; right: 0; height: 9px; background: color-mix(in srgb, #3F5A66 45%, var(--page));
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 12 3%27 shape-rendering=%27crispEdges%27%3E%3Cg fill=%27%23000%27%3E%3Crect x=%274%27 y=%270%27 width=%274%27 height=%271%27/%3E%3Crect x=%272%27 y=%271%27 width=%272%27 height=%271%27/%3E%3Crect x=%278%27 y=%271%27 width=%272%27 height=%271%27/%3E%3Crect x=%270%27 y=%272%27 width=%272%27 height=%271%27/%3E%3Crect x=%2710%27 y=%272%27 width=%272%27 height=%271%27/%3E%3C/g%3E%3C/svg%3E") repeat-x 0 0 / 36px 9px;
+    mask: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 12 3%27 shape-rendering=%27crispEdges%27%3E%3Cg fill=%27%23000%27%3E%3Crect x=%274%27 y=%270%27 width=%274%27 height=%271%27/%3E%3Crect x=%272%27 y=%271%27 width=%272%27 height=%271%27/%3E%3Crect x=%278%27 y=%271%27 width=%272%27 height=%271%27/%3E%3Crect x=%270%27 y=%272%27 width=%272%27 height=%271%27/%3E%3Crect x=%2710%27 y=%272%27 width=%272%27 height=%271%27/%3E%3C/g%3E%3C/svg%3E") repeat-x 0 0 / 36px 9px;
+    animation: shore 10s steps(12) infinite;
+  }
+  .swell-a { top: 0; opacity: .9; }
+  .swell-b { top: 28%; opacity: .5; animation-duration: 14s; animation-direction: reverse; }
+  .swell-c { top: 60%; opacity: .3; animation-duration: 18s; }
+  @keyframes shore { to { -webkit-mask-position: -36px 0; mask-position: -36px 0; } }
+  .glint { position: absolute; left: 66%; top: 6%; width: clamp(110px, 16vw, 240px); height: 40%; transform: translateX(-50%); opacity: .55;
+    background: linear-gradient(#FF6A2B, #FF6A2B) 50% 0 / 80% 3px no-repeat, linear-gradient(#FF6A2B, #FF6A2B) 40% 30% / 50% 3px no-repeat, linear-gradient(#FF6A2B, #FF6A2B) 58% 62% / 26% 2px no-repeat, linear-gradient(#FF6A2B, #FF6A2B) 48% 92% / 12% 2px no-repeat; }
+
+  /* ---- the crow at the water's edge, saying its line */
+  .crow-says {
+    position: absolute; z-index: 2; left: 0; right: 0; bottom: calc(var(--horizon) - 1px); margin-block: 0;
+    display: flex; flex-direction: column; align-items: flex-start; gap: 14px;
+  }
+  .bubble {
+    position: relative; margin-left: 8px; padding: 10px 14px; border-radius: 14px 14px 14px 4px;
+    font-size: clamp(15px, 2svh, 17px); font-weight: 500; line-height: 1.3;
+    background: color-mix(in srgb, var(--page) 70%, transparent); color: var(--ink);
+    -webkit-backdrop-filter: blur(12px) saturate(1.4); backdrop-filter: blur(12px) saturate(1.4);
+    border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    box-shadow: 0 8px 24px -14px rgba(60, 30, 10, .35);
+  }
+  .swell { animation-play-state: running; }
+  @media (prefers-reduced-motion: reduce) { .swell { animation: none; } }
+  @media (max-width: 620px) {
+    .lost { --horizon: 30%; }
+    .sun { left: 72%; }
+    .glint { left: 72%; }
+  }
+</style>

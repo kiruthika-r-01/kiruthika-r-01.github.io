@@ -15,7 +15,9 @@ const { text = home.footerQuote, by = home.footerQuoteAttribution } = Astro.prop
 
 <style>
   .closing { display: grid; place-content: center; margin: 0 auto; padding-block: 32px; text-align: center; }
-  .closing blockquote { max-width: 34em; margin: 0 auto 6px; font-size: clamp(16px, 2.4svh, 20px); line-height: 1.5; text-wrap: balance; }
+  /* one fixed size on every page (it used to shrink with short windows): 20px, 18px on phones */
+  .closing blockquote { max-width: 34em; margin: 0 auto 6px; font-size: 20px; line-height: 1.5; text-wrap: balance; }
+  @media (max-width: 620px) { .closing blockquote { font-size: 18px; } }
   .closing figcaption { font-size: 13px; color: var(--muted); }
   .closing figcaption::before { content: '— '; }
 </style>

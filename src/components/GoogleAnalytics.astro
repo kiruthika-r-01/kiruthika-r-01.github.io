@@ -1,17 +1,25 @@
 ---
 /**
- * Google Analytics 4 (gtag.js).
- * Include once inside <head> on every page. Rendered inline so Astro
- * doesn't bundle or hoist it; the gtag.js library itself loads async.
+ * Google Analytics 4 (gtag.js), loaded after the page has settled so it never slows the first paint:
+ * on the first interaction (scroll, tap, key) or 6 seconds after load, whichever comes first.
  */
 const GA_MEASUREMENT_ID = 'G-8FV605LXLV';
 ---
-
-<script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}></script>
 <script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
   window.dataLayer = window.dataLayer || [];
   function gtag() { dataLayer.push(arguments); }
   window.gtag = gtag;
   gtag('js', new Date());
   gtag('config', GA_MEASUREMENT_ID);
+  (() => {
+    let done = false;
+    const load = () => {
+      if (done) return; done = true;
+      const s = document.createElement('script'); s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+      document.head.appendChild(s);
+    };
+    ['scroll', 'pointerdown', 'keydown', 'touchstart'].forEach((t) => addEventListener(t, load, { once: true, passive: true }));
+    addEventListener('load', () => setTimeout(load, 6000));
+  })();
 </script>

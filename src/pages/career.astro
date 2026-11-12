@@ -1,415 +1,213 @@
 ---
-import SiteFooter from '../components/SiteFooter.astro';
+/**
+ * Career: a timeline that reads like a ledger.
+ * Each company's name, role and dates stay pinned on the left while its highlights scroll past (desktop);
+ * the crow rides beside the company name being read and flies down the line to the next role as you scroll;
+ * the orange line fills behind it.
+ * Results are orange, roles and titles italic. Tools reuse the quiet tile language of the homepage testimonials;
+ * competencies are set as one typographic line. All content comes from src/data/career.json.
+ */
+import SiteLayout from '../layouts/SiteLayout.astro';
 import career from '../data/career.json';
+import Crow from '../components/Crow.astro';
 
 const title = 'Kiruthika Ramesh | Marketing Experience & Skills';
 const description = "Explore Kiruthika Ramesh's marketing experience across GTM, content, SEO, automation, and design, with selected projects, results, and tools.";
-const canonicalUrl = 'https://imkiruthika.in/career';
-const siteUrl = 'https://imkiruthika.in';
-const careerUrl = `${import.meta.env.BASE_URL}career/`;
+const canonicalUrl = 'https://imkiruthika.in/career/';
+const siteUrl = 'https://imkiruthika.in/';
 
-const formatHighlight = (highlight) => {
-  const emphasis = highlight.emphasis ?? [];
-  const terms = [...new Set([...emphasis, highlight.italic].filter(Boolean))]
-    .sort((first, second) => second.length - first.length);
+type Highlight = { text: string; emphasis?: string[]; italic?: string };
+const formatHighlight = (h: Highlight) => {
+  const emphasis = h.emphasis ?? [];
+  const terms = [...new Set([...emphasis, h.italic].filter(Boolean) as string[])].sort((a, b) => b.length - a.length);
+  if (!terms.length) return [{ text: h.text }];
+  const escaped = terms.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  return h.text.split(new RegExp(`(${escaped.join('|')})`, 'g')).filter(Boolean)
+    .map((text) => ({ text, emphasized: emphasis.includes(text), italic: h.italic === text }));
+};
+const slug = (s: string) => 'job-' + s.replace(/\W+/g, '-').toLowerCase();
 
-  if (!terms.length) return [{ text: highlight.text }];
-
-  const escapedTerms = terms.map((term) => term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-  const parts = highlight.text.split(new RegExp(`(${escapedTerms.join('|')})`, 'g'));
-
-  return parts.filter(Boolean).map((text) => ({
-    text,
-    emphasized: emphasis.includes(text),
-    italic: highlight.italic === text,
-  }));
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  '@id': canonicalUrl,
+  url: canonicalUrl,
+  name: title,
+  description,
+  mainEntity: { '@id': siteUrl + '#person' },
 };
 ---
-<!doctype html>
-<html lang="en" data-theme="light">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#F7F6F2" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href={canonicalUrl} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:image" content={`${siteUrl}/og-career.png`} />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${siteUrl}/og-career.png`} />
-    <link rel="icon" type="image/svg+xml" href="/kr-favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,100..1000&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet" />
-    <script is:inline>
-      (() => {
-        try {
-          const savedTheme = localStorage.getItem('site-theme');
-          const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          document.documentElement.dataset.theme = savedTheme === 'light' || savedTheme === 'dark'
-            ? savedTheme
-            : systemPrefersDark ? 'dark' : 'light';
-        } catch {
-          document.documentElement.dataset.theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
-      })();
-    </script>
-    <style>
-      :root {
-        color-scheme: light;
-        --page: #F7F6F2;
-        --surface: #eee8dc;
-        --ink: #24231f;
-        --muted: #67655e;
-        --line: #d8d2c6;
-        --brand: #F94D03;
-        --number-muted: #E2A28B;
-        --hand: 'Caveat', cursive;
-        --sans: 'Google Sans Flex', 'Google Sans', Arial, sans-serif;
-        --header-height: 82px;
-      }
-      :root[data-theme='dark'] {
-        color-scheme: dark;
-        --page: #171815;
-        --surface: #20211d;
-        --ink: #f2eee5;
-        --muted: #b0ada4;
-        --line: #3b3c35;
-        --brand: #ff6a2b;
-        --number-muted: #80513A;
-        --social-icon-filter: invert(1);
-        --logo-filter: invert(1);
-      }
-      *, *::before, *::after { box-sizing: border-box; }
-      html { min-height: 100%; background: var(--page); }
-      body { min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; margin: 0; background: var(--page); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.68; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; transition: background-color 180ms ease, color 180ms ease; }
-      button, a { -webkit-tap-highlight-color: transparent; }
-      button:focus-visible { outline: 2px solid var(--brand); outline-offset: 5px; }
-      .skip-link { position: fixed; z-index: 20; top: 10px; left: 10px; padding: 10px 14px; transform: translateY(-150%); background: var(--ink); color: var(--page); }
-      .skip-link:focus { transform: translateY(0); }
-      .site-header { position: sticky; z-index: 10; top: 0; height: var(--header-height); flex: 0 0 auto; border-bottom: 1px solid var(--line); background: var(--page); }
-      .header-inner { width: min(100% - 80px, 1380px); height: 100%; margin: 0 auto; display: flex; align-items: center; gap: clamp(20px, 3vw, 44px); }
-      .brand { display: inline-flex; align-items: center; flex: 0 0 auto; line-height: 0; }
-      .brand img { display: block; width: 75px; height: 58px; object-fit: contain; filter: var(--logo-filter, none); }
-      .primary-nav { display: flex; align-items: center; justify-content: flex-end; gap: clamp(14px, 2.1vw, 30px); flex: 1; }
-      .primary-nav a { position: relative; white-space: nowrap; font-size: 14px; font-weight: 500; line-height: 1.2; }
-      .primary-nav a::after { content: ''; position: absolute; right: 0; bottom: -7px; left: 0; height: 2px; background: var(--brand); transform: scaleX(0); transform-origin: left; transition: transform 160ms ease; }
-      .primary-nav a:hover::after, .primary-nav a[aria-current='page']::after { transform: scaleX(1); }
-      .nav-soon { display: none; position: absolute; top: 18px; right: 0; color: var(--muted); font-size: 9px; letter-spacing: .04em; }
-      .primary-nav a[data-placeholder] { color: var(--muted); }
-      .primary-nav a[data-placeholder] .nav-soon { display: block; }
-      .theme-toggle { width: 58px; height: 34px; position: relative; display: inline-flex; align-items: center; flex: 0 0 auto; padding: 3px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); cursor: pointer; }
-      .switch-thumb { width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; color: var(--brand); background: var(--page); transform: translateX(0); transition: transform 180ms ease, background-color 180ms ease; }
-      :root[data-theme='dark'] .switch-thumb { transform: translateX(23px); }
-      .cat-icon { width: 18px; height: 18px; overflow: visible; }
-      .cat-icon path, .cat-icon circle { fill: none; stroke: currentColor; stroke-width: 1.55; stroke-linecap: round; stroke-linejoin: round; }
-      .cat-awake, .cat-sleep { transition: opacity 140ms ease; }
-      .cat-sleep { opacity: 0; }
-      :root[data-theme='dark'] .cat-awake { opacity: 0; }
-      :root[data-theme='dark'] .cat-sleep { opacity: 1; }
-      .mobile-menu-button { display: none; align-items: center; justify-content: center; width: 42px; height: 42px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: transparent; color: var(--ink); cursor: pointer; }
-      .mobile-menu-button svg { width: 20px; height: 20px; }
-      .mobile-menu-button path { stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; }
-      main { width: min(100% - 80px, 1260px); flex: 1 0 auto; display: grid; place-items: center; min-height: 180px; margin: 0 auto; }
-      .career-main { width: min(100% - 80px, 1260px); display: block; min-height: 0; margin: 0 auto; padding-bottom: clamp(64px, 8vw, 112px); }
-      .career-main > .career-intro, .career-main > .career-timeline, .career-main > .career-section { width: 100%; }
-      .career-intro { display: flex; align-items: flex-end; justify-content: space-between; gap: 36px; padding: clamp(48px, 6vw, 78px) 0 clamp(38px, 4.5vw, 58px); border-bottom: 1px solid var(--line); }
-      .career-intro-copy { min-width: 0; }
-      .career-title { margin: 0; text-align: left; font-size: clamp(43px, 5.5vw, 68px); font-weight: 650; line-height: 1.02; letter-spacing: -.067em; text-wrap: balance; }
-      .career-support { margin: 14px 0 0; color: var(--muted); font-size: clamp(18px, 1.8vw, 21px); line-height: 1.45; }
-      .career-resume { min-height: 47px; display: inline-flex; align-items: center; gap: 9px; flex: 0 0 auto; padding: 7px 0; border: 0; border-bottom: 1px solid var(--line); color: var(--ink); font-size: 16px; font-weight: 600; line-height: 1.3; text-decoration: none; transition: border-color 150ms ease, color 150ms ease; }
-      .career-resume span { display: inline-block; color: var(--brand); font-size: 20px; transition: transform 150ms ease; }
-      .career-resume:hover { border-color: var(--brand); color: var(--brand); }
-      .career-resume:hover span { transform: translate(3px, -2px); }
-      .career-resume:focus-visible { outline: 2px solid var(--brand); outline-offset: 5px; }
-      .timeline-step { min-height: calc(100svh - var(--header-height)); display: flex; align-items: center; padding: clamp(32px, 4.5vh, 56px) 0; border-bottom: 1px solid var(--line); }
-      .timeline-step:first-child { border-top: 0; }
-      .career-entry { position: sticky; top: calc(var(--header-height) + 24px); width: 100%; display: grid; grid-template-columns: minmax(160px, .32fr) minmax(0, 1fr); align-items: start; gap: clamp(30px, 5vw, 72px); }
-      .career-entry { opacity: 1; transform: translateY(0); transition: opacity 180ms ease-out, transform 180ms ease-out; }
-      .career-timeline.is-observed .timeline-step:not(.is-active) .career-entry { opacity: 0; }
-      .career-timeline.is-observed .timeline-step.is-before .career-entry { transform: translateY(-18px); }
-      .career-timeline.is-observed .timeline-step.is-after .career-entry { transform: translateY(18px); }
-      .career-timeline.is-observed .timeline-step.is-active .career-entry { opacity: 1; transform: translateY(0); }
-      .experience-number { margin: -.1em 0 0; color: var(--number-muted); font-size: clamp(128px, 14vw, 184px); font-weight: 700; line-height: .84; letter-spacing: -.09em; }
-      .experience-content { min-width: 0; }
-      .experience-meta { display: flex; justify-content: space-between; gap: 20px; margin-bottom: 18px; color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: .11em; text-transform: uppercase; }
-      .experience-content h2 { margin: 0; font-size: clamp(36px, 4.3vw, 58px); font-weight: 650; line-height: 1.06; letter-spacing: -.06em; }
-      .role-and-dates { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; margin-top: 10px; color: var(--muted); font-size: 17px; line-height: 1.5; }
-      .role-and-dates span:first-child { color: var(--ink); font-weight: 550; }
-      .ongoing-note { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
-      .career-rule { height: 1px; margin: 22px 0 20px; border: 0; background: var(--line); }
-      .career-highlights { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
-      .career-highlights li { position: relative; padding-left: 20px; color: var(--ink); font-size: 17px; font-weight: 400; line-height: 1.62; }
-      .career-highlights li::before { position: absolute; top: .74em; left: 0; width: 6px; height: 6px; border-radius: 50%; background: var(--brand); content: ''; }
-      .career-highlights strong { color: var(--brand); font-weight: 650; }
-      .career-highlights em { font-style: italic; }
-      .career-section { padding-top: clamp(72px, 8vw, 112px); }
-      .section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin: 0 0 28px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
-      .section-heading h2 { margin: 0; font-size: clamp(36px, 4.1vw, 52px); font-weight: 650; line-height: 1.05; letter-spacing: -.06em; }
-      .tool-grid { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
-      .tool-grid::before { position: absolute; z-index: 0; inset: 0; background-image: linear-gradient(to right, transparent calc(25% - .5px), var(--line) calc(25% - .5px), var(--line) calc(25% + .5px), transparent calc(25% + .5px)), linear-gradient(to right, transparent calc(50% - .5px), var(--line) calc(50% - .5px), var(--line) calc(50% + .5px), transparent calc(50% + .5px)), linear-gradient(to right, transparent calc(75% - .5px), var(--line) calc(75% - .5px), var(--line) calc(75% + .5px), transparent calc(75% + .5px)); pointer-events: none; content: ''; }
-      .tool-item { position: relative; z-index: 1; min-width: 0; min-height: 138px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; padding: 20px clamp(18px, 2.5vw, 34px); }
-      .tool-item::before { position: absolute; top: 0; left: 0; width: 400%; height: 1px; background: var(--line); content: ''; }
-      .tool-item:nth-child(-n+4)::before { display: none; }
-      .tool-item:not(:nth-child(4n + 1))::before { display: none; }
-      .tool-logo-wrap { width: 52px; height: 52px; display: grid; flex: 0 0 auto; place-items: center; }
-      .tool-logo { display: block; width: 100%; height: 100%; max-width: none; max-height: none; object-fit: contain; object-position: center; filter: none; }
-      .tool-mark { color: var(--ink); font-size: 28px; font-weight: 650; letter-spacing: -.06em; }
-      .tool-name { color: var(--ink); font-size: 16px; font-weight: 550; line-height: 1.35; overflow-wrap: anywhere; }
-      .competency-list { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; padding: 0; list-style: none; }
-      .competency-tag { display: inline-flex; align-items: center; min-height: 42px; padding: 8px 16px; border: 1px solid var(--muted); border-radius: 999px; color: var(--ink); font-size: 15px; font-weight: 500; line-height: 1.3; }
-      @media (max-height: 760px) and (min-width: 821px) {
-        .timeline-step { min-height: 0; padding-block: 48px; }
-        .career-entry { position: static; }
-      }
-      @media (max-width: 1060px) {
-        :root { --header-height: 76px; }
-        .header-inner, main { width: min(100% - 56px, 1260px); }
-        .career-main { width: min(100% - 56px, 1260px); }
-        .primary-nav { gap: clamp(12px, 1.55vw, 20px); }
-        .primary-nav a { font-size: 13px; }
-        .brand img { width: 68px; }
-      }
-      @media (max-width: 820px) {
-        .header-inner { gap: 14px; }
-        .primary-nav { display: none; position: absolute; top: calc(var(--header-height) - 1px); right: 0; left: 0; align-items: stretch; padding: 15px 28px 23px; border-bottom: 1px solid var(--line); background: var(--page); }
-        .primary-nav.is-open { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
-        .primary-nav a { min-height: 46px; display: flex; align-items: center; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
-        .primary-nav a::after { display: none; }
-        .nav-soon { position: static; margin-left: 4px; font-size: 10px; }
-        .mobile-menu-button { display: inline-flex; order: 2; margin-left: auto; }
-        .theme-toggle { order: 3; }
-        .career-intro { align-items: flex-start; }
-        .career-entry { position: static; grid-template-columns: minmax(120px, .3fr) minmax(0, 1fr); gap: clamp(26px, 6vw, 56px); }
-        .experience-number { font-size: clamp(112px, 17vw, 172px); }
-        .tool-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        .tool-grid::before { background-image: linear-gradient(to right, transparent calc(50% - .5px), var(--line) calc(50% - .5px), var(--line) calc(50% + .5px), transparent calc(50% + .5px)); }
-        .tool-item::before { width: 200%; }
-        .tool-item:nth-child(-n+2)::before { display: none; }
-        .tool-item:not(:nth-child(2n + 1))::before { display: none; }
-      }
-      @media (max-width: 620px) {
-        :root { --header-height: 70px; }
-        body { font-size: 16px; }
-        .header-inner, main { width: min(100% - 40px, 1260px); }
-        .career-main { width: min(100% - 40px, 1260px); padding-bottom: 76px; }
-        .career-intro { display: block; padding: 44px 0 32px; }
-        .career-title { font-size: clamp(42px, 12vw, 55px); }
-        .career-support { margin-top: 11px; font-size: 17px; }
-        .career-resume { margin-top: 18px; font-size: 15px; }
-        .timeline-step { min-height: 0; padding: 42px 0; }
-        .career-entry { display: block; }
-        .experience-number { margin: 0 0 24px; font-size: clamp(108px, 27vw, 150px); }
-        .experience-meta { margin-bottom: 13px; }
-        .experience-content h2 { font-size: clamp(36px, 9vw, 52px); }
-        .role-and-dates { font-size: 16px; }
-        .career-rule { margin: 20px 0 18px; }
-        .career-highlights li { font-size: 16px; }
-        .career-section { padding-top: 72px; }
-        .section-heading { margin-bottom: 18px; }
-        .section-heading h2 { font-size: clamp(34px, 10vw, 44px); }
-        .tool-item { min-height: 126px; gap: 8px; padding: 16px 16px; }
-        .tool-logo-wrap { width: 46px; height: 46px; }
-        .tool-name { font-size: 14px; }
-        .competency-list { gap: 9px; }
-        .competency-tag { min-height: 39px; padding: 7px 13px; font-size: 14px; }
-        .brand img { width: 62px; height: 50px; }
-        .header-inner { gap: 12px; }
-        .primary-nav { padding-right: 20px; padding-left: 20px; }
-      }
-      @media (max-width: 380px) {
-        .header-inner, main { width: min(100% - 32px, 1260px); }
-        .career-main { width: min(100% - 32px, 1260px); }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
-        .career-entry, .career-timeline.is-observed .career-entry { opacity: 1 !important; transform: none !important; }
-      }
-    </style>
-  </head>
-  <body>
-    <a class="skip-link" href="#main-content">Skip to content</a>
-    <header class="site-header">
-      <div class="header-inner">
-        <a class="brand" href="/" aria-label="Kiruthika Ramesh home"><img src="/kr-logo.svg" alt="" width="75" height="58" /></a>
-        <button class="mobile-menu-button" type="button" aria-label="Open navigation" aria-controls="primary-navigation" aria-expanded="false">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" /></svg>
-        </button>
-        <nav class="primary-nav" id="primary-navigation" aria-label="Main navigation">
-          <a href="/about/">About</a>
-          <a href={careerUrl} aria-current="page">Career</a>
-          <a href="https://ripe-stoat-21e.notion.site/Kiruthika-Ramesh-Portfolio-b938168891d8823892b08165cdc90adf?pvs=74">Selected Works</a>
-          <a role="link" tabindex="0" aria-disabled="true" data-placeholder="Writings" aria-label="Writings, coming soon">Writings <span class="nav-soon" aria-hidden="true">Soon</span></a>
-          <a role="link" tabindex="0" aria-disabled="true" data-placeholder="Shelf" aria-label="Shelf, coming soon">Shelf <span class="nav-soon" aria-hidden="true">Soon</span></a>
-          <a href="mailto:kiruthikar123@gmail.com">Contact</a>
-        </nav>
-        <button class="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Switch to dark theme" title="Switch to dark theme">
-          <span class="switch-thumb" aria-hidden="true">
-            <svg class="cat-icon" viewBox="0 0 24 24">
-              <path d="M5 10 4.2 5.2 9 7.5a8 8 0 0 1 6 0l4.8-2.3L19 10a7 7 0 1 1-14 0Z" />
-              <path class="cat-awake" d="M8.3 11v1.1m7.4-1.1v1.1M9.6 15c1.4 1.1 3.4 1.1 4.8 0M5.8 13.2 3.8 12.7m14.4.5 2-.5" />
-              <path class="cat-sleep" d="M7.9 12.1q1-.9 2 0m4.2 0q1-.9 2 0m-5.1 2.8q1.5 1 3 0m3.4-8.2h2l-2 2h2" />
-            </svg>
-          </span>
-        </button>
-      </div>
-    </header>
+<SiteLayout
+  title={title}
+  description={description}
+  canonical={canonicalUrl}
+  ogImage="https://imkiruthika.in/og-career.png"
+  current="Career"
+  quote={{ text: 'I learn by going where I have to go.', by: 'Theodore Roethke' }}
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
-    <main id="main-content" class="career-main">
-      <section class="career-intro" aria-labelledby="career-title">
-        <div class="career-intro-copy">
-          <h1 class="career-title" id="career-title">Career Timeline</h1>
-          <p class="career-support">Across content, growth, GTM, and design.</p>
-        </div>
-        <a class="career-resume" href="/resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="View résumé PDF (opens in a new tab)">View résumé <span aria-hidden="true">↗</span></a>
-      </section>
+  <section class="wrap c-intro" aria-labelledby="career-title">
+    <h1 id="career-title">Career <em>Timeline</em></h1>
+    <p class="support"><em>Across content, growth, GTM, and design.</em></p>
+    <a class="resume" href="/resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="View résumé PDF (opens in a new tab)">View résumé <span aria-hidden="true">↗</span></a>
+  </section>
 
-      <section class="career-timeline" aria-label="Career experiences" data-career-timeline>
-        {career.experiences.map((experience, index) => {
-          const number = String(index + 1).padStart(2, '0');
-          const total = String(career.experiences.length).padStart(2, '0');
-          return (
-            <div class="timeline-step" data-timeline-index={index}>
-              <article class="career-entry" aria-labelledby={`experience-${number}`}>
-                <p class="experience-number" aria-hidden="true">{number}</p>
-                <div class="experience-content">
-                  <div class="experience-meta"><span>{experience.ongoing ? 'Current practice' : 'Experience'}</span><span>{number} / {total}</span></div>
-                  <h2 id={`experience-${number}`}>{experience.company}</h2>
-                  <div class="role-and-dates"><span>{experience.role}</span><span>{experience.dates}</span></div>
-                  {experience.ongoing && <p class="ongoing-note">Ongoing projects alongside other roles</p>}
-                  <hr class="career-rule" />
-                  <ul class="career-highlights">
-                    {experience.highlights.map((highlight) => (
-                      <li>
-                        {formatHighlight(highlight).map((part) =>
-                          part.emphasized ? <strong>{part.text}</strong> : part.italic ? <em>{part.text}</em> : part.text
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </article>
-            </div>
-          );
-        })}
-      </section>
-
-      <section class="career-section" aria-labelledby="tools-heading">
-        <div class="section-heading"><h2 id="tools-heading">Tools</h2></div>
-        <ul class="tool-grid">
-          {career.tools.map((tool) => (
-            <li class="tool-item">
-              <div class="tool-logo-wrap">
-                {tool.logo
-                  ? <img class="tool-logo" src={tool.logo} alt="" aria-hidden="true" width="124" height="40" loading="lazy" decoding="async" />
-                  : <span class="tool-mark" aria-hidden="true">{tool.mark}</span>}
-              </div>
-              <span class="tool-name">{tool.name}</span>
-            </li>
+  <section class="wrap timeline" aria-label="Career experiences">
+    <span class="track" aria-hidden="true"><span class="fill"></span></span>
+    <span class="tl-crow" aria-hidden="true"><Crow size={1.6} mood="still" flyer /></span>
+    {career.experiences.map((e) => (
+      <article class="job" aria-labelledby={slug(e.company)}>
+        <header class="job-head">
+          <p class="when">{e.dates}</p>
+          <h2 id={slug(e.company)}>{e.company}</h2>
+          <p class="role"><em>{e.role}</em></p>
+        </header>
+        <ul class="points">
+          {e.highlights.map((h) => (
+            <li>{formatHighlight(h as Highlight).map((part) => part.emphasized ? <strong>{part.text}</strong> : part.italic ? <em>{part.text}</em> : part.text)}</li>
           ))}
         </ul>
-      </section>
+      </article>
+    ))}
+  </section>
 
-      <section class="career-section" aria-labelledby="competencies-heading">
-        <div class="section-heading"><h2 id="competencies-heading">Competencies</h2></div>
-        <ul class="competency-list">
-          {career.competencies.map((competency) => <li class="competency-tag">{competency}</li>)}
-        </ul>
-      </section>
-    </main>
+  <section class="wrap tools" aria-labelledby="tools-title">
+    <h2 class="section-title" id="tools-title">Tools</h2>
+    <ul class="tool-grid">
+      {career.tools.map((t) => (
+        <li class="tool">
+          <span class="tool-logo">
+            {t.logo ? <img src={t.logo} alt="" width="40" height="40" loading="lazy" decoding="async" /> : <span class="tool-mark" aria-hidden="true">{t.mark}</span>}
+          </span>
+          <span class="tool-name">{t.name}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
 
-    <SiteFooter />
-    <script is:inline>
-      (() => {
-        const root = document.documentElement;
-        const timeline = document.querySelector('[data-career-timeline]');
-        const timelineSteps = Array.from(timeline?.querySelectorAll('.timeline-step') ?? []);
-        const desktopTimeline = window.matchMedia('(min-width: 821px) and (min-height: 761px) and (prefers-reduced-motion: no-preference)');
-        const toggle = document.querySelector('.theme-toggle');
-        const mobileMenuButton = document.querySelector('.mobile-menu-button');
-        const navigation = document.querySelector('#primary-navigation');
-        const themePreference = window.matchMedia('(prefers-color-scheme: dark)');
-        let timelineObserver;
+  <section class="wrap comps" aria-labelledby="comps-title">
+    <h2 class="section-title" id="comps-title">Competencies</h2>
+    <ul class="comp-line">
+      {career.competencies.map((c) => <li><span class="c">{c}</span></li>)}
+    </ul>
+  </section>
+</SiteLayout>
 
-        const setupTimeline = () => {
-          timelineObserver?.disconnect();
-          timeline?.classList.remove('is-observed');
-          timelineSteps.forEach((step) => {
-            step.classList.remove('is-active', 'is-before', 'is-after');
-            step.querySelector('.career-entry')?.removeAttribute('aria-current');
-          });
-          if (!timeline || !desktopTimeline.matches || !('IntersectionObserver' in window)) return;
+<script>
+  // The crow rides beside the company name that is being read (pinned at the top on desktop, ~40% down on phones).
+  // Between roles nothing sits there, so it flaps and keeps pace with you until the next name arrives.
+  const tl = document.querySelector<HTMLElement>('.timeline');
+  const holder = tl?.querySelector<HTMLElement>('.tl-crow');
+  const bird = holder?.querySelector<HTMLElement>('[data-crow]');
+  const heads = Array.from(tl?.querySelectorAll<HTMLElement>('.job-head') ?? []);
+  const header = document.querySelector<HTMLElement>('.site-header');
+  const wide = matchMedia('(min-width: 821px)');
+  const still = matchMedia('(prefers-reduced-motion: reduce)');
+  if (tl && holder && bird && heads.length) {
+    const half = () => holder.offsetHeight / 2;
+    let pos = -1, target = 0, wantFly = false, raf = 0;
+    const jobs = Array.from(tl.querySelectorAll<HTMLElement>('.job'));
+    const measure = () => {
+      const r = tl.getBoundingClientRect();
+      const anchor = wide.matches ? (header?.offsetHeight ?? 80) + 32 + 10 : innerHeight * 0.4;
+      // perched: a company name sits at the anchor (pinned there on desktop, passing it on phones)
+      const perched = heads.some((h) => Math.abs(h.getBoundingClientRect().top + 10 - anchor) < (wide.matches ? 6 : 36));
+      // fixed geometry: where the first name starts, and the end of the timeline
+      const start = jobs[0].offsetTop + (heads[0].offsetTop - jobs[0].offsetTop) + 10;
+      const end = tl.offsetHeight - holder.offsetHeight;
+      const y = anchor - r.top;
+      target = Math.min(Math.max(y, start), end);
+      wantFly = !perched && y > start && y < end;
+    };
+    const step = () => {
+      pos = pos < 0 || still.matches ? target : pos + (target - pos) * 0.2;
+      holder.style.setProperty('--crow-y', (pos - half()) + 'px');
+      tl.style.setProperty('--progress', pos + 'px');
+      const moving = Math.abs(target - pos) > 1.5;
+      bird.toggleAttribute('data-flying', wantFly || moving);
+      raf = moving ? requestAnimationFrame(step) : 0;
+    };
+    // apply straight away on each scroll; keep easing on following frames only while still catching up
+    const update = () => { measure(); cancelAnimationFrame(raf); step(); };
+    update();
+    addEventListener('scroll', update, { passive: true });
+    addEventListener('resize', update);
+    document.fonts?.ready.then(update);
+  }
+</script>
 
-          timelineObserver = new IntersectionObserver((entries) => {
-            const enteringSteps = entries.filter((entry) => entry.isIntersecting);
-            if (!enteringSteps.length) return;
+<style>
+  /* ---- intro: compact, so the timeline begins in the first fold */
+  .c-intro { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 12px 32px; padding-block: clamp(32px, 7svh, 88px) clamp(28px, 5svh, 56px); }
+  h1 { grid-column: 1; font-size: clamp(44px, min(6.4vw, 10svh), 96px); font-weight: 500; line-height: .98; letter-spacing: -.045em; }
+  h1 em { font-style: italic; font-weight: 450; }
+  .support { grid-column: 1; font-size: clamp(18px, 1.6vw, 22px); color: var(--muted); }
+  .resume {
+    grid-column: 2; grid-row: 1 / span 2; align-self: end;
+    display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 20px; border-radius: 999px;
+    font-size: 15px; font-weight: 500; color: var(--ink); text-decoration: none;
+    background: color-mix(in srgb, var(--page) 60%, transparent);
+    -webkit-backdrop-filter: blur(14px) saturate(1.6); backdrop-filter: blur(14px) saturate(1.6);
+    border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .06), inset 0 1px 0 rgba(255, 255, 255, .5);
+    transition: border-color .2s ease, color .2s ease, transform .2s var(--ease);
+  }
+  .resume:hover, .resume:focus-visible { color: var(--brand); border-color: var(--brand); }
+  .resume:active { transform: scale(.97); }
+  .resume span { transition: transform .25s var(--ease); }
+  .resume:hover span { transform: translate(2px, -2px); }
 
-            const viewportMidpoint = window.innerHeight / 2;
-            const activeStep = enteringSteps
-              .map((entry) => ({
-                step: entry.target,
-                distance: Math.abs(entry.boundingClientRect.top + entry.boundingClientRect.height / 2 - viewportMidpoint),
-              }))
-              .sort((first, second) => first.distance - second.distance)[0]?.step;
-            if (!activeStep) return;
+  /* ---- timeline */
+  .timeline { --gap: clamp(16px, 2vw, 28px); --head-w: calc((100% + var(--gap)) / 12 * 4); --line-x: calc(var(--head-w) - var(--gap) - 18px); position: relative; border-top: 1px solid var(--line); }
+  .track { position: absolute; left: var(--line-x); top: 0; bottom: 0; width: 1px; background: var(--line); }
+  .fill { position: absolute; left: 0; top: 0; width: 1px; height: var(--progress, 0px); background: var(--brand); }
+  /* the crow: centred on the line, moved by the script below */
+  .tl-crow { position: absolute; z-index: 2; top: 0; left: calc(var(--line-x) - 17px); line-height: 0; transform: translateY(var(--crow-y, 0px)); will-change: transform; }
+  .tl-crow :global(.crow) { --crow-lens: var(--page); }
+  .job { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(16px, 2vw, 28px); padding-block: clamp(40px, 8svh, 96px); border-bottom: 1px solid var(--line); }
+  .job:last-child { border-bottom: 0; }
+  .job-head { grid-column: 1 / span 4; position: sticky; top: calc(var(--hh, var(--header-height)) + 32px); align-self: start; padding-right: 48px; }
+  .when { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; letter-spacing: .01em; }
+  h2 { margin-top: 6px; font-size: clamp(30px, 3.2vw, 46px); font-weight: 500; line-height: 1.04; letter-spacing: -.035em; }
+  .role { margin-top: 6px; font-size: 17px; }
+  .points { grid-column: 6 / -1; list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(16px, 2.6svh, 26px); }
+  .points li { max-width: 36em; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.5; letter-spacing: -.008em; text-wrap: pretty; }
+  .points strong { font-weight: 600; color: var(--brand); }
+  .points em { font-style: italic; }
 
-            const activeIndex = Number(activeStep.dataset.timelineIndex);
-            timelineSteps.forEach((step) => {
-              const index = Number(step.dataset.timelineIndex);
-              step.classList.toggle('is-active', step === activeStep);
-              step.classList.toggle('is-before', index < activeIndex);
-              step.classList.toggle('is-after', index > activeIndex);
-              if (step === activeStep) step.querySelector('.career-entry')?.setAttribute('aria-current', 'step');
-              else step.querySelector('.career-entry')?.removeAttribute('aria-current');
-            });
-            timeline.classList.add('is-observed');
-          }, { rootMargin: `-${Math.min(220, Math.floor(window.innerHeight * 0.28))}px 0px -${Math.min(220, Math.floor(window.innerHeight * 0.28))}px 0px`, threshold: 0 });
+  /* ---- tools: quiet tiles, same family as the homepage testimonial grid */
+  .tools { padding-top: clamp(72px, 12svh, 140px); }
+  .section-title { font-size: clamp(30px, 3vw, 40px); font-weight: 500; line-height: 1.1; letter-spacing: -.03em; margin-bottom: clamp(20px, 3svh, 32px); }
+  .tool-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 196px), 1fr)); gap: 12px; }
+  .tool {
+    display: flex; align-items: center; gap: 14px; min-height: 76px; padding: 14px 16px; border-radius: 16px;
+    background: color-mix(in srgb, var(--ink) 3%, var(--page)); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 6%, transparent);
+    transition: transform .25s var(--ease), box-shadow .25s ease;
+  }
+  .tool:hover { transform: translateY(-2px); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--brand) 40%, transparent), 0 12px 24px -16px rgba(70, 30, 10, .35); }
+  .tool-logo { width: 40px; height: 40px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 10px; background: #fff; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06); }
+  .tool-logo img { width: 30px; height: 30px; object-fit: contain; }
+  .tool-mark { font-size: 15px; font-weight: 700; letter-spacing: -.04em; color: #1B1A17; }
+  .tool-name { font-size: 15px; font-weight: 500; line-height: 1.3; }
 
-          timelineSteps.forEach((step) => timelineObserver.observe(step));
-        };
+  /* ---- competencies: one typographic line, orange italic separators */
+  .comps { padding-block: clamp(72px, 12svh, 140px) clamp(48px, 8svh, 96px); }
+  .comp-line { list-style: none; margin: 0; padding: 0; max-width: 40em; font-size: clamp(18px, 1.6vw, 23px); font-weight: 400; line-height: 1.55; letter-spacing: -.01em; }
+  .comp-line li { display: inline; }
+  .comp-line .c { white-space: nowrap; }
+  .comp-line li:not(:last-child)::after { content: ' / '; font-style: italic; font-weight: 400; color: var(--brand); }
 
-        setupTimeline();
-        desktopTimeline.addEventListener('change', setupTimeline);
+  /* ---- tablet and phone: natural scrolling, no pinning */
+  @media (max-width: 820px) {
+    .c-intro { grid-template-columns: 1fr; }
+    .resume { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 8px; }
+    .timeline { --line-x: 13px; padding-left: 44px; }
+    .tl-crow { left: 0; scale: .8; transform-origin: 50% 50%; }
+    .job { display: block; padding-block: 36px; }
+    .job-head { position: relative; top: auto; padding-right: 0; }
+    .points { margin-top: 18px; }
+    .points li { font-size: 17px; }
+  }
 
-        const updateToggle = () => {
-          const isDark = root.dataset.theme === 'dark';
-          toggle.setAttribute('aria-checked', String(isDark));
-          toggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
-          toggle.setAttribute('title', isDark ? 'Switch to light theme' : 'Switch to dark theme');
-        };
-
-        updateToggle();
-        toggle.addEventListener('click', () => {
-          const nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-          root.dataset.theme = nextTheme;
-          try { localStorage.setItem('site-theme', nextTheme); } catch {}
-          updateToggle();
-        });
-        themePreference.addEventListener('change', (event) => {
-          try { if (localStorage.getItem('site-theme')) return; } catch {}
-          root.dataset.theme = event.matches ? 'dark' : 'light';
-          updateToggle();
-        });
-        mobileMenuButton.addEventListener('click', () => {
-          const open = mobileMenuButton.getAttribute('aria-expanded') !== 'true';
-          mobileMenuButton.setAttribute('aria-expanded', String(open));
-          mobileMenuButton.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
-          navigation.classList.toggle('is-open', open);
-        });
-        navigation.addEventListener('click', (event) => {
-          if (event.target.closest('[data-placeholder]')) { event.preventDefault(); return; }
-          mobileMenuButton.setAttribute('aria-expanded', 'false');
-          mobileMenuButton.setAttribute('aria-label', 'Open navigation');
-          navigation.classList.remove('is-open');
-        });
-      })();
-    </script>
-  </body>
-</html>
+</style>

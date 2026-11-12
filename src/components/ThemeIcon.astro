@@ -1,0 +1,13 @@
+---
+/**
+ * Theme-toggle icon: the site's crow. Awake in light mode, eyes shut (asleep) in dark mode.
+ * Same character on every page; sized to sit inside the toggle's 26px thumb.
+ */
+import Crow from './Crow.astro';
+---
+<span class="theme-icon"><Crow size={1} mood="theme" /></span>
+
+<style>
+  .theme-icon { display: grid; place-items: center; line-height: 0; }
+  .theme-icon :global(.crow) { transform: translateX(-1px); }
+</style>

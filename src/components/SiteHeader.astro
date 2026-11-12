@@ -28,7 +28,7 @@ const links = [
         {links.map((l) => (
           <li>
             {l.placeholder
-              ? <a role="link" tabindex="0" aria-disabled="true" data-placeholder={l.label} aria-label={`${l.label}, coming soon`}>{l.label}<span class="nav-soon" aria-hidden="true">Soon</span></a>
+              ? <a role="link" tabindex="0" aria-disabled="true" data-placeholder={l.label}>{l.label}<span class="nav-soon">Soon</span></a>
               : <a href={l.href} aria-current={current === l.label ? 'page' : undefined}>{l.label}</a>}
           </li>
         ))}
@@ -193,7 +193,9 @@ const links = [
 
   // publish the header's real height so page folds can be exactly one screen tall
   if (header) {
-    const setH = () => root.style.setProperty('--hh', header.offsetHeight + 'px');
+    // only write when the real height differs from the CSS default (--hh), since a change on the root restyles the whole page
+    let last = 0;
+    const setH = () => { const v = header.offsetHeight; if (v === last) return; last = v; const css = parseFloat(getComputedStyle(root).getPropertyValue('--header-height')) + 1; if (v === css) { root.style.removeProperty('--hh'); return; } root.style.setProperty('--hh', v + 'px'); };
     setH(); new ResizeObserver(setH).observe(header);
   }
 

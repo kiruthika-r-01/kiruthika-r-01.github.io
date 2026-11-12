@@ -13,6 +13,9 @@ interface Props { line?: string }
 // The sign-off line. Its size scales with its length so it always spans the plate.
 const { line: signoff = 'See it through.' } = Astro.props;
 const size = Math.min(24, 225 / signoff.length).toFixed(2);
+// ...but never taller than the screen allows: on short windows the line (and so the plate) shrinks with the height,
+// so the closing quote and the footer always share one screen
+const sz = `min(${size}cqi, 20svh)`;
 // The crow perches on a flat-topped tall letter (b d h k l) nearest the middle; t or f if there is none.
 const mid = (signoff.length - 1) / 2;
 const nearest = (set: string) => { let k = -1; for (let i = 0; i < signoff.length; i++) if (set.includes(signoff[i]) && (k < 0 || Math.abs(i - mid) < Math.abs(k - mid))) k = i; return k; };
@@ -21,6 +24,15 @@ if (at < 0) at = nearest('tf');
 if (at < 0) at = Math.floor(mid);
 const before = signoff.slice(0, at), letter = signoff[at], after = signoff.slice(at + 1);
 const portfolioUrl = 'https://ripe-stoat-21e.notion.site/Kiruthika-Ramesh-Portfolio-b938168891d8823892b08165cdc90adf?pvs=74';
+// "Ask AI about me": opens each assistant with the same question, pointing it at the site and its llms.txt
+// (ChatGPT and Claude read ?q=; Gemini has no prefill link, so its link also copies the question to paste)
+const askPrompt = 'Who is Kiruthika Ramesh? Summarise her work and experience in marketing using https://imkiruthika.in and https://imkiruthika.in/llms.txt';
+const q = encodeURIComponent(askPrompt);
+const assistants = [
+  { name: 'ChatGPT', href: `https://chatgpt.com/?q=${q}` },
+  { name: 'Claude', href: `https://claude.ai/new?q=${q}` },
+  { name: 'Gemini', href: `https://gemini.google.com/app?q=${q}`, copy: true },
+];
 const now = new Date();
 const buildIstTime = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', hour12: true }).format(now);
 ---
@@ -33,18 +45,28 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata'
         <a href={portfolioUrl}>Selected Works</a>
         <a role="link" tabindex="0" aria-disabled="true" data-placeholder="Writings" aria-label="Writings, coming soon">Writings <span class="soon" aria-hidden="true">Soon</span></a>
         <a role="link" tabindex="0" aria-disabled="true" data-placeholder="Shelf" aria-label="Shelf, coming soon">Shelf <span class="soon" aria-hidden="true">Soon</span></a>
+        <a class="llms" href="/llms.txt" title="A plain-text guide to this site for AI assistants">llms.txt</a>
       </nav>
       <nav class="col" aria-label="Elsewhere">
-        <a href="mailto:kiruthikar123@gmail.com">Email <span aria-hidden="true">↗</span></a>
+        <a href="mailto:kiruthikar0123@gmail.com">Email <span aria-hidden="true">↗</span></a>
         <a href="https://www.linkedin.com/in/kiruthika-ramesh/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
         <a href="https://github.com/kiruthika-r-01" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
         <a href="https://letterboxd.com/kirthika_/" target="_blank" rel="noopener noreferrer">Letterboxd <span aria-hidden="true">↗</span></a>
+        <div class="ask" role="group" aria-labelledby="ask-ai">
+          <span class="ask-label" id="ask-ai">Ask AI about me</span>
+          <span class="ask-links">
+            {assistants.map((a) => (
+              <a href={a.href} target="_blank" rel="noopener" data-ask-copy={a.copy ? askPrompt : undefined}
+                aria-label={`Ask ${a.name} about Kiruthika (opens in a new tab)`}>{a.name}</a>
+            ))}
+          </span>
+        </div>
       </nav>
       <div class="col col-meta">
         <p>Chennai, India</p>
         <p><time id="ist-clock" datetime={now.toISOString()}>{buildIstTime}</time> IST</p>
         <p>© <span id="copyright-year">{now.getFullYear()}</span> Kiruthika Ramesh</p>
-        <a class="open" href="mailto:kiruthikar123@gmail.com">
+        <a class="open" href="mailto:kiruthikar0123@gmail.com">
           <svg class="boat" viewBox="0 0 11 10" width="15" height="14" shape-rendering="crispEdges" aria-hidden="true">
             <g class="boat-sail"><rect x="5" y="0" width="1" height="7" /><rect x="4" y="2" width="1" height="5" /><rect x="3" y="4" width="1" height="3" /><rect x="2" y="6" width="1" height="1" /><rect x="6" y="1" width="2" height="1" /></g>
             <g class="boat-hull"><rect x="0" y="7" width="11" height="1" /><rect x="1" y="8" width="9" height="1" /><rect x="2" y="9" width="7" height="1" /></g>
@@ -54,8 +76,8 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata'
       </div>
     </div>
     <!-- a low sun behind the words; the words become silhouettes against it; the crow perches on a letter -->
-    <span class="sunset" aria-hidden="true"><span class="glow"></span><span class="sun" style={`--sz:${size}cqi`}></span></span>
-    <div class="signoff" style={`--sz:${size}cqi`}>
+    <span class="sunset" aria-hidden="true"><span class="glow"></span><span class="sun" style={`--sz:${sz}`}></span></span>
+    <div class="signoff" style={`--sz:${sz}`}>
       <p class="signoff-line">{before}<span class="perch">{letter}</span><span class="baseline" aria-hidden="true"></span>{after}</p>
       <p class="signoff-line silhouette" aria-hidden="true">{signoff}</p>
       <span class="signoff-crow" data-perch-crow><Crow size={4} mood="still" /></span>
@@ -82,6 +104,11 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata'
   .col a:hover { color: #FF6A2B; }
   .col a[aria-disabled='true'] { color: var(--plate-muted); cursor: default; }
   .soon { font-size: 10px; color: var(--plate-muted); }
+  .ask { display: flex; flex-direction: column; margin-top: 6px; }
+  .ask-label { font-size: 12px; line-height: 20px; color: var(--plate-muted); }
+  .ask-links { display: flex; flex-wrap: wrap; gap: 0 14px; }
+  .col a.llms { color: var(--plate-muted); font-variant-numeric: tabular-nums; }
+  .col a.llms:hover { color: #FF6A2B; }
   .col-meta { align-items: flex-end; text-align: right; color: var(--plate-muted); }
   .col-meta p { margin: 0; line-height: 28px; }
   .col-meta time { font-variant-numeric: tabular-nums; }
@@ -109,7 +136,7 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata'
   :global(:root[data-theme='dark']) .glow { opacity: .9; }
 
   /* ---- the line, in front: dark silhouettes against the light, still legible on the dark plate */
-  .signoff { position: relative; z-index: 1; width: fit-content; margin: clamp(96px, 15cqi, 210px) auto 0; text-align: center; }
+  .signoff { position: relative; z-index: 1; width: fit-content; margin: clamp(40px, min(15cqi, 11svh), 210px) auto 0; text-align: center; }
   .signoff-line {
     margin: 0 0 -.17em; white-space: nowrap;
     font-size: var(--sz); font-weight: 600; line-height: .8; letter-spacing: -.055em;
@@ -183,6 +210,16 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata'
   // mark the plate as on-screen (used to pause any motion inside it)
   const plate = document.querySelector<HTMLElement>('.plate');
   if (plate && 'IntersectionObserver' in window) new IntersectionObserver(([e]) => plate.toggleAttribute('data-visible', e.isIntersecting)).observe(plate);
+
+  // Gemini can't be prefilled by a link: copy the question as the link opens, and say so
+  document.querySelectorAll<HTMLAnchorElement>('[data-ask-copy]').forEach((a) => a.addEventListener('click', () => {
+    const s = document.getElementById('placeholder-status');
+    navigator.clipboard?.writeText(a.dataset.askCopy || '').then(() => {
+      if (!s) return;
+      s.textContent = 'Question copied. Paste it into Gemini.';
+      s.classList.add('is-visible'); clearTimeout(t); t = window.setTimeout(() => s.classList.remove('is-visible'), 3200);
+    }).catch(() => {});
+  }));
 
   let t: number | undefined;
   const show = (el: HTMLElement) => {

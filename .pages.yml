@@ -140,3 +140,73 @@ content:
         label: What you're doing now
         type: text
         required: true
+  - name: writings
+    label: Writings
+    type: collection
+    path: src/content/writings
+    format: yaml-frontmatter
+    filename: '{fields.title}.md'
+    view:
+      fields: [title, section, topic, date]
+      sort: [date]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: dek
+        label: One-line summary (optional; shown under the title in lists, and used by search engines)
+        type: string
+      - name: date
+        label: Published on
+        type: date
+        required: true
+      - name: updated
+        label: Last updated (optional)
+        type: date
+      - name: section
+        label: Section
+        type: select
+        required: true
+        options:
+          values: [personal, work]
+      - name: topic
+        label: Topic (pick one from the chosen section)
+        type: select
+        required: true
+        options:
+          values: [Life, Observations, Books, Films and series, SEO and AEO, Content, GTM, Product marketing, AI and tools, Experiments, Career]
+      - name: seoTitle
+        label: Search title (optional; the full title shown on Google, about 60 characters)
+        type: string
+      - name: seoDescription
+        label: Search description (optional; about 155 characters)
+        type: text
+      - name: draft
+        label: Draft (hidden from the site while on)
+        type: boolean
+        default: false
+      - name: cover
+        label: Cover image (optional; shown beside the title)
+        type: image
+        options:
+          input: public/images/writings/covers
+          output: /images/writings/covers
+      - name: coverAlt
+        label: Cover description for screen readers (what the image shows)
+        type: string
+      - name: coverWidth
+        label: Cover width in pixels (so it is never shown larger than it is)
+        type: number
+      - name: og
+        label: Share image, 1200 x 630 (optional; shown when the piece is shared)
+        type: image
+        options:
+          input: public/og
+          output: /og
+      - name: body
+        label: Text
+        type: rich-text

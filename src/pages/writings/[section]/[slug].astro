@@ -1,0 +1,167 @@
+---
+/**
+ * One piece of writing.
+ *  - a low band of the section's photo; the piece sits on a page-coloured sheet that rises over it
+ *  - kicker (section, rule, topic in orange italic) and the title alone at the top of the sheet
+ *  - a small details table pinned beside the text, with "Reply by email" as a glass pill
+ *  - one comfortable reading column; the crow stands on the closing line; then more from the section
+ */
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import Crow from '../../../components/Crow.astro';
+import WritingList from '../../../components/WritingList.astro';
+import { sections, srcset, published, slugOf, minutesOf, longDate, excerpt } from '../../../lib/writings';
+
+export async function getStaticPaths() {
+  const all = published(await getCollection('writings'));
+  return all.map((entry) => ({ params: { section: entry.data.section, slug: slugOf(entry) }, props: { entry, all } }));
+}
+const { entry, all } = Astro.props as { entry: CollectionEntry<'writings'>; all: CollectionEntry<'writings'>[] };
+const { Content } = await render(entry);
+const d = entry.data;
+const s = sections[d.section];
+const more = all.filter((e) => e.data.section === d.section && e.id !== entry.id);
+const site = 'https://imkiruthika.in';
+const url = `${site}/writings/${d.section}/${slugOf(entry)}/`;
+const description = d.seoDescription ?? d.dek ?? excerpt(entry.body);
+const reply = `mailto:kiruthikar0123@gmail.com?subject=${encodeURIComponent('Re: ' + d.title)}`;
+const structuredData = {
+  '@context': 'https://schema.org', '@type': 'BlogPosting', '@id': url, url, mainEntityOfPage: url,
+  headline: d.title, description, inLanguage: 'en',
+  datePublished: d.date.toISOString(), dateModified: (d.updated ?? d.date).toISOString(),
+  author: { '@id': site + '/#person' }, publisher: { '@id': site + '/#person' }, isPartOf: { '@id': site + '/#website' },
+  image: site + (d.og ?? d.cover ?? s.photo.large), articleSection: s.name, keywords: d.topic,
+  wordCount: (entry.body ?? '').split(/\s+/).filter(Boolean).length,
+  breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Writings', item: site + '/writings/' },
+    { '@type': 'ListItem', position: 2, name: s.name, item: `${site}/writings/${d.section}/` },
+    { '@type': 'ListItem', position: 3, name: d.title, item: url },
+  ] },
+};
+---
+<SiteLayout
+  title={d.seoTitle ?? `${d.title.replace(/\.$/, '')} | Kiruthika Ramesh`}
+  description={description}
+  canonical={url}
+  ogType="article"
+  ogImage={d.og ? site + d.og : undefined}
+  ogImageAlt={d.og ? d.coverAlt : undefined}
+  current="Writings"
+  quote={s.quote}
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  <meta slot="head" property="article:published_time" content={d.date.toISOString()} />
+  <meta slot="head" property="article:section" content={s.name} />
+  <link slot="head" rel="alternate" type="application/rss+xml" title="Writings by Kiruthika Ramesh" href="/writings/rss.xml" />
+
+  <div class="wrap frame">
+    {d.cover
+      ? <div class="band band-cover" aria-hidden="true"><img src={d.cover} alt="" decoding="async" /></div>
+      : <div class="band" style={`--focus:${s.photo.focus}`}>
+          <img data-vt style={`--vt: photo-${d.section}`} src={s.photo.large} srcset={srcset(d.section)} sizes="100vw" alt="" width="1600" height="2400" decoding="async" />
+        </div>}
+
+    <article class="sheet" aria-labelledby="p-title" data-vt-over style="--vt-over: article-sheet">
+      <header class:list={['p-head', { 'has-cover': d.cover }]}>
+        <div class="p-text">
+          <p class="kicker"><a href={`/writings/${d.section}/`}>{s.name}</a><span class="rule" aria-hidden="true"></span><em>{d.topic}</em></p>
+          <h1 id="p-title">{d.title}</h1>
+          {d.dek && <p class="dek">{d.dek}</p>}
+        </div>
+        {d.cover && <figure class="cover" style={`--w:${d.coverWidth ?? 600}px`}><img src={d.cover} alt={d.coverAlt ?? ''} decoding="async" /></figure>}
+      </header>
+
+      <aside class="details" aria-label="About this piece">
+        <dl>
+          <div><dt>Published</dt><dd><time datetime={d.date.toISOString().slice(0, 10)}>{longDate(d.date)}</time></dd></div>
+          {d.updated && <div><dt>Updated</dt><dd><time datetime={d.updated.toISOString().slice(0, 10)}>{longDate(d.updated)}</time></dd></div>}
+          <div><dt>Reading time</dt><dd>{minutesOf(entry)} min</dd></div>
+          <div><dt>Topic</dt><dd>{d.topic}</dd></div>
+        </dl>
+        <a class="reply" href={reply}>Reply by email <span aria-hidden="true">↗</span></a>
+      </aside>
+
+      <div class="body">
+        <Content />
+        <div class="fin"><span class="fin-crow" aria-hidden="true"><Crow size={2.4} /></span></div>
+      </div>
+    </article>
+  </div>
+
+  {more.length > 0 && (
+    <section class="wrap more" aria-labelledby="more-title">
+      <h2 id="more-title">More {s.name.toLowerCase()} writing</h2>
+      <WritingList list={more} limit={3} />
+    </section>
+  )}
+
+</SiteLayout>
+
+<style>
+  .frame { padding-top: clamp(16px, 3svh, 32px); }
+  .band { position: relative; overflow: hidden; height: clamp(220px, 34svh, 400px); border-radius: clamp(20px, 2.2vw, 30px); }
+  .band img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--focus); }
+  /* a piece with its own cover: the band becomes a soft wash of the cover's colours (small images stay sharp below) */
+  .band-cover img { filter: blur(28px) saturate(1.15) brightness(.82); transform: scale(1.2); }
+
+  .sheet {
+    position: relative; z-index: 1; margin: calc(-1 * clamp(72px, 12svh, 140px)) clamp(10px, 2.4vw, 40px) 0;
+    padding: clamp(28px, 4.4vw, 64px) clamp(20px, 4vw, 64px) clamp(40px, 7svh, 88px);
+    border-radius: clamp(18px, 2vw, 28px); background: var(--page);
+    display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(16px, 2vw, 28px);
+  }
+  .p-head { grid-column: 1 / -1; margin-bottom: clamp(32px, 6svh, 72px); }
+  .p-head.has-cover { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: clamp(24px, 4vw, 64px); }
+  .cover { margin: 0; width: min(var(--w), 30vw, 380px); }
+  .cover img { display: block; width: 100%; height: auto; border-radius: clamp(14px, 1.6vw, 20px); box-shadow: 0 24px 48px -28px rgba(40, 20, 8, .5); }
+  .kicker { display: flex; align-items: center; gap: 12px; margin-bottom: clamp(14px, 2.4svh, 22px); font-size: 14px; }
+  .kicker a { color: var(--muted); text-decoration: none; font-weight: 500; }
+  .kicker a:hover { color: var(--brand); }
+  .kicker em { font-size: clamp(18px, 1.6vw, 22px); color: var(--brand); }
+  .rule { width: 40px; height: 1px; background: color-mix(in srgb, var(--ink) 16%, transparent); }
+  h1 { max-width: 16em; font-size: clamp(38px, min(5.2vw, 9svh), 84px); font-weight: 500; line-height: .98; letter-spacing: -.045em; text-wrap: balance; }
+  .dek { margin-top: 16px; max-width: 32em; font-size: clamp(18px, 1.6vw, 22px); font-style: italic; color: var(--muted); }
+
+  .details { grid-column: 1 / span 3; position: sticky; top: calc(var(--hh, var(--header-height)) + 28px); align-self: start; }
+  .details dl { margin: 0; border-top: 1px solid var(--line); }
+  .details dl div { display: flex; justify-content: space-between; gap: 12px; padding-block: 10px; border-bottom: 1px solid var(--line); font-size: 13px; }
+  .details dt { color: var(--muted); }
+  .details dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+  .reply {
+    display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 20px; padding: 0 18px; border-radius: 999px;
+    font-size: 14px; font-weight: 500; color: var(--ink); text-decoration: none;
+    background: color-mix(in srgb, var(--page) 60%, transparent);
+    -webkit-backdrop-filter: blur(14px) saturate(1.6); backdrop-filter: blur(14px) saturate(1.6);
+    border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .06), inset 0 1px 0 rgba(255, 255, 255, .5);
+    transition: border-color .2s ease, color .2s ease, transform .2s var(--ease);
+  }
+  .reply:hover, .reply:focus-visible { color: var(--brand); border-color: var(--brand); }
+  .reply:active { transform: scale(.97); }
+
+  /* reading: one comfortable column; styles reach into the rendered Markdown */
+  .body { grid-column: 5 / span 7; max-width: 36em; }
+  .body :global(p), .body :global(li) { font-size: clamp(18px, 1.45vw, 21px); line-height: 1.7; letter-spacing: -.006em; text-wrap: pretty; }
+  .body :global(* + p), .body :global(ul), .body :global(ol), .body :global(blockquote) { margin-top: 1.15em; }
+  .body :global(h2) { margin-top: 1.8em; font-size: clamp(24px, 2.2vw, 30px); font-weight: 500; line-height: 1.2; letter-spacing: -.02em; }
+  .body :global(h3) { margin-top: 1.5em; font-size: 21px; font-weight: 600; }
+  .body :global(a) { color: var(--ink); text-decoration: underline; text-decoration-color: var(--brand); text-underline-offset: .2em; text-decoration-thickness: 1px; }
+  .body :global(a:hover) { color: var(--brand); }
+  .body :global(blockquote) { margin-inline: 0; padding-left: 1em; border-left: 2px solid var(--brand); font-style: italic; color: var(--muted); }
+  .body :global(img) { border-radius: 16px; margin-block: 1.4em; }
+  /* a clear pause after the last line, then the crow on the closing rule */
+  .fin { position: relative; margin-top: clamp(96px, 15svh, 150px); border-top: 1px solid var(--line); }
+  .fin-crow { position: absolute; left: 0; top: 0; line-height: 0; transform: translateY(-100%); }
+
+  .more { padding-block: clamp(48px, 9svh, 110px) clamp(48px, 8svh, 96px); }
+  .more h2 { margin-bottom: clamp(16px, 2.6svh, 28px); font-size: clamp(26px, 2.6vw, 36px); font-weight: 500; line-height: 1.1; letter-spacing: -.03em; }
+
+  @media (max-width: 1060px) { .details { grid-column: 1 / span 4; } .body { grid-column: 5 / -1; } }
+  @media (max-width: 820px) {
+    .sheet { display: block; margin-inline: 0; margin-top: -56px; padding: 26px 20px 48px; }
+    .p-head.has-cover { grid-template-columns: 1fr; }
+    .cover { width: min(var(--w), 100%); }
+    .details { position: static; margin-bottom: 32px; }
+    .body :global(p), .body :global(li) { font-size: 18px; }
+  }
+</style>

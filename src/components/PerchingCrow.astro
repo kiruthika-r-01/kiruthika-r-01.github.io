@@ -1,0 +1,82 @@
+---
+/**
+ * A crow that perches on the top edge of one of several things on the page, and moves to whichever one you
+ * hover (mouse) or focus (keyboard): a short flight with flapping wings and a small arc, then it lands.
+ * Writings landing: perches on the card you are choosing. Section pages: on the line of the piece you are reading.
+ * Touch screens: it simply stays on the first one. Reduced motion: it moves without flying.
+ *
+ *   <PerchingCrow targets=".card" at={0.62} />   // the parent must be position: relative
+ *   targets: CSS selector, looked up inside the crow's positioned parent
+ *   at: where along each target's top edge the crow stands (0 = left, 1 = right)
+ */
+import Crow from './Crow.astro';
+interface Props { targets: string; at?: number; size?: number }
+const { targets, at = 0.62, size = 2.4 } = Astro.props;
+---
+<span class="perching" data-perching data-targets={targets} data-at={at} aria-hidden="true"><Crow size={size} mood="idle" flyer /></span>
+
+<style>
+  .perching { position: absolute; left: 0; top: 0; z-index: 3; line-height: 0; will-change: transform; opacity: 0; transition: opacity .3s ease; }
+  .perching[data-ready] { opacity: 1; }
+</style>
+
+<script>
+  const still = matchMedia('(prefers-reduced-motion: reduce)');
+  document.querySelectorAll<HTMLElement>('[data-perching]').forEach((el) => {
+    const box = el.offsetParent as HTMLElement | null;
+    const bird = el.querySelector<HTMLElement>('[data-crow]');
+    if (!box || !bird) return;
+    const at = Number(el.dataset.at ?? 0.62);
+    const all = () => Array.from(box.querySelectorAll<HTMLElement>(el.dataset.targets!)).filter((t) => t.offsetParent !== null);
+    let current: HTMLElement | null = null;
+    let pos = { x: 0, y: 0 };
+
+    const spot = (t: HTMLElement) => {
+      const r = t.getBoundingClientRect(), c = box.getBoundingClientRect();
+      return { x: Math.round(r.left - c.left + r.width * at - el.offsetWidth / 2), y: Math.round(r.top - c.top - el.offsetHeight + 1) };
+    };
+    const place = (p: { x: number; y: number }) => { pos = p; el.style.transform = `translate(${p.x}px, ${p.y}px)`; };
+
+    const perch = (t: HTMLElement, fly: boolean) => {
+      const to = spot(t);
+      if (t === current && to.x === pos.x && to.y === pos.y) return;
+      current = t;
+      const from = pos;
+      if (!fly || still.matches || !el.hasAttribute('data-ready')) { place(to); return; }
+      const dist = Math.hypot(to.x - from.x, to.y - from.y);
+      if (dist < 2) { place(to); return; }
+      const lift = Math.min(70, 18 + dist * 0.18);
+      const mid = { x: (from.x + to.x) / 2, y: Math.min(from.y, to.y) - lift };
+      el.getAnimations().forEach((a) => a.cancel());
+      bird.setAttribute('data-flying', '');
+      // face the way it flies: flip the bird itself, never the frame that carries its position
+      bird.style.scale = to.x < from.x - 4 ? '-1 1' : '';
+      const anim = el.animate([
+        { transform: `translate(${from.x}px, ${from.y}px)` },
+        { transform: `translate(${mid.x}px, ${mid.y}px)`, offset: 0.5 },
+        { transform: `translate(${to.x}px, ${to.y}px)` },
+      ], { duration: Math.min(820, 380 + dist * 0.9), easing: 'cubic-bezier(.45, 0, .25, 1)' });
+      place(to);
+      anim.finished.then(() => { bird.removeAttribute('data-flying'); bird.style.scale = ''; }).catch(() => {});
+    };
+
+    const fine = matchMedia('(hover: hover) and (pointer: fine)');
+    box.addEventListener('pointerover', (e) => {
+      if (!fine.matches) return;
+      const t = (e.target as HTMLElement).closest<HTMLElement>(el.dataset.targets!);
+      if (t && box.contains(t)) perch(t, true);
+    });
+    box.addEventListener('focusin', (e) => {
+      const t = (e.target as HTMLElement).closest<HTMLElement>(el.dataset.targets!);
+      if (t && box.contains(t)) perch(t, true);
+    });
+
+    const settle = () => { const list = all(); const t = current && list.includes(current) ? current : list[0]; if (t) { current = null; perch(t, false); } };
+    settle();
+    document.fonts?.ready.then(settle);
+    new ResizeObserver(settle).observe(box);
+    // filters can hide rows: re-perch when the list changes
+    new MutationObserver(settle).observe(box, { subtree: true, attributes: true, attributeFilter: ['hidden'] });
+    setTimeout(() => el.setAttribute('data-ready', ''), 60);
+  });
+</script>

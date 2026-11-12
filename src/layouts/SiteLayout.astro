@@ -98,6 +98,22 @@ const shareAlt = ogImageAlt ?? (shareImage ? 'The white handwritten Kr. logo on 
     {shareAlt && <meta name="twitter:image:alt" content={shareAlt} />}
     <script type="application/ld+json" set:html={JSON.stringify(identity)} />
     <slot name="head" />
+    <!-- Chrome/Edge: get the next page ready when a link is hovered or pressed, so page changes are instant and the
+         transition below never waits on the network. Files (PDF, feeds, llms.txt) and preview pages are left out. -->
+    <script is:inline type="speculationrules">
+      {"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/prototype/*"}}, {"not": {"href_matches": "/*.*"}}]}, "eagerness": "moderate"}]}
+    </script>
+    <script is:inline>
+      // page transitions: mark the page as leaving just before the browser captures it (see [data-leaving] above)
+      addEventListener('pageswap', (e) => { if (e.viewTransition) document.documentElement.setAttribute('data-leaving', ''); });
+      addEventListener('pageshow', () => document.documentElement.removeAttribute('data-leaving'));
+      addEventListener('pagereveal', (e) => {
+        if (!e.viewTransition) return;
+        const root = document.documentElement;
+        root.setAttribute('data-arriving', '');
+        e.viewTransition.finished.finally(() => root.removeAttribute('data-arriving'));
+      });
+    </script>
     <script is:inline>
       // Same rule and storage key as the rest of the site: system first, a manual choice wins and is remembered.
       (() => {
@@ -108,6 +124,43 @@ const shareAlt = ogImageAlt ?? (shareImage ? 'The white handwritten Kr. logo on 
       })();
     </script>
     <style is:global>
+      /* ---- page-to-page transitions, the same on every page (native cross-document View Transitions).
+         Tagged "page" so the theme toggle's circular reveal (a separate, same-page transition) keeps its own rules.
+         The header holds still; the page underneath fades out quickly and the next one rises in softly.
+         A photo that exists on both pages (Writings card → section header → article) moves and reshapes
+         between them, cropped like the original (no stretching) and clipped to its rounded corners. */
+      @view-transition { navigation: auto; types: page; }
+      @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
+      html:active-view-transition-type(page) .site-header { view-transition-name: site-header; }
+      html:active-view-transition-type(page) [data-vt] { view-transition-name: var(--vt); }
+      /* the article sheet sits over the moving photo, so it travels as its own layer above it and rises in */
+      html:active-view-transition-type(page) [data-vt-over] { view-transition-name: var(--vt-over); }
+      html:active-view-transition-type(page)::view-transition-group(article-sheet) { animation: none; }
+      html:active-view-transition-type(page)::view-transition-old(article-sheet) { display: none; }
+      html:active-view-transition-type(page)::view-transition-new(article-sheet) { animation: page-in .42s cubic-bezier(.25, .8, .25, 1) .2s both; }
+      /* frosted glass on a moving photo (card plates, counts, the section plate and switch) cannot be captured cleanly
+         (its blur is frozen while the photo moves), so it sits the transition out on both pages and fades in, live,
+         once the photo has landed. [data-leaving] / [data-arriving] are set by the small script above. */
+      html[data-leaving] [data-vt-over], html[data-leaving] [data-vt-glass] { visibility: hidden; view-transition-name: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+      [data-vt-glass] { transition: opacity .35s ease-out, translate .35s cubic-bezier(.25, .8, .25, 1); }
+      html[data-arriving] [data-vt-glass] { opacity: 0; translate: 0 8px; transition: none; }
+      html:active-view-transition-type(page)::view-transition-group(*) { animation-duration: .55s; animation-timing-function: cubic-bezier(.25, .8, .25, 1); }
+      html:active-view-transition-type(page)::view-transition-old(root) { animation: page-out .2s ease-out both; }
+      html:active-view-transition-type(page)::view-transition-new(root) { animation: page-in .45s cubic-bezier(.25, .8, .25, 1) .08s both; }
+      html:active-view-transition-type(page)::view-transition-old(site-header),
+      html:active-view-transition-type(page)::view-transition-new(site-header) { animation: none; }
+      html:active-view-transition-type(page)::view-transition-old(site-header) { display: none; }
+      html:active-view-transition-type(page)::view-transition-group(photo-personal),
+      html:active-view-transition-type(page)::view-transition-group(photo-work) { overflow: clip; border-radius: clamp(20px, 2.2vw, 30px); }
+      html:active-view-transition-type(page)::view-transition-old(photo-personal),
+      html:active-view-transition-type(page)::view-transition-new(photo-personal),
+      html:active-view-transition-type(page)::view-transition-old(photo-work),
+      html:active-view-transition-type(page)::view-transition-new(photo-work) { width: 100%; height: 100%; object-fit: cover; animation: none; }
+      html:active-view-transition-type(page)::view-transition-old(photo-personal),
+      html:active-view-transition-type(page)::view-transition-old(photo-work) { display: none; }
+      @keyframes page-out { to { opacity: 0; } }
+      @keyframes page-in { from { opacity: 0; transform: translateY(12px); } }
+
       :root {
         color-scheme: light;
         --page: #FFFFFF;

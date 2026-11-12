@@ -253,6 +253,8 @@ const structuredData = {
   .nav-btn:active { transform: scale(.94); }
 
   ::view-transition-group(*) { animation-duration: .5s; animation-timing-function: cubic-bezier(.3, .7, .2, 1); }
+  /* these names belong to the testimonial switch only; during a page-to-page transition they stay out of the way */
+  :global(html:active-view-transition-type(page)) .face, :global(html:active-view-transition-type(page)) .quote-body { view-transition-name: none !important; }
 
   /* ------------------------------------------------------------ responsive */
   @media (max-width: 1060px) {

@@ -2,6 +2,8 @@ import type { APIRoute } from 'astro';
 import home from '../data/home.json';
 import career from '../data/career.json';
 import now from '../data/now.json';
+import { getCollection } from 'astro:content';
+import { sections, published, newestFirst, hrefOf, excerpt } from '../lib/writings';
 
 /**
  * /llms.txt: a plain-text map of the site for large language models (llmstxt.org format).
@@ -11,7 +13,8 @@ const site = 'https://imkiruthika.in';
 const portfolioUrl = 'https://ripe-stoat-21e.notion.site/Kiruthika-Ramesh-Portfolio-b938168891d8823892b08165cdc90adf?pvs=74';
 const intro = home.intro.split('\n\n')[0].trim();
 
-export const GET: APIRoute = () => {
+export const GET: APIRoute = async () => {
+  const pieces = newestFirst(published(await getCollection('writings')));
   const lines = [
     '# Kiruthika Ramesh',
     '',
@@ -24,8 +27,14 @@ export const GET: APIRoute = () => {
     `- [Home](${site}/): Introduction and testimonials from people she has worked with.`,
     `- [About](${site}/about/): Her story in four chapters: growing up curious, moving from content writing into the wider marketing discipline, how she sees marketing, and what she is exploring now.`,
     `- [Career](${site}/career/): Career timeline with roles, results, tools and competencies.`,
+    `- [Writings](${site}/writings/): Her essays and notes, in two sections: Personal (life, observations, books, films and series) and Work (marketing, B2B, GTM, product marketing, AI and experiments).`,
     `- [Résumé (PDF)](${site}/resume.pdf): Her current résumé.`,
     `- [Selected works](${portfolioUrl}): Portfolio of selected projects (Notion).`,
+    '',
+    '## Writings',
+    '',
+    ...pieces.map((e) => `- [${e.data.title}](${site}${hrefOf(e)}): ${sections[e.data.section].name}, ${e.data.topic}. ${e.data.dek ?? excerpt(e.body, 160)}`),
+    `- [RSS feed](${site}/writings/rss.xml)`,
     '',
     `## Now (${now.updated})`,
     '',

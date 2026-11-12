@@ -35,6 +35,14 @@ const structuredData = {
   name: title,
   description,
   mainEntity: { '@id': siteUrl + '#person' },
+  isPartOf: { '@id': siteUrl + '#website' },
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl },
+      { '@type': 'ListItem', position: 2, name: 'Career', item: canonicalUrl },
+    ],
+  },
 };
 ---
 <SiteLayout
@@ -42,6 +50,7 @@ const structuredData = {
   description={description}
   canonical={canonicalUrl}
   ogImage="https://imkiruthika.in/og-career.png"
+  ogImageAlt="The white handwritten Kr. logo beside /career on a solid orange background."
   current="Career"
   quote={{ text: 'I learn by going where I have to go.', by: 'Theodore Roethke' }}
 >
@@ -104,36 +113,43 @@ const structuredData = {
   const header = document.querySelector<HTMLElement>('.site-header');
   const wide = matchMedia('(min-width: 821px)');
   const still = matchMedia('(prefers-reduced-motion: reduce)');
-  if (tl && holder && bird && heads.length) {
-    const half = () => holder.offsetHeight / 2;
-    let pos = -1, target = 0, wantFly = false, raf = 0;
-    const jobs = Array.from(tl.querySelectorAll<HTMLElement>('.job'));
+  const fill = tl?.querySelector<HTMLElement>('.fill');
+  if (tl && holder && bird && fill && heads.length) {
+    let pos = -1, target = 0, wantFly = false, raf = 0, flying = false;
+    // geometry that only changes on resize / font load, so scrolling reads as little layout as possible
+    let half = 0, start = 0, end = 0, height = 1;
+    const geometry = () => {
+      half = holder.offsetHeight / 2;
+      start = heads[0].offsetTop + 10;
+      height = tl.offsetHeight || 1;
+      end = height - holder.offsetHeight;
+    };
     const measure = () => {
-      const r = tl.getBoundingClientRect();
+      const top = tl.getBoundingClientRect().top;
       const anchor = wide.matches ? (header?.offsetHeight ?? 80) + 32 + 10 : innerHeight * 0.4;
       // perched: a company name sits at the anchor (pinned there on desktop, passing it on phones)
       const perched = heads.some((h) => Math.abs(h.getBoundingClientRect().top + 10 - anchor) < (wide.matches ? 6 : 36));
-      // fixed geometry: where the first name starts, and the end of the timeline
-      const start = jobs[0].offsetTop + (heads[0].offsetTop - jobs[0].offsetTop) + 10;
-      const end = tl.offsetHeight - holder.offsetHeight;
-      const y = anchor - r.top;
+      const y = anchor - top;
       target = Math.min(Math.max(y, start), end);
       wantFly = !perched && y > start && y < end;
     };
+    // writes go straight to the two moving elements as transforms (no layout, no restyle of the timeline)
     const step = () => {
       pos = pos < 0 || still.matches ? target : pos + (target - pos) * 0.2;
-      holder.style.setProperty('--crow-y', (pos - half()) + 'px');
-      tl.style.setProperty('--progress', pos + 'px');
+      holder.style.transform = `translate3d(0, ${(pos - half).toFixed(1)}px, 0)`;
+      fill.style.transform = `scaleY(${(pos / height).toFixed(4)})`;
       const moving = Math.abs(target - pos) > 1.5;
-      bird.toggleAttribute('data-flying', wantFly || moving);
+      if (flying !== (wantFly || moving)) { flying = !flying; bird.toggleAttribute('data-flying', flying); }
       raf = moving ? requestAnimationFrame(step) : 0;
     };
+    geometry();
     // apply straight away on each scroll; keep easing on following frames only while still catching up
     const update = () => { measure(); cancelAnimationFrame(raf); step(); };
     update();
     addEventListener('scroll', update, { passive: true });
-    addEventListener('resize', update);
-    document.fonts?.ready.then(update);
+    const relayout = () => { geometry(); update(); };
+    addEventListener('resize', relayout);
+    document.fonts?.ready.then(relayout);
   }
 </script>
 
@@ -161,9 +177,9 @@ const structuredData = {
   /* ---- timeline */
   .timeline { --gap: clamp(16px, 2vw, 28px); --head-w: calc((100% + var(--gap)) / 12 * 4); --line-x: calc(var(--head-w) - var(--gap) - 18px); position: relative; border-top: 1px solid var(--line); }
   .track { position: absolute; left: var(--line-x); top: 0; bottom: 0; width: 1px; background: var(--line); }
-  .fill { position: absolute; left: 0; top: 0; width: 1px; height: var(--progress, 0px); background: var(--brand); }
+  .fill { position: absolute; left: 0; top: 0; width: 1px; height: 100%; background: var(--brand); transform: scaleY(0); transform-origin: 0 0; will-change: transform; }
   /* the crow: centred on the line, moved by the script below */
-  .tl-crow { position: absolute; z-index: 2; top: 0; left: calc(var(--line-x) - 17px); line-height: 0; transform: translateY(var(--crow-y, 0px)); will-change: transform; }
+  .tl-crow { position: absolute; z-index: 2; top: 0; left: calc(var(--line-x) - 17px); line-height: 0; will-change: transform; }
   .tl-crow :global(.crow) { --crow-lens: var(--page); }
   .job { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(16px, 2vw, 28px); padding-block: clamp(40px, 8svh, 96px); border-bottom: 1px solid var(--line); }
   .job:last-child { border-bottom: 0; }

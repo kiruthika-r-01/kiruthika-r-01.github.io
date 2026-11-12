@@ -2,10 +2,11 @@
 /**
  * Header: logo left, links centred, the cat theme toggle right.
  * Frosted glass over the page (Apple-style), hairline appears once the page scrolls.
- * Below 820px the links sit in one calm row under the logo row, spread evenly so all of them fit
- * (no hidden menu, no sideways scrolling): "Selected Works" shortens to "Works" and Shelf (coming soon) waits.
+ * Below 820px: one row (logo, theme toggle, a glass "Menu" pill). The pill opens a full-screen menu under the header:
+ * the links set large, the current page in orange italic, and the crow flying in to land beside the page you are on.
  */
 import ThemeIcon from './ThemeIcon.astro';
+import PerchingCrow from './PerchingCrow.astro';
 
 interface Props { current?: string }
 const { current } = Astro.props;
@@ -13,9 +14,9 @@ const portfolioUrl = 'https://ripe-stoat-21e.notion.site/Kiruthika-Ramesh-Portfo
 const links = [
   { label: 'About', href: '/about/' },
   { label: 'Career', href: '/career/' },
-  { label: 'Selected Works', short: 'Works', href: portfolioUrl },
+  { label: 'Selected Works', href: portfolioUrl },
   { label: 'Writings', href: '/writings/' },
-  { label: 'Shelf', placeholder: true, desktopOnly: true },
+  { label: 'Shelf', placeholder: true },
   { label: 'Contact', href: 'mailto:kiruthikar0123@gmail.com' },
 ];
 ---
@@ -25,19 +26,43 @@ const links = [
     <nav class="primary-nav" aria-label="Main">
       <ul>
         {links.map((l) => (
-          <li class:list={[{ 'desktop-only': l.desktopOnly }]}>
+          <li>
             {l.placeholder
               ? <a role="link" tabindex="0" aria-disabled="true" data-placeholder={l.label} aria-label={`${l.label}, coming soon`}>{l.label}<span class="nav-soon" aria-hidden="true">Soon</span></a>
-              : <a href={l.href} aria-current={current === l.label ? 'page' : undefined}>{l.short ? <><span class="full">{l.label}</span><span class="short">{l.short}</span></> : l.label}</a>}
+              : <a href={l.href} aria-current={current === l.label ? 'page' : undefined}>{l.label}</a>}
           </li>
         ))}
       </ul>
     </nav>
-    <button class="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Dark mode" title="Dark mode">
-      <span class="toggle-thumb"><ThemeIcon /></span>
-    </button>
+    <div class="header-actions">
+      <button class="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Dark mode" title="Dark mode">
+        <span class="toggle-thumb"><ThemeIcon /></span>
+      </button>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-menu"><span class="menu-word">Menu</span></button>
+    </div>
   </div>
 </header>
+
+<!-- phones and small tablets: the full-screen menu (kept outside the header, whose glass would trap a fixed layer) -->
+<div class="menu" id="site-menu" hidden data-menu>
+  <nav class="wrap menu-nav" aria-label="Main">
+    <ol class="menu-list">
+      {links.map((l, i) => (
+        <li style={`--i:${i}`}>
+          {l.placeholder
+            ? <span class="menu-link is-soon" aria-disabled="true">{l.label}<small>Soon</small></span>
+            : <a class="menu-link" href={l.href} aria-current={current === l.label ? 'page' : undefined}>{l.label}{l.href?.startsWith('http') && <span class="ext" aria-hidden="true">↗</span>}<span class="spot" data-perch-spot aria-hidden="true"></span></a>}
+        </li>
+      ))}
+    </ol>
+    <PerchingCrow targets="a.menu-link" at={0.5} size={2.2} start="[aria-current='page']" />
+  </nav>
+  <p class="wrap menu-foot">
+    <a href="https://www.linkedin.com/in/kiruthika-ramesh/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+    <a href="https://github.com/kiruthika-r-01" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+    <a href="/writings/rss.xml">RSS <span aria-hidden="true">↗</span></a>
+  </p>
+</div>
 
 <style>
   .site-header {
@@ -56,11 +81,10 @@ const links = [
   .primary-nav a[href]:hover::after, .primary-nav a[aria-current='page']::after { transform: scaleX(1); }
   .primary-nav a[aria-disabled='true'] { color: var(--muted); cursor: default; }
   .nav-soon { display: none; }
-  .short { display: none; }
 
   /* glass pill with a sliding thumb that carries the cat */
   .theme-toggle {
-    justify-self: end; position: relative; width: 62px; height: 34px; padding: 3px; border-radius: 999px; cursor: pointer;
+    position: relative; width: 62px; height: 34px; padding: 3px; border-radius: 999px; cursor: pointer;
     border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
     background: color-mix(in srgb, var(--ink) 6%, transparent);
     box-shadow: inset 0 1px 1px color-mix(in srgb, #fff 40%, transparent);
@@ -78,21 +102,57 @@ const links = [
   :global(:root[data-theme='dark']) .theme-toggle:active .toggle-thumb { transform: translateX(28px) scale(.94); }
 
   @media (max-width: 1060px) { .primary-nav ul { gap: 18px; } }
-  /* phones: the five links share the full width evenly */
-  @media (max-width: 620px) { .primary-nav ul { justify-content: space-between; gap: 8px; } }
-  @media (max-width: 360px) { .primary-nav a { font-size: 14px; } }
-  @media (max-width: 820px) {
-    .header-inner { height: auto; grid-template-columns: 1fr auto; grid-template-areas: 'brand switch' 'nav nav'; row-gap: 0; padding-top: 6px; }
-    .brand { grid-area: brand; }
-    .brand img { width: 48px; height: 38px; }
-    .theme-toggle { grid-area: switch; }
-    .primary-nav { grid-area: nav; }
-    .primary-nav ul { gap: 28px; padding-bottom: 2px; }
-    .primary-nav a { font-size: 15px; min-height: 44px; }
-    .desktop-only { display: none; }
-    .full { display: none; }
-    .short { display: inline; }
+
+  /* ---- actions on the right: the theme toggle and (small screens) the Menu pill */
+  .header-actions { justify-self: end; display: flex; align-items: center; gap: 10px; }
+  .menu-btn {
+    display: none; height: 34px; padding: 0 16px; border-radius: 999px; cursor: pointer;
+    font: inherit; font-size: 14px; font-weight: 500; color: var(--ink);
+    border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    background: color-mix(in srgb, var(--ink) 6%, transparent);
+    box-shadow: inset 0 1px 1px color-mix(in srgb, #fff 40%, transparent);
+    -webkit-tap-highlight-color: transparent; transition: background-color .2s ease, color .2s ease, border-color .2s ease;
   }
+  .menu-btn:hover, .menu-btn:focus-visible { border-color: var(--brand); color: var(--brand); }
+  .menu-btn[aria-expanded='true'] { color: var(--brand); border-color: color-mix(in srgb, var(--brand) 50%, transparent); }
+
+  /* ---- the full-screen menu: frosted page under the header, links set large, the current page in orange italic */
+  .menu {
+    position: fixed; inset: 0; z-index: 19; display: flex; flex-direction: column;
+    padding-top: var(--hh, 64px); overflow-y: auto; overscroll-behavior: contain;
+    background: color-mix(in srgb, var(--page) 86%, transparent);
+    -webkit-backdrop-filter: blur(26px) saturate(1.4); backdrop-filter: blur(26px) saturate(1.4);
+    opacity: 0; transition: opacity .28s ease;
+  }
+  .menu[hidden] { display: none; }
+  .menu[data-open] { opacity: 1; }
+  .menu-nav { position: relative; flex: 1; display: flex; align-items: center; padding-block: 40px 24px; }
+  .menu-list { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(6px, 1.4svh, 14px); }
+  .menu-list li { opacity: 0; transform: translateY(14px); transition: opacity .38s ease, transform .5s cubic-bezier(.25, .8, .25, 1); transition-delay: calc(var(--i) * 45ms + 60ms); }
+  .menu[data-open] .menu-list li { opacity: 1; transform: none; }
+  .menu-link {
+    display: inline-block; min-height: 48px;
+    font-size: clamp(34px, 9.6vw, 60px); font-weight: 500; line-height: 1.12; letter-spacing: -.045em;
+    color: var(--ink); text-decoration: none; -webkit-tap-highlight-color: transparent;
+  }
+  a.menu-link:active { color: var(--brand); }
+  .menu-link[aria-current='page'] { color: var(--brand); font-style: italic; font-weight: 450; }
+  .menu-link .ext { margin-left: .18em; font-size: .45em; vertical-align: .9em; color: var(--muted); }
+  .menu-link .spot { display: inline-block; width: 1.3em; height: 0; margin-left: .3em; vertical-align: baseline; }
+  .menu-link.is-soon { color: var(--muted); }
+  .menu-link small { margin-left: .6em; font-size: 13px; letter-spacing: 0; font-style: normal; color: var(--muted); vertical-align: .5em; }
+  .menu-foot { display: flex; flex-wrap: wrap; gap: 6px 22px; padding-block: 18px max(24px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); font-size: 14px; }
+  .menu-foot a { display: inline-flex; gap: .3em; min-height: 40px; align-items: center; color: var(--muted); text-decoration: none; }
+  .menu-foot a:hover { color: var(--brand); }
+
+  @media (max-width: 820px) {
+    .header-inner { grid-template-columns: 1fr auto; }
+    .brand img { width: 52px; height: 40px; }
+    .primary-nav { display: none; }
+    .menu-btn { display: inline-flex; align-items: center; }
+  }
+  @media (min-width: 821px) { .menu { display: none !important; } }
+  @media (prefers-reduced-motion: reduce) { .menu, .menu-list li { transition: none; } }
 
   /* theme change: a circular reveal from the toggle (native View Transitions, skipped for reduced motion) */
   :global(::view-transition-old(root)), :global(::view-transition-new(root)) { animation: none; mix-blend-mode: normal; }
@@ -155,4 +215,36 @@ const links = [
     const ke = e as KeyboardEvent;
     if (ke.key === 'Enter' && (ke.target as HTMLElement).closest('[data-placeholder]')) (ke.target as HTMLElement).click();
   });
+
+  // ---- the phone menu: opens under the header, locks the page behind it, Escape or the pill closes it
+  const menu = document.querySelector<HTMLElement>('[data-menu]');
+  const menuBtn = document.querySelector<HTMLButtonElement>('.menu-btn');
+  const word = menuBtn?.querySelector('.menu-word');
+  const behind = () => Array.from(document.querySelectorAll<HTMLElement>('main, .end-fold, body > footer, .skip-link'));
+  let closing: number | undefined;
+  const setOpen = (open: boolean) => {
+    if (!menu || !menuBtn) return;
+    clearTimeout(closing);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    if (word) word.textContent = open ? 'Close' : 'Menu';
+    root.style.overflow = open ? 'hidden' : '';
+    behind().forEach((el) => { el.inert = open; });
+    if (open) {
+      menu.hidden = false;
+      window.setTimeout(() => {
+        menu.setAttribute('data-open', '');
+        menu.querySelector('.menu-nav')?.dispatchEvent(new Event('perching:arrive'));
+      }, 20);
+    } else {
+      menu.removeAttribute('data-open');
+      closing = window.setTimeout(() => { menu.hidden = true; }, reduce.matches ? 0 : 300);
+    }
+  };
+  menuBtn?.addEventListener('click', () => setOpen(menuBtn.getAttribute('aria-expanded') !== 'true'));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menuBtn?.getAttribute('aria-expanded') === 'true') { setOpen(false); menuBtn.focus(); } });
+  // a mail link or same-page link does not leave the page: close the menu behind it
+  menu?.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('a')) window.setTimeout(() => setOpen(false), 0); });
+  // growing past the phone layout closes it; coming back from the back/forward cache, start closed
+  matchMedia('(min-width: 821px)').addEventListener('change', (e) => { if (e.matches) setOpen(false); });
+  addEventListener('pageshow', () => setOpen(false));
 </script>

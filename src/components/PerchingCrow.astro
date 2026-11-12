@@ -3,17 +3,20 @@
  * A crow that perches on the top edge of one of several things on the page, and moves to whichever one you
  * hover (mouse) or focus (keyboard): a short flight with flapping wings and a small arc, then it lands.
  * Writings landing: perches on the card you are choosing. Section pages: on the line of the piece you are reading.
- * Touch screens: it simply stays on the first one. Reduced motion: it moves without flying.
+ * Phone menu: lands on the page you are on, flying in from the corner each time the menu opens.
+ * Touch screens: it simply stays where it landed. Reduced motion: it moves without flying.
  *
  *   <PerchingCrow targets=".card" at={0.62} />   // the parent must be position: relative
  *   targets: CSS selector, looked up inside the crow's positioned parent
  *   at: where along each target's top edge the crow stands (0 = left, 1 = right)
+ *   start: optional selector for where it first lands (otherwise the first target)
+ * Dispatch "perching:arrive" on the parent to make it fly in from the top right corner (used when a menu opens).
  */
 import Crow from './Crow.astro';
-interface Props { targets: string; at?: number; size?: number }
-const { targets, at = 0.62, size = 2.4 } = Astro.props;
+interface Props { targets: string; at?: number; size?: number; start?: string }
+const { targets, at = 0.62, size = 2.4, start } = Astro.props;
 ---
-<span class="perching" data-perching data-targets={targets} data-at={at} aria-hidden="true"><Crow size={size} mood="idle" flyer /></span>
+<span class="perching" data-perching data-targets={targets} data-at={at} data-start={start} aria-hidden="true"><Crow size={size} mood="idle" flyer /></span>
 
 <style>
   .perching { position: absolute; left: 0; top: 0; z-index: 3; line-height: 0; will-change: transform; opacity: 0; transition: opacity .3s ease; }
@@ -23,7 +26,7 @@ const { targets, at = 0.62, size = 2.4 } = Astro.props;
 <script>
   const still = matchMedia('(prefers-reduced-motion: reduce)');
   document.querySelectorAll<HTMLElement>('[data-perching]').forEach((el) => {
-    const box = el.offsetParent as HTMLElement | null;
+    const box = el.parentElement;   // the positioned parent (it may be hidden at load, e.g. inside a closed menu)
     const bird = el.querySelector<HTMLElement>('[data-crow]');
     if (!box || !bird) return;
     const at = Number(el.dataset.at ?? 0.62);
@@ -32,7 +35,13 @@ const { targets, at = 0.62, size = 2.4 } = Astro.props;
     let pos = { x: 0, y: 0 };
 
     const spot = (t: HTMLElement) => {
-      const r = t.getBoundingClientRect(), c = box.getBoundingClientRect();
+      // a target can mark the exact spot to stand on with a [data-perch-spot] child (e.g. the baseline after a word)
+      const m = t.querySelector<HTMLElement>('[data-perch-spot]') ?? t;
+      // settled layout position: add up offsets until the crow's parent (ignores entrance slides and hover transforms)
+      let n: HTMLElement | null = m, ox = 0, oy = 0;
+      while (n && n !== box) { ox += n.offsetLeft; oy += n.offsetTop; n = n.offsetParent as HTMLElement | null; }
+      if (n === box) return { x: Math.round(ox + m.offsetWidth * at - el.offsetWidth / 2), y: Math.round(oy - el.offsetHeight + 1) };
+      const r = m.getBoundingClientRect(), c = box.getBoundingClientRect();
       return { x: Math.round(r.left - c.left + r.width * at - el.offsetWidth / 2), y: Math.round(r.top - c.top - el.offsetHeight + 1) };
     };
     const place = (p: { x: number; y: number }) => { pos = p; el.style.transform = `translate(${p.x}px, ${p.y}px)`; };
@@ -71,7 +80,14 @@ const { targets, at = 0.62, size = 2.4 } = Astro.props;
       if (t && box.contains(t)) perch(t, true);
     });
 
-    const settle = () => { const list = all(); const t = current && list.includes(current) ? current : list[0]; if (t) { current = null; perch(t, false); } };
+    const home = (list: HTMLElement[]) => (el.dataset.start && list.find((t) => t.matches(el.dataset.start!))) || list[0];
+    const settle = () => { const list = all(); const t = current && list.includes(current) ? current : home(list); if (t) { current = null; perch(t, false); } };
+    box.addEventListener('perching:arrive', () => {
+      const t = home(all()); if (!t) return;
+      el.getAnimations().forEach((a) => a.cancel());
+      place({ x: box.clientWidth - el.offsetWidth, y: -el.offsetHeight - 40 });
+      current = null; perch(t, true);
+    });
     settle();
     document.fonts?.ready.then(settle);
     new ResizeObserver(settle).observe(box);

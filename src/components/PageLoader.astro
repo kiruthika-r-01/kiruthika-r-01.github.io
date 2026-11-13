@@ -1,0 +1,74 @@
+---
+/**
+ * Loading screen: only for slow loads. It stays invisible unless the page is still being read in after 0.7s,
+ * then fades in: the crow flying in place over a thin line (an orange dash runs along it, as on Career),
+ * and one small fact, picked at random. It leaves the moment the page is ready, so a normal or prerendered
+ * load never sees it, and it never delays anything. Without JavaScript it never appears.
+ * Place it first inside <body>.
+ */
+import Crow from './Crow.astro';
+// Copy written by Claude: needs her approval. Every fact is checkable; keep them that way.
+const facts = [
+  'Crows can recognise human faces, and remember them for years.',
+  'A group of crows is called a murder.',
+  'The first website ever made is still online, at info.cern.ch.',
+  'In 1998, Google’s whole index held about 26 million pages.',
+  'Google has ignored the meta keywords tag since at least 2009.',
+  'About 15% of what people search on Google each day has never been searched before.',
+  'robots.txt dates from 1994. Crawlers still read it first.',
+  'Octopuses have three hearts.',
+  'Bananas are berries. Strawberries are not.',
+  'Wombats leave cube-shaped droppings.',
+];
+---
+<div class="loader" id="page-loader" aria-hidden="true">
+  <div class="loader-in">
+    <span class="loader-bird"><Crow size={4} mood="still" flyer /></span>
+    <span class="loader-track"><span class="loader-dash"></span></span>
+    <p class="loader-kicker">Meanwhile,</p>
+    <p class="loader-fact" data-facts={JSON.stringify(facts)}>{facts[0]}</p>
+  </div>
+</div>
+<script is:inline>
+  (() => {
+    const el = document.getElementById('page-loader'); if (!el) return;
+    const p = el.querySelector('[data-facts]');
+    try { const list = JSON.parse(p.dataset.facts); p.textContent = list[Math.floor(Math.random() * list.length)]; } catch {}
+    el.querySelector('[data-crow]')?.setAttribute('data-flying', '');
+    el.setAttribute('data-on', '');   // only now can it ever show (no JS: never)
+    const done = () => {
+      if (getComputedStyle(el).opacity === '0') { el.remove(); return; }
+      el.setAttribute('data-done', ''); setTimeout(() => el.remove(), 320);
+    };
+    if (document.readyState !== 'loading') done(); else document.addEventListener('DOMContentLoaded', done, { once: true });
+    addEventListener('pageshow', (e) => { if (e.persisted) el.remove(); }, { once: true });
+  })();
+</script>
+
+<style>
+  .loader {
+    position: fixed; inset: 0; z-index: 1000; display: none; place-items: center; padding: 24px;
+    background: var(--page); color: var(--ink);
+  }
+  .loader[data-on] { display: grid; opacity: 0; animation: loader-show .35s ease .7s forwards; }
+  .loader[data-done] { animation: none; opacity: 0; transition: opacity .3s ease; }
+  @keyframes loader-show { to { opacity: 1; } }
+
+  .loader-in { display: flex; flex-direction: column; align-items: center; text-align: center; width: min(100%, 460px); }
+  .loader-bird { line-height: 0; animation: loader-bob 1.6s ease-in-out infinite; }
+  .loader-bird :global(.crow) { cursor: default; }
+  @keyframes loader-bob { 50% { translate: 0 -6px; } }
+
+  /* the line it flies over: a hairline with an orange dash running along it */
+  .loader-track { position: relative; overflow: hidden; width: 180px; height: 1px; margin-top: 18px; background: color-mix(in srgb, var(--ink) 16%, transparent); }
+  .loader-dash { position: absolute; inset: 0 auto 0 0; width: 34%; background: var(--brand); animation: loader-run 1.4s cubic-bezier(.45, 0, .25, 1) infinite; }
+  @keyframes loader-run { from { translate: -100% 0; } to { translate: 300% 0; } }
+
+  .loader-kicker { margin-top: 30px; font-size: clamp(18px, 1.6vw, 22px); font-style: italic; line-height: 1; letter-spacing: -.02em; color: var(--brand-ink); }
+  .loader-fact { margin-top: 12px; max-width: 24ch; font-size: clamp(22px, 2.2vw, 30px); font-weight: 500; line-height: 1.2; letter-spacing: -.03em; text-wrap: balance; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .loader-bird, .loader-dash { animation: none; }
+    .loader-dash { width: 100%; opacity: .5; }
+  }
+</style>

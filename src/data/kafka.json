@@ -1,0 +1,140 @@
+{
+  "dek": "An entirely unnecessary account of a rather ordinary bird.",
+  "stamp": [
+    "Resident",
+    "Unpaid position",
+    "Permanent tenure"
+  ],
+  "file": [
+    {
+      "label": "Full name",
+      "value": "Kafka",
+      "note": "Kavka is Czech for jackdaw, a small member of the crow family. Some names simply turn out to be accurate."
+    },
+    {
+      "label": "Species",
+      "value": "Crow"
+    },
+    {
+      "label": "Gender",
+      "value": "Female"
+    },
+    {
+      "label": "Age",
+      "value": "Unspecified"
+    },
+    {
+      "label": "Birthday",
+      "value": "Disputed"
+    },
+    {
+      "label": "Occupation",
+      "value": "Resident"
+    },
+    {
+      "label": "Employment status",
+      "value": "Unemployed by choice"
+    },
+    {
+      "label": "Residence",
+      "value": "imkiruthika.in"
+    },
+    {
+      "label": "Office",
+      "value": "Wherever she feels like sitting"
+    },
+    {
+      "label": "Reports to",
+      "value": "Nobody. Unofficially, Whiskey."
+    },
+    {
+      "label": "Known relatives",
+      "value": "Whiskey"
+    },
+    {
+      "label": "Previous address",
+      "value": "",
+      "withheld": true
+    },
+    {
+      "label": "Specialisation",
+      "value": "Loitering, observation, unsolicited opinions"
+    },
+    {
+      "label": "Current status",
+      "value": "Still here",
+      "live": true
+    }
+  ],
+  "whiskey": [
+    "She’s a menace. It is better you don’t know about her.",
+    "You clicked again. That is exactly what she would want.",
+    "This file is now closed."
+  ],
+  "intro": [
+    "There is a crow living in my footer. She has no lease, no references and no intention of leaving, and when people ask me where she came from, I have to choose between four answers. Three of them are official."
+  ],
+  "official": [
+    "The earliest account places her in an abandoned library somewhere in Prague, sitting between two shelves of existential philosophy and refusing to move. The staff asked nicely. Then they asked less nicely. Then, being librarians, they put up a sign. Nobody has been able to establish whether she read any of the books. She does, however, have opinions about all of them.",
+    "The second account has her touring with a travelling theatre company, and leaving it after an incident involving an unattended prop, three missing costume buttons and what the company described, in writing, as irreconcilable creative differences. Kafka disputes this version. Her position is that the company lacked artistic vision, and that the buttons were already loose.",
+    "The third account is the least credible, which is why it is my favourite. In it, she spends several weeks in a government office trying to obtain a document confirming that she is, in fact, a bird. She queued. She filled in the forms. She came back on the right day with the right photocopies. The application was rejected because her photograph did not meet the required specifications. She has refused to discuss the matter since, and if you bring it up, she looks at a point slightly to the left of your head until you stop.",
+    "What happened after that is unclear. Nobody remembers inviting her here. Nobody saw her arrive. One day she was simply sitting somewhere on the website, looking like she had signed something.",
+    "She has been here ever since. She has no qualifications, no defined responsibilities and a questionable understanding of personal boundaries. She sits on things people are actively trying to use. She watches visitors open thirty-seven tabs and says nothing, which is somehow worse. She contributes absolutely nothing to the household.",
+    "She does, however, seem to like it here."
+  ],
+  "actual": [
+    "None of this is true.",
+    "She was picked up from a dustbin.",
+    "That's what my sibling says, anyway, with the confidence of someone who was not there. Apparently she was found rummaging through something she had no business rummaging through, and then decided to follow someone home. In our family, questioning the origins of anything that lives under the same roof is a tradition. I have heard that exact tone used about me.",
+    "Kafka has declined to comment.",
+    "Her residence remains unchanged."
+  ],
+  "editorsNote": "The official account has not been independently verified. The dustbin incident remains the most widely accepted explanation.",
+  "likes": [
+    "Dark mode. Naturally.",
+    "Shiny objects, particularly ones that aren't hers.",
+    "Quiet places with good visibility.",
+    "Sitting on things people are actively using.",
+    "The orange sun in the footer.",
+    "Conversations she wasn't invited to.",
+    "Unnecessarily complicated literature.",
+    "Watching people make a decision and then immediately question it."
+  ],
+  "dislikes": [
+    "Bright lights.",
+    "Being asked to move.",
+    "Unnecessary meetings.",
+    "People touching her things.",
+    "Photographs taken without prior notice.",
+    "Being called cute.",
+    "Questions about her employment history.",
+    "Anyone questioning her residential status.",
+    "The dustbin incident."
+  ],
+  "interests": "Philosophy, old books, administrative procedures, human behaviour and shiny stationery. Every so often, an intense interest in one completely random object, for reasons she cannot explain. She has never finished a hobby.",
+  "lines": {
+    "arrive": "Oh. A visitor.",
+    "facts": [
+      "Diogenes lived in a large clay jar in Athens. Rent-free. I respect him.",
+      "The Michelin Guide was started by a tyre company. To make people drive more.",
+      "Kierkegaard wrote under several pseudonyms. Some of them commented on each other’s books.",
+      "The first printed advert in English, around 1477, was for a book. Content marketing, technically.",
+      "Franz Kafka asked for his manuscripts to be burned. His friend published them instead. No relation.",
+      "The man who designed the Pringles can is buried in one. Partly.",
+      "Socrates never wrote anything down. Everything he said, someone else wrote. I relate.",
+      "Wittgenstein’s first book ends: whereof one cannot speak, thereof one must be silent. Noted."
+    ],
+    "theme": "Much better. Or worse. I forget.",
+    "linger": "Do you live here too?"
+  },
+  "perches": {
+    "file": "I did not fill this in.",
+    "account": "This part is all true.",
+    "turn": "You believe this? I was between appointments.",
+    "notes": "I was not consulted."
+  },
+  "quote": {
+    "text": "A cage went in search of a bird.",
+    "by": "Franz Kafka"
+  }
+}

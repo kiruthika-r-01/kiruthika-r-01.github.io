@@ -14,6 +14,7 @@ export const GET: APIRoute = async () => {
     { path: '/about/', lastmod: today, priority: '0.8' },
     { path: '/career/', lastmod: today, priority: '0.8' },
     { path: '/writings/', lastmod: today, priority: '0.9' },
+    { path: '/kafka/', lastmod: today, priority: '0.3' },
     ...sectionKeys.map((k) => ({ path: `/writings/${k}/`, lastmod: today, priority: '0.7' })),
     ...pieces.map((e) => ({ path: hrefOf(e), lastmod: (e.data.updated ?? e.data.date).toISOString().slice(0, 10), priority: '0.8' })),
   ];

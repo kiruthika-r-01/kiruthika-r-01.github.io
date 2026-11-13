@@ -67,9 +67,12 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata'
         </span>
       </div>
       <div class="col col-meta">
+        <div class="meta-info">
         <p>Chennai, India</p>
         <p><time id="ist-clock" datetime={now.toISOString()}>{buildIstTime}</time> IST</p>
         <p>© <span id="copyright-year">{now.getFullYear()}</span> Kiruthika Ramesh</p>
+        </div>
+        <div class="meta-links">
         <a class="open" href="mailto:kiruthikar0123@gmail.com">
           <svg class="boat" viewBox="0 0 11 10" width="15" height="14" shape-rendering="crispEdges" aria-hidden="true">
             <g class="boat-sail"><rect x="5" y="0" width="1" height="7" /><rect x="4" y="2" width="1" height="5" /><rect x="3" y="4" width="1" height="3" /><rect x="2" y="6" width="1" height="1" /><rect x="6" y="1" width="2" height="1" /></g>
@@ -77,6 +80,8 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata'
           </svg>
           Open to work
         </a>
+        <a class="kafka-link" href="/kafka/">Who’s the crow?</a>
+        </div>
       </div>
     </div>
     <!-- a low sun behind the words; the words become silhouettes against it; the crow perches on a letter -->
@@ -84,7 +89,7 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata'
     <div class="signoff" style={`--sz:${sz}`}>
       <p class="signoff-line">{before}<span class="perch">{letter}</span><span class="baseline" aria-hidden="true"></span>{after}</p>
       <p class="signoff-line silhouette" aria-hidden="true">{signoff}</p>
-      <span class="signoff-crow" data-perch-crow><Crow size={4} mood="still" /></span>
+      <a class="signoff-crow" href="/kafka/" aria-label="Kafka, the crow who lives here" data-perch-crow><Crow size={4} mood="still" /></a>
     </div>
   </div>
 </footer>
@@ -113,10 +118,14 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata'
   .col a.llms:hover { color: #FF6A2B; }
   .col-meta { align-items: flex-end; text-align: right; color: var(--plate-muted); }
   .col-meta p { margin: 0; line-height: 28px; }
+  .meta-info, .meta-links { display: flex; flex-direction: column; align-items: inherit; gap: 4px; }
   .col-meta time { font-variant-numeric: tabular-nums; }
   /* "Open to work": a quiet row like the others, with a small static sailboat */
   .open { display: inline-flex; align-items: center; gap: 7px; min-height: 28px; line-height: 28px; color: var(--plate-muted) !important; font-size: 15px; }
   .open:hover, .open:focus-visible { color: #FF6A2B !important; }
+  /* the way to Kafka's page (the only one on the site, apart from the crow herself) */
+  .col a.kafka-link { color: var(--plate-muted); }
+  .col a.kafka-link:hover, .col a.kafka-link:focus-visible { color: #FF6A2B; }
   .boat { display: block; flex: 0 0 auto; margin-top: -2px; }
   .boat-sail { fill: #FF6A2B; }
   .boat-hull { fill: currentColor; }
@@ -164,7 +173,9 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata'
 
   @media (max-width: 820px) {
     .plate-top { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .col-meta { grid-column: 1 / -1; align-items: flex-start; text-align: left; flex-direction: row; flex-wrap: wrap; gap: 0 16px; }
+    /* the details get a row of their own, lined up with the columns above: where and when on the left, the two links beside */
+    .col-meta { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; align-items: start; text-align: left; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, .08); }
+    .meta-info, .meta-links { align-items: flex-start; }
   }
   /* phones: site and elsewhere side by side; the AI section and the details each get a full-width row of their own,
      separated by a hairline, so nothing is squeezed */
@@ -175,8 +186,15 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata'
     .col:not(.col-ai) > .col-label { display: none; }
     .col-ai, .col-meta { grid-column: 1 / -1; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, .08); }
     .col-ai { gap: 2px; }
+    /* details on phones: the two links first, on the same two columns as the links above;
+       then the small print (place, time, copyright) as one quiet block, always two lines */
+    .col-meta { row-gap: 12px; }
+    .meta-links { order: -1; grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; }
+    .meta-info { grid-column: 1 / -1; display: block; font-size: 13px; line-height: 21px; }
+    .meta-info p { display: inline; line-height: inherit; }
+    .meta-info p:first-child::after { content: ' \00B7 '; white-space: pre; }
+    .meta-info p:nth-child(2)::after { content: '\A'; white-space: pre; }
     .ai-links { flex-direction: row; flex-wrap: wrap; gap: 0 18px; }
-    .col-meta { gap: 0 14px; }
   }
   @media (max-width: 620px) {
     /* phones: a bigger sun and a smaller crow, so the bird stays inside the light */

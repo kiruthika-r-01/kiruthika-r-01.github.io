@@ -121,6 +121,54 @@ content:
       - name: closingLabel
         label: Closing link to Career
         type: string
+  - name: kafka
+    label: Kafka (the crow's page)
+    type: file
+    path: src/data/kafka.json
+    format: json
+    fields:
+      - { name: dek, label: Line under her name, type: string }
+      - { name: stamp, label: Stamp (first line large), type: string, list: true }
+      - name: file
+        label: On file (one row per fact)
+        type: object
+        list: true
+        fields:
+          - { name: label, label: Label, type: string, required: true }
+          - { name: value, label: Value, type: string }
+          - { name: note, label: Footnote (optional), type: text }
+          - { name: withheld, label: Show as redacted, type: boolean }
+          - { name: live, label: Show the live orange dot, type: boolean }
+      - { name: whiskey, label: "Whiskey note (shown when her name is clicked in the file; each click shows the next line)", type: string, list: true }
+      - { name: intro, label: Opening paragraph(s), type: text, list: true }
+      - { name: official, label: The official account (paragraphs), type: text, list: true }
+      - { name: actual, label: "The actual account (first two lines are set large)", type: text, list: true }
+      - { name: editorsNote, label: "Editor's note", type: text }
+      - { name: likes, label: In favour of, type: string, list: true }
+      - { name: dislikes, label: Opposed to, type: string, list: true }
+      - { name: interests, label: Interests, type: text }
+      - name: lines
+        label: What she says on the page
+        type: object
+        fields:
+          - { name: arrive, label: When someone arrives, type: string }
+          - { name: facts, label: "Facts she tells when you hover or tap her (in order, repeating; keep 5 to 10, all true)", type: string, list: true }
+          - { name: theme, label: When the theme changes, type: string }
+          - { name: linger, label: After a long stay, type: string }
+      - name: perches
+        label: What she says at each section (as she follows the reader down the page)
+        type: object
+        fields:
+          - { name: file, label: On file, type: string }
+          - { name: account, label: Before all this (the official account), type: string }
+          - { name: turn, label: Just before the dustbin reveal, type: string }
+          - { name: notes, label: Field notes, type: string }
+      - name: quote
+        label: Closing quote
+        type: object
+        fields:
+          - { name: text, label: Quote, type: text }
+          - { name: by, label: By, type: string }
   - name: career
     label: Career page
     type: file

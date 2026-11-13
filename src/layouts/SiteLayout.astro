@@ -205,7 +205,7 @@ const shareAlt = ogImageAlt ?? (shareImage ? 'The white handwritten Kr. logo on 
         --muted: #6B6862;
         --line: #E6E2DB;
         --brand: #F94D03;
-        --brand-ink: #C23C00;            /* orange that passes contrast as small text on white */
+        --brand-ink: #D63E00;            /* the brightest brand orange that still passes 4.5:1 as small text on white */
         --social-icon-filter: none;
         --logo-filter: none;
         /* Schibsted Grotesk: a newspaper grotesk, plain but with opinions. Used on every page. */
@@ -226,7 +226,7 @@ const shareAlt = ogImageAlt ?? (shareImage ? 'The white handwritten Kr. logo on 
         --muted: #B0ADA4;
         --line: #33332F;
         --brand: #FF6A2B;
-        --brand-ink: #FF8A55;
+        --brand-ink: var(--brand);
         --social-icon-filter: invert(1);
         --logo-filter: invert(1);
       }
@@ -253,6 +253,8 @@ const shareAlt = ogImageAlt ?? (shareImage ? 'The white handwritten Kr. logo on 
       /* one fold = the screen below the header */
       /* dvh: at the very bottom phone toolbars are usually collapsed, so the closing fold follows the real screen height */
       .end-fold { min-height: calc(100svh - var(--hh, var(--header-height))); min-height: calc(100dvh - var(--hh, var(--header-height))); display: flex; flex-direction: column; scroll-snap-align: end; }
+      /* off-screen at load on every page: let the browser skip its layout and paint until it scrolls near */
+      .end-fold { content-visibility: auto; contain-intrinsic-size: auto 100svh; }
       .end-fold-main { flex: 1; display: grid; place-items: center; }
       @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
     </style>
@@ -266,5 +268,7 @@ const shareAlt = ogImageAlt ?? (shareImage ? 'The white handwritten Kr. logo on 
     {endFold
       ? <div class="end-fold"><div class="end-fold-main"><ClosingQuote text={quote?.text} by={quote?.by} /></div><SiteFooter /></div>
       : <SiteFooter />}
+    <!-- notices from header and footer links (outside the footer fold, which is skipped while off-screen) -->
+    <div class="placeholder-status" id="placeholder-status" role="status" aria-live="polite"></div>
   </body>
 </html>

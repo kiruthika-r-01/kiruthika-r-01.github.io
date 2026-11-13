@@ -88,8 +88,8 @@ const { targets, at = 0.62, size = 2.4, start } = Astro.props;
       place({ x: box.clientWidth - el.offsetWidth, y: -el.offsetHeight - 40 });
       current = null; perch(t, true);
     });
-    settle();
-    document.fonts?.ready.then(settle);
+    // no synchronous first measure: the ResizeObserver below fires once after first layout (avoids a forced reflow at load)
+    document.fonts?.ready.then(() => requestAnimationFrame(() => setTimeout(settle)));   // after a frame: no forced layout
     new ResizeObserver(settle).observe(box);
     // filters can hide rows: re-perch when the list changes
     new MutationObserver(settle).observe(box, { subtree: true, attributes: true, attributeFilter: ['hidden'] });

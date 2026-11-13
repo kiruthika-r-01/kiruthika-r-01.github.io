@@ -15,44 +15,111 @@ content:
     path: src/data/home.json
     format: json
     fields:
-      - name: siteName
-        label: Site name
+      - name: greeting
+        label: Greeting (orange, above the headline)
         type: string
-      - name: eyebrow
-        label: Intro label
-        type: string
+        required: true
       - name: headline
         label: Headline
+        type: string
+        required: true
+      - name: headlineItalic
+        label: Last words of the headline to set in italic (must match the end of the headline exactly)
         type: string
       - name: intro
         label: Introduction paragraph
         type: text
-      - name: personalNote
-        label: Personal note
-        type: text
+        required: true
       - name: worksLabel
         label: Portfolio link label
         type: string
-      - name: contactLabel
-        label: Contact link label
+      - name: worksUrl
+        label: Portfolio link address
         type: string
-      - name: essayTitle
-        label: Essay title
+      - name: resumeLabel
+        label: Résumé link label
         type: string
-      - name: essay
-        label: Essay body (separate paragraphs with a blank line)
-        type: text
-      - name: siteSectionTitle
-        label: Site section heading
+      - name: testimonialsHeading
+        label: Testimonials heading (roman part)
         type: string
-      - name: siteSectionCopy
-        label: Site section paragraph
-        type: text
+      - name: testimonialsHeadingItalic
+        label: Testimonials heading (italic part)
+        type: string
+      - name: testimonials
+        label: Testimonials
+        type: object
+        list: true
+        fields:
+          - name: name
+            label: Name
+            type: string
+            required: true
+          - name: role
+            label: Role and company
+            type: string
+          - name: portrait
+            label: Portrait (square image)
+            type: image
+            options:
+              input: public/images
+              output: /images
+          - name: quote
+            label: Quote
+            type: text
+            required: true
+          - name: highlight
+            label: Phrase to highlight in orange (copied exactly from the quote)
+            type: string
+      - name: testimonialsNote
+        label: Note under the testimonial
+        type: string
+      - name: testimonialsLink
+        label: Link under the note (opens an email)
+        type: string
       - name: footerQuote
-        label: Footer quote
+        label: Closing quote (homepage)
         type: text
       - name: footerQuoteAttribution
-        label: Quote attribution
+        label: Closing quote author
+        type: string
+  - name: about
+    label: About page
+    type: file
+    path: src/data/about.json
+    format: json
+    fields:
+      - name: sections
+        label: Chapters (in order)
+        type: object
+        list: true
+        fields:
+          - name: id
+            label: Chapter number (e.g. 00)
+            type: string
+            required: true
+          - name: tagline
+            label: Tagline (orange italic, e.g. Restless)
+            type: string
+          - name: title
+            label: Title
+            type: string
+            required: true
+          - name: paragraphs
+            label: Paragraphs
+            type: text
+            list: true
+      - name: link
+        label: Linked phrase (one phrase in the text that becomes a link)
+        type: object
+        fields:
+          - name: text
+            label: Phrase (copied exactly from a paragraph)
+            type: string
+          - name: url
+            label: Link address
+            type: string
+      - name: closingLabel
+        label: Closing link to Career
         type: string
   - name: career
     label: Career page

@@ -196,11 +196,12 @@ const links = [
     // only write when the real height differs from the CSS default (--hh), since a change on the root restyles the whole page
     let last = 0;
     const setH = () => { const v = header.offsetHeight; if (v === last) return; last = v; const css = parseFloat(getComputedStyle(root).getPropertyValue('--header-height')) + 1; if (v === css) { root.style.removeProperty('--hh'); return; } root.style.setProperty('--hh', v + 'px'); };
-    setH(); new ResizeObserver(setH).observe(header);
+    new ResizeObserver(setH).observe(header);   // fires once after first layout; no forced reflow at load
   }
 
   const onScroll = () => header?.toggleAttribute('data-scrolled', window.scrollY > 4);
-  onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  // first check after the first frame has laid out (reading scrollY during parsing forces a full layout)
+  requestAnimationFrame(() => setTimeout(onScroll)); window.addEventListener('scroll', onScroll, { passive: true });
 
   // "coming soon" destinations announce themselves instead of navigating nowhere
   let t: number | undefined;

@@ -142,14 +142,17 @@ const structuredData = {
       if (flying !== (wantFly || moving)) { flying = !flying; bird.toggleAttribute('data-flying', flying); }
       raf = moving ? requestAnimationFrame(step) : 0;
     };
-    geometry();
+    // first measure comes from the ResizeObserver below (after first layout, no forced reflow at load)
     // apply straight away on each scroll; keep easing on following frames only while still catching up
     const update = () => { measure(); cancelAnimationFrame(raf); step(); };
-    update();
+
     addEventListener('scroll', update, { passive: true });
     const relayout = () => { geometry(); update(); };
     addEventListener('resize', relayout);
-    document.fonts?.ready.then(relayout);
+    document.fonts?.ready.then(() => requestAnimationFrame(() => setTimeout(relayout)));   // after a frame: no forced layout
+    // the timeline can grow after load (web font swapping in, phone toolbars): re-measure whenever its size changes,
+    // so the crow's end point never stays at an old, shorter length
+    new ResizeObserver(relayout).observe(tl);
   }
 </script>
 
@@ -189,7 +192,7 @@ const structuredData = {
   .role { margin-top: 6px; font-size: 17px; }
   .points { grid-column: 6 / -1; list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(16px, 2.6svh, 26px); }
   .points li { max-width: 36em; font-size: clamp(18px, 1.45vw, 21px); line-height: 1.6; letter-spacing: -.008em; text-wrap: pretty; }
-  .points strong { font-weight: 600; color: var(--brand); }
+  .points strong { font-weight: 600; color: var(--brand-ink); }
   .points em { font-style: italic; }
 
   /* ---- tools: quiet tiles, same family as the homepage testimonial grid */

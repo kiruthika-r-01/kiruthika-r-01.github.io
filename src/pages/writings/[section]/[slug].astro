@@ -10,7 +10,7 @@ import { getCollection, render, type CollectionEntry } from 'astro:content';
 import SiteLayout from '../../../layouts/SiteLayout.astro';
 import Crow from '../../../components/Crow.astro';
 import WritingList from '../../../components/WritingList.astro';
-import { sections, srcset, published, slugOf, minutesOf, longDate, excerpt } from '../../../lib/writings';
+import { sections, srcset, published, slugOf, minutesOf, longDate, excerpt, imageSize } from '../../../lib/writings';
 
 export async function getStaticPaths() {
   const all = published(await getCollection('writings'));
@@ -20,6 +20,7 @@ const { entry, all } = Astro.props as { entry: CollectionEntry<'writings'>; all:
 const { Content } = await render(entry);
 const d = entry.data;
 const s = sections[d.section];
+const coverSize = d.cover ? imageSize(d.cover) : null;
 const more = all.filter((e) => e.data.section === d.section && e.id !== entry.id);
 const site = 'https://imkiruthika.in';
 const url = `${site}/writings/${d.section}/${slugOf(entry)}/`;
@@ -56,7 +57,7 @@ const structuredData = {
 
   <div class="wrap frame">
     {d.cover
-      ? <div class="band band-cover" aria-hidden="true"><img src={d.cover} alt="" decoding="async" /></div>
+      ? <div class="band band-cover" aria-hidden="true"><img src={d.cover} alt="" width={coverSize?.width} height={coverSize?.height} decoding="async" /></div>
       : <div class="band" style={`--focus:${s.photo.focus}`}>
           <img data-vt style={`--vt: photo-${d.section}`} src={s.photo.large} srcset={srcset(d.section)} sizes="100vw" alt="" width="1600" height="2400" decoding="async" />
         </div>}
@@ -68,7 +69,7 @@ const structuredData = {
           <h1 id="p-title">{d.title}</h1>
           {d.dek && <p class="dek">{d.dek}</p>}
         </div>
-        {d.cover && <figure class="cover" style={`--w:${d.coverWidth ?? 600}px`}><img src={d.cover} alt={d.coverAlt ?? ''} decoding="async" /></figure>}
+        {d.cover && <figure class="cover" style={`--w:${d.coverWidth ?? 600}px`}><img src={d.cover} alt={d.coverAlt ?? ''} width={coverSize?.width} height={coverSize?.height} fetchpriority="high" decoding="async" /></figure>}
       </header>
 
       <aside class="details" aria-label="About this piece">
@@ -117,7 +118,7 @@ const structuredData = {
   .kicker { display: flex; align-items: center; gap: 12px; margin-bottom: clamp(14px, 2.4svh, 22px); font-size: 14px; }
   .kicker a { color: var(--muted); text-decoration: none; font-weight: 500; }
   .kicker a:hover { color: var(--brand); }
-  .kicker em { font-size: clamp(18px, 1.6vw, 22px); color: var(--brand); }
+  .kicker em { font-size: clamp(18px, 1.6vw, 22px); color: var(--brand-ink); }
   .rule { width: 40px; height: 1px; background: color-mix(in srgb, var(--ink) 16%, transparent); }
   h1 { max-width: 16em; font-size: clamp(38px, min(5.2vw, 9svh), 84px); font-weight: 500; line-height: .98; letter-spacing: -.045em; text-wrap: balance; }
   .dek { margin-top: 16px; max-width: 32em; font-size: clamp(18px, 1.6vw, 22px); font-style: italic; color: var(--muted); }

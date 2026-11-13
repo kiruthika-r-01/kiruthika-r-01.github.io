@@ -87,7 +87,6 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata'
       <span class="signoff-crow" data-perch-crow><Crow size={4} mood="still" /></span>
     </div>
   </div>
-  <div class="placeholder-status" id="placeholder-status" role="status" aria-live="polite"></div>
 </footer>
 
 <style>
@@ -220,7 +219,7 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata'
     crow.style.left = (inkCentre - B.left - crow.offsetWidth * 0.48) + 'px';
     crow.style.bottom = (B.bottom - inkTop) + 'px';
   };
-  document.fonts?.ready.then(perch); perch();
+  // the ResizeObserver below places it once the fold is laid out, and again when the web font changes the line's width
   const pb = document.querySelector('.signoff'); if (pb) new ResizeObserver(perch).observe(pb);
 
   // mark the plate as on-screen (used to pause any motion inside it)
@@ -236,6 +235,20 @@ const buildIstTime = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata'
       s.classList.add('is-visible'); clearTimeout(t); t = window.setTimeout(() => s.classList.remove('is-visible'), 3200);
     }).catch(() => {});
   }));
+
+  // Email links: computers often have no mail app set up, so a mailto link silently does nothing there.
+  // On mouse/keyboard devices the link still tries to open the mail app, and the address is also copied with a short note.
+  const desk = matchMedia('(hover: hover) and (pointer: fine)');
+  document.addEventListener('click', (e) => {
+    const link = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="mailto:"]');
+    if (!link || !desk.matches) return;
+    const address = decodeURIComponent(link.href.slice(7).split('?')[0]);
+    navigator.clipboard?.writeText(address).then(() => {
+      const s = document.getElementById('placeholder-status'); if (!s) return;
+      s.textContent = `${address} copied. If no mail app opened, paste it into your email.`;
+      s.classList.add('is-visible'); clearTimeout(t); t = window.setTimeout(() => s.classList.remove('is-visible'), 4200);
+    }).catch(() => {});
+  });
 
   let t: number | undefined;
   const show = (el: HTMLElement) => {

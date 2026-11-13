@@ -5,6 +5,7 @@
  */
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import PageLoader from '../components/PageLoader.astro';
 import ClosingQuote from '../components/ClosingQuote.astro';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 
@@ -260,6 +261,7 @@ const shareAlt = ogImageAlt ?? (shareImage ? 'The white handwritten Kr. logo on 
     </style>
   </head>
   <body>
+    <PageLoader />
     <a class="skip-link" href="#main-content">Skip to content</a>
     <SiteHeader current={current} />
     <main id="main-content">

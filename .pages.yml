@@ -7,6 +7,16 @@ media:
     label: Tool logos
     input: public/images/tools
     output: /images/tools
+  - name: writing-covers
+    label: Writing covers
+    input: public/images/writings/covers
+    output: /images/writings/covers
+    categories: [image]
+  - name: share-images
+    label: Share images (1200 x 630)
+    input: public/og
+    output: /og
+    categories: [image]
 
 content:
   - name: homepage
@@ -61,8 +71,7 @@ content:
             label: Portrait (square image)
             type: image
             options:
-              input: public/images
-              output: /images
+              media: images
           - name: quote
             label: Quote
             type: text
@@ -305,23 +314,21 @@ content:
         type: boolean
         default: false
       - name: cover
-        label: Cover image (optional; shown beside the title)
+        label: Cover image (optional; shown beside the title; at least 760px wide)
         type: image
         options:
-          input: public/images/writings/covers
-          output: /images/writings/covers
+          media: writing-covers
       - name: coverAlt
         label: Cover description for screen readers (what the image shows)
         type: string
       - name: coverWidth
-        label: Cover width in pixels (so it is never shown larger than it is)
+        label: Cover width in pixels (optional; leave empty to use the image's own width)
         type: number
       - name: og
-        label: Share image, 1200 x 630 (optional; shown when the piece is shared)
+        label: Share image, 1200 x 630 (optional; shown when the piece is shared on LinkedIn, WhatsApp, X)
         type: image
         options:
-          input: public/og
-          output: /og
+          media: share-images
       - name: body
         label: Text
         type: rich-text

@@ -69,7 +69,7 @@ const structuredData = {
           <h1 id="p-title">{d.title}</h1>
           {d.dek && <p class="dek">{d.dek}</p>}
         </div>
-        {d.cover && <figure class="cover" style={`--w:${d.coverWidth ?? 600}px`}><img src={d.cover} alt={d.coverAlt ?? ''} width={coverSize?.width} height={coverSize?.height} fetchpriority="high" decoding="async" /></figure>}
+        {d.cover && <figure class="cover" style={`--w:${d.coverWidth ?? coverSize?.width ?? 600}px`}><img src={d.cover} alt={d.coverAlt ?? ''} width={coverSize?.width} height={coverSize?.height} fetchpriority="high" decoding="async" /></figure>}
       </header>
 
       <aside class="details" aria-label="About this piece">

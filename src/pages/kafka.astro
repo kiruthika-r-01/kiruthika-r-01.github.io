@@ -11,7 +11,11 @@ import k from '../data/kafka.json';
 const site = 'https://imkiruthika.in';
 const url = `${site}/kafka/`;
 const structuredData = {
-  '@context': 'https://schema.org', '@type': 'ProfilePage', '@id': url, url, name: 'Kafka',
+  // WebPage, not ProfilePage: Google requires a ProfilePage's mainEntity to be a real Person or Organization,
+  // and Kafka is neither (Search Console flagged "Missing field 'mainEntity'").
+  '@context': 'https://schema.org', '@type': 'WebPage', '@id': url, url, name: 'Kafka',
+  about: { '@type': 'Thing', name: 'Kafka', description: 'The pixel-art crow who lives on this website.' },
+  author: { '@id': site + '/#person' }, inLanguage: 'en',
   description: "Meet Kafka, the deadpan pixel crow who lives on Kiruthika Ramesh’s website. Origin disputed. Employment history unavailable. Dustbin allegations ongoing.", image: site + '/og-kafka.png', isPartOf: { '@id': site + '/#website' },
   breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Home', item: site + '/' },

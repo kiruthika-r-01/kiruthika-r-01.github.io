@@ -11,8 +11,8 @@ seoDescription: MS Dhoni has retired from the IPL to mentor CSK. A fan’s story
   of learning cricket from mom, the RPS years, the 2019 run-out and one Chepauk
   six.
 draft: false
-cover: /images/writings/covers/Dhoni - Cover.png
-og: /og/OG - Dhoni Blog.png
+cover: /images/writings/covers/o-captain-my-captain.webp
+og: /og/writings-o-captain-my-captain.jpg
 ---
 I found out on Instagram. Opening Insta has become like opening the fridge at home for me, I don't want anything in particular, I just open it and doomscroll in between my work (ik, I'm working on it). This afternoon CSK posted that MS Dhoni has retired as a player and will be the team's mentor from IPL 2027. The owner and the co-owner said nice things about him in the statement. Dhoni himself didn't say anything. Of course he didn't.
 

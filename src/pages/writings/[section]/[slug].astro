@@ -10,7 +10,7 @@ import { getCollection, render, type CollectionEntry } from 'astro:content';
 import SiteLayout from '../../../layouts/SiteLayout.astro';
 import Crow from '../../../components/Crow.astro';
 import WritingList from '../../../components/WritingList.astro';
-import { sections, srcset, published, slugOf, minutesOf, longDate, excerpt, imageSize } from '../../../lib/writings';
+import { sections, srcset, published, slugOf, minutesOf, longDate, excerpt, imageSize, assetUrl } from '../../../lib/writings';
 
 export async function getStaticPaths() {
   const all = published(await getCollection('writings'));
@@ -31,7 +31,7 @@ const structuredData = {
   headline: d.title, description, inLanguage: 'en',
   datePublished: d.date.toISOString(), dateModified: (d.updated ?? d.date).toISOString(),
   author: { '@id': site + '/#person' }, publisher: { '@id': site + '/#person' }, isPartOf: { '@id': site + '/#website' },
-  image: site + (d.og ?? d.cover ?? s.photo.large), articleSection: s.name, keywords: d.topic,
+  image: site + assetUrl(d.og ?? d.cover ?? s.photo.large), articleSection: s.name, keywords: d.topic,
   wordCount: (entry.body ?? '').split(/\s+/).filter(Boolean).length,
   breadcrumb: { '@type': 'BreadcrumbList', itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Writings', item: site + '/writings/' },
@@ -45,8 +45,8 @@ const structuredData = {
   description={description}
   canonical={url}
   ogType="article"
-  ogImage={d.og ? site + d.og : undefined}
-  ogImageAlt={d.og ? d.coverAlt : undefined}
+  ogImage={d.og ? site + assetUrl(d.og) : undefined}
+  ogImageAlt={d.og ? (d.coverAlt ?? d.title) : undefined}
   current="Writings"
   quote={s.quote}
 >
@@ -57,7 +57,7 @@ const structuredData = {
 
   <div class="wrap frame">
     {d.cover
-      ? <div class="band band-cover" aria-hidden="true"><img src={d.cover} alt="" width={coverSize?.width} height={coverSize?.height} decoding="async" /></div>
+      ? <div class="band band-cover" aria-hidden="true"><img src={assetUrl(d.cover)} alt="" width={coverSize?.width} height={coverSize?.height} decoding="async" /></div>
       : <div class="band" style={`--focus:${s.photo.focus}`}>
           <img data-vt style={`--vt: photo-${d.section}`} src={s.photo.large} srcset={srcset(d.section)} sizes="100vw" alt="" width="1600" height="2400" decoding="async" />
         </div>}
@@ -69,7 +69,7 @@ const structuredData = {
           <h1 id="p-title">{d.title}</h1>
           {d.dek && <p class="dek">{d.dek}</p>}
         </div>
-        {d.cover && <figure class="cover" style={`--w:${d.coverWidth ?? coverSize?.width ?? 600}px`}><img src={d.cover} alt={d.coverAlt ?? ''} width={coverSize?.width} height={coverSize?.height} fetchpriority="high" decoding="async" /></figure>}
+        {d.cover && <figure class="cover" style={`--w:${d.coverWidth ?? coverSize?.width ?? 600}px`}><img src={assetUrl(d.cover)} alt={d.coverAlt ?? ''} width={coverSize?.width} height={coverSize?.height} fetchpriority="high" decoding="async" /></figure>}
       </header>
 
       <aside class="details" aria-label="About this piece">

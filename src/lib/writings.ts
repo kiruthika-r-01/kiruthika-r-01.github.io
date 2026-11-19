@@ -59,6 +59,12 @@ export const excerpt = (body = '', max = 155) => {
   return cut.slice(0, cut.lastIndexOf(' ')).replace(/[,.;:]$/, '') + '…';
 };
 
+// A public/ path as a valid URL: Pages CMS keeps uploaded file names as they are ("Dhoni - Cover.png"), and a raw space
+// in og:image breaks link previews. Decoding first means an already-encoded path is never encoded twice.
+export const assetUrl = (publicPath: string) => {
+  try { return encodeURI(decodeURI(publicPath)); } catch { return encodeURI(publicPath); }
+};
+
 // Width and height of a WebP/PNG/JPEG in public/, read from its header at build time, so cover <img> tags carry
 // real dimensions (no layout shift) whatever image is uploaded through Pages CMS. No image library needed.
 export const imageSize = (publicPath: string): { width: number; height: number } | null => {

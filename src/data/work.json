@@ -1,0 +1,860 @@
+{
+  "seo": {
+    "title": "Selected Works | Kiruthika Ramesh, B2B Marketing",
+    "description": "B2B marketing work by Kiruthika Ramesh for Atlas Systems, Skcript and Prudent AI: blogs, SEO and AEO pages, a SQL playbook, a demo page revamp and design."
+  },
+  "kicker": "Selected works",
+  "title": "The work,",
+  "titleItalic": "filed.",
+  "lede": "Writing, search pages, a campaign, a conversion fix and design, for Atlas Systems, Skcript and Prudent AI.",
+  "companies": [
+    {
+      "name": "Atlas Systems",
+      "logo": "/images/work/logo-atlas.webp",
+      "site": "https://www.atlassystems.com",
+      "about": "IT services, cybersecurity and compliance software (ComplyScore®, PRIME®).",
+      "profile": "https://www.atlassystems.com/blog/author/kiruthika-r",
+      "profileLabel": "Author page at Atlas Systems",
+      "reader": "CIOs and IT leaders"
+    },
+    {
+      "name": "Skcript",
+      "logo": "/images/work/logo-featureos.webp",
+      "site": "https://featureos.com",
+      "about": "featureOS, product feedback software for SaaS teams.",
+      "reader": "product and customer success teams"
+    },
+    {
+      "name": "Prudent AI",
+      "logo": "/images/work/logo-prudent.webp",
+      "site": "https://www.prudent.ai",
+      "about": "AI income verification for lenders.",
+      "reader": "lenders and loan officers"
+    }
+  ],
+  "folders": [
+    {
+      "slug": "writing",
+      "name": "Writing",
+      "tab": "Blogs and long-form",
+      "blurb": "Blogs for three B2B companies in very different markets: IT and security, product feedback, and lending.",
+      "peek": "/images/work/writing-cover.webp",
+      "kafka": "Fifty-six pieces. I have read three. Out of politeness.",
+      "seoTitle": "B2B Writing Samples | Kiruthika Ramesh",
+      "seoDescription": "B2B blogs by Kiruthika Ramesh for Atlas Systems, Skcript (featureOS) and Prudent AI: selected pieces first, then everything she has published.",
+      "groups": [
+        {
+          "title": "Selected writing",
+          "layout": "tiles",
+          "note": "Pick by what you want to see.",
+          "items": [
+            {
+              "title": "The Future of AI-Driven Product Development with GenAI",
+              "url": "https://www.atlassystems.com/blog/generative-ai-in-product-development",
+              "company": "Atlas Systems",
+              "kind": "Blog",
+              "format": "Thought leadership"
+            },
+            {
+              "title": "Your Guide to Upgrading from SQL Server 2016",
+              "url": "https://www.atlassystems.com/blog/sql-server-2016-upgrade-options",
+              "company": "Atlas Systems",
+              "kind": "Blog",
+              "format": "Buyer's guide"
+            },
+            {
+              "title": "The Real Cost of Staying on SQL Server 2016 vs Upgrading or Migrating",
+              "url": "https://www.atlassystems.com/blog/sql-server-2016-cost-vs-upgrade-migration",
+              "company": "Atlas Systems",
+              "kind": "Blog",
+              "format": "Buyer's guide"
+            },
+            {
+              "title": "Future-Ready Data Center Infrastructure: Components, Management & Best Practices",
+              "url": "https://www.atlassystems.com/blog/data-center-infrastructure",
+              "company": "Atlas Systems",
+              "kind": "Blog",
+              "format": "Guide & explainer"
+            },
+            {
+              "title": "A CSM's Guide to Customer Feedback Management",
+              "url": "https://featureos.com/blog/csm-guide-feedback",
+              "company": "Skcript",
+              "kind": "Blog",
+              "format": "Guide & explainer"
+            },
+            {
+              "title": "Why Traditional Knowledge Bases Fail Customers (And Fixes)",
+              "url": "https://featureos.com/blog/the-knowledge-base-lie",
+              "company": "Skcript",
+              "kind": "Blog",
+              "format": "Thought leadership"
+            },
+            {
+              "title": "Top 10 Podcasts for SaaS Founders and Product Managers",
+              "url": "https://featureos.com/blog/top-10-saas-product-management-podcasts",
+              "company": "Skcript",
+              "kind": "Blog",
+              "format": "Product & lists"
+            },
+            {
+              "title": "Frill 2026 Pricing: Plans, Features, and Top Alternatives",
+              "url": "https://featureos.com/blog/frill-pricing-2024",
+              "company": "Skcript",
+              "kind": "Blog",
+              "format": "Product & lists"
+            },
+            {
+              "title": "Unlock the Power of Day Zero Certainty for Bank Statement Loans",
+              "url": "https://www.prudent.ai/blog/unlock-the-power-of-day-zero-certainty-for-bank-statement-loans",
+              "company": "Prudent AI",
+              "kind": "Blog",
+              "format": "Product & lists"
+            },
+            {
+              "title": "How to Detect and Prevent Bank Statement Fraud Using Artificial Intelligence",
+              "url": "https://www.prudent.ai/blog/how-to-detect-and-prevent-bank-statement-fraud-using-artificial-intelligence",
+              "company": "Prudent AI",
+              "kind": "Blog",
+              "format": "Guide & explainer"
+            },
+            {
+              "title": "A guide to Transitioning from Traditional Lending tools to AI-powered income desk",
+              "url": "https://www.prudent.ai/blog/a-guide-to-transitioning-from-traditional-lending-tools-to-ai-powered-income-desk",
+              "company": "Prudent AI",
+              "kind": "Blog",
+              "format": "Buyer's guide"
+            },
+            {
+              "title": "What's Stopping Your Loan Officers from Becoming 10x More Productive?",
+              "url": "https://www.prudent.ai/blog/whats-stopping-your-loan-officers-from-becoming-10x-more-productive",
+              "company": "Prudent AI",
+              "kind": "Blog",
+              "format": "Thought leadership"
+            }
+          ],
+          "filter": true
+        },
+        {
+          "title": "Everything I have published",
+          "layout": "archive",
+          "note": "Every title opens the original.",
+          "items": [
+            {
+              "title": "The Future of AI-Driven Product Development with GenAI",
+              "url": "https://www.atlassystems.com/blog/generative-ai-in-product-development",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "Key KPIs for Cloud Migration Success",
+              "url": "https://www.atlassystems.com/blog/cloud-migration-kpis",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "7 Key Benefits of Virtual Desktop Solutions",
+              "url": "https://www.atlassystems.com/blog/virtual-desktop",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "Protect Your Data Post-SQL Server 2016 End of Support",
+              "url": "https://www.atlassystems.com/blog/sql-server-2016-end-of-support",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "Your Guide to Upgrading from SQL Server 2016",
+              "url": "https://www.atlassystems.com/blog/sql-server-2016-upgrade-options",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "Database Managed Services or In-House: The Smart Decision",
+              "url": "https://www.atlassystems.com/blog/database-managed-services-vs-in-house",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "What Is CSPM and Why It Matters in Cloud Security",
+              "url": "https://www.atlassystems.com/blog/cloud-security-posture-management-cspm",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "Complete API Security Testing Process: Tools, Techniques, and Tips",
+              "url": "https://www.atlassystems.com/blog/api-security-testing",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "SQL Server 2016 to Azure: Migration Options, Tools, and Best Practices",
+              "url": "https://www.atlassystems.com/blog/sql-server-2016-to-azure-migration-options",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "The Real Cost of Staying on SQL Server 2016 vs Upgrading or Migrating",
+              "url": "https://www.atlassystems.com/blog/sql-server-2016-cost-vs-upgrade-migration",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "A Guide to Mobile Application Security Testing for Android and iOS",
+              "url": "https://www.atlassystems.com/blog/mobile-application-security-testing",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "SQL Server End of Life: What It Means and How to Prepare",
+              "url": "https://www.atlassystems.com/blog/sql-server-end-of-life",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "SQL Server 2016 End of Support: Should You Buy ESU?",
+              "url": "https://www.atlassystems.com/blog/sql-server-2016-end-of-support-extended-security-updates",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "What Is Oracle Cloud Migration? Steps, Features & Challenges",
+              "url": "https://www.atlassystems.com/blog/oracle-cloud-migration",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "SQL Server 2016 Compliance Risks: What You Need to Know After End of Support",
+              "url": "https://www.atlassystems.com/blog/sql-server-2016-compliance-risks-after-end-of-support",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "A Complete Guide to Penetration Testing: Benefits and Best Practices",
+              "url": "https://www.atlassystems.com/blog/penetration-testing",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "15 Best Quality Assurance Companies in 2026",
+              "url": "https://www.atlassystems.com/blog/best-quality-assurance-companies",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "Top 10 Best IT Infrastructure Services Companies in 2026",
+              "url": "https://www.atlassystems.com/blog/it-infrastructure-services",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "A Complete Guide to Oracle ERP Cloud Implementation Success",
+              "url": "https://www.atlassystems.com/blog/oracle-cloud-implementation",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "Top 10 Enterprise AI Software Providers in 2026",
+              "url": "https://www.atlassystems.com/blog/top-enterprise-ai-software-providers",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "Future-Ready Data Center Infrastructure: Components, Management & Best Practices",
+              "url": "https://www.atlassystems.com/blog/data-center-infrastructure",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "Transform Your IT Landscape with Application Management Services",
+              "url": "https://www.atlassystems.com/blog/application-management-services",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "NOC Support Explained: Boost Uptime with 24/7 Monitoring",
+              "url": "https://www.atlassystems.com/blog/noc-support",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "Cloud Infrastructure Support: Keep Your Systems Secure and Reliable",
+              "url": "https://www.atlassystems.com/blog/cloud-infrastructure-support",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "Guide to Infrastructure Support & Digital Resilience",
+              "url": "https://www.atlassystems.com/blog/infrastructure-support-services",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "Managed NOC Services: What They Do & Why Companies Outsource Theirs",
+              "url": "https://www.atlassystems.com/blog/managed-noc-services",
+              "company": "Atlas Systems",
+              "kind": "Blog"
+            },
+            {
+              "title": "PRIME® by Atlas Systems vs LexisNexis",
+              "url": "https://www.atlassystems.com/compare/prime-vs-lexisnexis",
+              "company": "Atlas Systems",
+              "kind": "Comparison page"
+            },
+            {
+              "title": "ComplyScore® vs ProcessUnity",
+              "url": "https://www.atlassystems.com/compare/complyscore-vs-processunity",
+              "company": "Atlas Systems",
+              "kind": "Comparison page"
+            },
+            {
+              "title": "ComplyScore® vs Prevalent",
+              "url": "https://www.atlassystems.com/compare/complyscore-vs-prevalent",
+              "company": "Atlas Systems",
+              "kind": "Comparison page"
+            },
+            {
+              "title": "PRIME® by Atlas Systems vs symplr",
+              "url": "https://www.atlassystems.com/compare/prime-vs-symplr",
+              "company": "Atlas Systems",
+              "kind": "Comparison page"
+            },
+            {
+              "title": "ComplyScore® by Atlas Systems vs UpGuard",
+              "url": "https://www.atlassystems.com/compare/complyscore-vs-upguard",
+              "company": "Atlas Systems",
+              "kind": "Comparison page"
+            },
+            {
+              "title": "PRIME® by Atlas Systems vs Availity",
+              "url": "https://www.atlassystems.com/atlas-systems-prime-vs-availity",
+              "company": "Atlas Systems",
+              "kind": "Comparison page"
+            },
+            {
+              "title": "10 Best Availity Alternatives and Competitors in 2026",
+              "url": "https://www.atlassystems.com/alternatives/availity",
+              "company": "Atlas Systems",
+              "kind": "Alternative page"
+            },
+            {
+              "title": "10 Best MetricStream Alternatives to Strengthen Your GRC Strategy in 2026",
+              "url": "https://www.atlassystems.com/alternatives/metricstream",
+              "company": "Atlas Systems",
+              "kind": "Alternative page"
+            },
+            {
+              "title": "Top 10 RSA Archer Alternatives for Smarter GRC in 2026",
+              "url": "https://www.atlassystems.com/alternatives/archer",
+              "company": "Atlas Systems",
+              "kind": "Alternative page"
+            },
+            {
+              "title": "10 Best UpGuard Alternatives for TPRM Solutions (2026)",
+              "url": "https://www.atlassystems.com/alternatives/upguard",
+              "company": "Atlas Systems",
+              "kind": "Alternative page"
+            },
+            {
+              "title": "Top 10 ProcessUnity Alternatives and Competitors in 2026",
+              "url": "https://www.atlassystems.com/alternatives/processunity",
+              "company": "Atlas Systems",
+              "kind": "Alternative page"
+            },
+            {
+              "title": "10 Best Prevalent Alternatives for Third-Party Risk Management",
+              "url": "https://www.atlassystems.com/alternatives/prevalent",
+              "company": "Atlas Systems",
+              "kind": "Alternative page"
+            },
+            {
+              "title": "Top 9 Kyruus Health Alternatives for Provider Data Management in 2026",
+              "url": "https://www.atlassystems.com/alternatives/kyruushealth",
+              "company": "Atlas Systems",
+              "kind": "Alternative page"
+            },
+            {
+              "title": "Top Symplr Alternatives for Provider Data Management",
+              "url": "https://www.atlassystems.com/alternatives/symplr",
+              "company": "Atlas Systems",
+              "kind": "Alternative page"
+            },
+            {
+              "title": "Top 10 LexisNexis Alternatives for Provider Data Management",
+              "url": "https://www.atlassystems.com/alternatives/lexisnexis",
+              "company": "Atlas Systems",
+              "kind": "Alternative page"
+            },
+            {
+              "title": "SQL 2016 EOL Playbook",
+              "url": "https://www.atlassystems.com/sql-playbook",
+              "company": "Atlas Systems",
+              "kind": "Playbook"
+            },
+            {
+              "title": "Top 10 Featurebase Alternatives for Product Feedback (2026)",
+              "url": "https://featureos.com/blog/top-10-featurebase-alternative",
+              "company": "Skcript",
+              "kind": "Blog"
+            },
+            {
+              "title": "Top 10 Podcasts for SaaS Founders and Product Managers",
+              "url": "https://featureos.com/blog/top-10-saas-product-management-podcasts",
+              "company": "Skcript",
+              "kind": "Blog"
+            },
+            {
+              "title": "Frill 2026 Pricing: Plans, Features, and Top Alternatives",
+              "url": "https://featureos.com/blog/frill-pricing-2024",
+              "company": "Skcript",
+              "kind": "Blog"
+            },
+            {
+              "title": "A CSM's Guide to Customer Feedback Management",
+              "url": "https://featureos.com/blog/csm-guide-feedback",
+              "company": "Skcript",
+              "kind": "Blog"
+            },
+            {
+              "title": "Why Traditional Knowledge Bases Fail Customers (And Fixes)",
+              "url": "https://featureos.com/blog/the-knowledge-base-lie",
+              "company": "Skcript",
+              "kind": "Blog"
+            },
+            {
+              "title": "The Role of Artificial Intelligence in Loan Processing",
+              "url": "https://www.prudent.ai/blog/the-role-of-artificial-intelligence-in-loan-processing",
+              "company": "Prudent AI",
+              "kind": "Blog"
+            },
+            {
+              "title": "Unlock the Power of Day Zero Certainty for Bank Statement Loans",
+              "url": "https://www.prudent.ai/blog/unlock-the-power-of-day-zero-certainty-for-bank-statement-loans",
+              "company": "Prudent AI",
+              "kind": "Blog"
+            },
+            {
+              "title": "How to Detect and Prevent Bank Statement Fraud Using Artificial Intelligence",
+              "url": "https://www.prudent.ai/blog/how-to-detect-and-prevent-bank-statement-fraud-using-artificial-intelligence",
+              "company": "Prudent AI",
+              "kind": "Blog"
+            },
+            {
+              "title": "Key Identity Theft Insights for Lenders in 2023",
+              "url": "https://www.prudent.ai/blog/key-identity-theft-insights-for-lenders-in-2023",
+              "company": "Prudent AI",
+              "kind": "Blog"
+            },
+            {
+              "title": "Why Traditional Income Verification Falls Short for Gig Workers?",
+              "url": "https://www.prudent.ai/blog/why-traditional-income-verification-falls-short-for-gig-workers",
+              "company": "Prudent AI",
+              "kind": "Blog"
+            },
+            {
+              "title": "The Ripple Effect – How Implementation Timelines of Technology solutions Impacts Lenders",
+              "url": "https://www.prudent.ai/blog/the-ripple-effect-how-implementation-timelines-of-technology-solutions-impacts-lenders",
+              "company": "Prudent AI",
+              "kind": "Blog"
+            },
+            {
+              "title": "What's Stopping Your Loan Officers from Becoming 10x More Productive?",
+              "url": "https://www.prudent.ai/blog/whats-stopping-your-loan-officers-from-becoming-10x-more-productive",
+              "company": "Prudent AI",
+              "kind": "Blog"
+            },
+            {
+              "title": "5 Proven Ways Prudent AI Revolutionizes Team Productivity",
+              "url": "https://www.prudent.ai/blog/5-proven-ways-prudent-ai-revolutionizes-team-productivity",
+              "company": "Prudent AI",
+              "kind": "Blog"
+            },
+            {
+              "title": "A guide to Transitioning from Traditional Lending tools to AI-powered income desk",
+              "url": "https://www.prudent.ai/blog/a-guide-to-transitioning-from-traditional-lending-tools-to-ai-powered-income-desk",
+              "company": "Prudent AI",
+              "kind": "Blog"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "search",
+      "name": "Search & AEO",
+      "tab": "Glossary, comparison and alternative pages",
+      "blurb": "Pages built to be found: by search engines, by AI answers, and by buyers comparing tools.",
+      "peek": "/images/work/glossary.webp",
+      "kafka": "I rank for nothing. She ranks for things.",
+      "seoTitle": "SEO and AEO Pages | Kiruthika Ramesh",
+      "seoDescription": "Glossary, comparison and alternative pages by Kiruthika Ramesh for Atlas Systems and Skcript, built on competitor research and search intent.",
+      "groups": [
+        {
+          "title": "Projects",
+          "layout": "cards",
+          "items": [
+            {
+              "title": "Glossary pages",
+              "company": "Atlas Systems",
+              "kind": "AEO",
+              "image": "/images/work/glossary.webp",
+              "url": "https://www.atlassystems.com/complyscore/glossary",
+              "label": "See the glossary",
+              "description": "Researched and identified that glossary-style content could improve AI Engine Optimization for Atlas Systems' products, ComplyScore and PRIME. Built out the glossary pages from scratch. Terms started appearing in AI Overviews and People Also Ask sections, driving organic traffic back to the product homepages."
+            },
+            {
+              "title": "Comparison & alternative pages",
+              "company": "Atlas Systems, Skcript",
+              "kind": "SEO",
+              "image": "/images/work/comparison.webp",
+              "url": "https://www.atlassystems.com/comparison",
+              "label": "Comparison pages",
+              "url2": "https://www.atlassystems.com/alternatives",
+              "label2": "Alternative pages",
+              "description": "Wrote comparison, alternative and listicle pages across two SaaS companies, Atlas Systems and Skcript. Each page was built around competitor research, search intent mapping, and positioning the product against specific alternatives. These pages consistently contributed to organic traffic and pipeline."
+            }
+          ]
+        },
+        {
+          "title": "Comparison and alternative pages",
+          "layout": "matchups",
+          "filter": true,
+          "note": "Pick a market.",
+          "items": [
+            {
+              "title": "PRIME® by Atlas Systems vs LexisNexis",
+              "url": "https://www.atlassystems.com/compare/prime-vs-lexisnexis",
+              "company": "Atlas Systems",
+              "kind": "Comparison",
+              "product": "PRIME®",
+              "rival": "LexisNexis",
+              "market": "Provider data"
+            },
+            {
+              "title": "ComplyScore® vs ProcessUnity",
+              "url": "https://www.atlassystems.com/compare/complyscore-vs-processunity",
+              "company": "Atlas Systems",
+              "kind": "Comparison",
+              "product": "ComplyScore®",
+              "rival": "ProcessUnity",
+              "market": "Third-party risk"
+            },
+            {
+              "title": "ComplyScore® vs Prevalent",
+              "url": "https://www.atlassystems.com/compare/complyscore-vs-prevalent",
+              "company": "Atlas Systems",
+              "kind": "Comparison",
+              "product": "ComplyScore®",
+              "rival": "Prevalent",
+              "market": "Third-party risk"
+            },
+            {
+              "title": "PRIME® by Atlas Systems vs symplr",
+              "url": "https://www.atlassystems.com/compare/prime-vs-symplr",
+              "company": "Atlas Systems",
+              "kind": "Comparison",
+              "product": "PRIME®",
+              "rival": "symplr",
+              "market": "Provider data"
+            },
+            {
+              "title": "ComplyScore® by Atlas Systems vs UpGuard",
+              "url": "https://www.atlassystems.com/compare/complyscore-vs-upguard",
+              "company": "Atlas Systems",
+              "kind": "Comparison",
+              "product": "ComplyScore®",
+              "rival": "UpGuard",
+              "market": "Third-party risk"
+            },
+            {
+              "title": "PRIME® by Atlas Systems vs Availity",
+              "url": "https://www.atlassystems.com/atlas-systems-prime-vs-availity",
+              "company": "Atlas Systems",
+              "kind": "Comparison",
+              "product": "PRIME®",
+              "rival": "Availity",
+              "market": "Provider data"
+            },
+            {
+              "title": "10 Best Availity Alternatives and Competitors in 2026",
+              "url": "https://www.atlassystems.com/alternatives/availity",
+              "company": "Atlas Systems",
+              "kind": "Alternatives",
+              "product": "",
+              "rival": "Availity",
+              "market": "Provider data"
+            },
+            {
+              "title": "10 Best MetricStream Alternatives to Strengthen Your GRC Strategy in 2026",
+              "url": "https://www.atlassystems.com/alternatives/metricstream",
+              "company": "Atlas Systems",
+              "kind": "Alternatives",
+              "product": "",
+              "rival": "MetricStream",
+              "market": "GRC"
+            },
+            {
+              "title": "Top 10 RSA Archer Alternatives for Smarter GRC in 2026",
+              "url": "https://www.atlassystems.com/alternatives/archer",
+              "company": "Atlas Systems",
+              "kind": "Alternatives",
+              "product": "",
+              "rival": "RSA Archer",
+              "market": "GRC"
+            },
+            {
+              "title": "10 Best UpGuard Alternatives for TPRM Solutions (2026)",
+              "url": "https://www.atlassystems.com/alternatives/upguard",
+              "company": "Atlas Systems",
+              "kind": "Alternatives",
+              "product": "",
+              "rival": "UpGuard",
+              "market": "Third-party risk"
+            },
+            {
+              "title": "Top 10 ProcessUnity Alternatives and Competitors in 2026",
+              "url": "https://www.atlassystems.com/alternatives/processunity",
+              "company": "Atlas Systems",
+              "kind": "Alternatives",
+              "product": "",
+              "rival": "ProcessUnity",
+              "market": "Third-party risk"
+            },
+            {
+              "title": "10 Best Prevalent Alternatives for Third-Party Risk Management",
+              "url": "https://www.atlassystems.com/alternatives/prevalent",
+              "company": "Atlas Systems",
+              "kind": "Alternatives",
+              "product": "",
+              "rival": "Prevalent",
+              "market": "Third-party risk"
+            },
+            {
+              "title": "Top 9 Kyruus Health Alternatives for Provider Data Management in 2026",
+              "url": "https://www.atlassystems.com/alternatives/kyruushealth",
+              "company": "Atlas Systems",
+              "kind": "Alternatives",
+              "product": "",
+              "rival": "Kyruus Health",
+              "market": "Provider data"
+            },
+            {
+              "title": "Top Symplr Alternatives for Provider Data Management",
+              "url": "https://www.atlassystems.com/alternatives/symplr",
+              "company": "Atlas Systems",
+              "kind": "Alternatives",
+              "product": "",
+              "rival": "Symplr",
+              "market": "Provider data"
+            },
+            {
+              "title": "Top 10 LexisNexis Alternatives for Provider Data Management",
+              "url": "https://www.atlassystems.com/alternatives/lexisnexis",
+              "company": "Atlas Systems",
+              "kind": "Alternatives",
+              "product": "",
+              "rival": "LexisNexis",
+              "market": "Provider data"
+            },
+            {
+              "title": "Top 10 Featurebase Alternatives for Product Feedback (2026)",
+              "url": "https://featureos.com/blog/top-10-featurebase-alternative",
+              "company": "Skcript",
+              "kind": "Alternatives",
+              "product": "",
+              "rival": "Featurebase",
+              "market": "Product feedback"
+            },
+            {
+              "title": "Frill 2026 Pricing: Plans, Features, and Top Alternatives",
+              "url": "https://featureos.com/blog/frill-pricing-2024",
+              "company": "Skcript",
+              "kind": "Pricing",
+              "product": "",
+              "rival": "Frill",
+              "market": "Product feedback"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "campaigns",
+      "name": "Campaigns",
+      "tab": "The SQL Server 2016 playbook",
+      "blurb": "One campaign, end to end: a playbook for CIOs, and the articles around it.",
+      "peek": "/images/work/sql-playbook.webp",
+      "kafka": "A playbook. For servers. I have read worse.",
+      "seoTitle": "SQL Server 2016 EOL Playbook | Kiruthika Ramesh",
+      "seoDescription": "A SQL Server 2016 end-of-life playbook for CIOs by Kiruthika Ramesh for Atlas Systems, published as a guide and a PDF, with its supporting articles.",
+      "groups": [
+        {
+          "title": "Project",
+          "layout": "cards",
+          "items": [
+            {
+              "title": "SQL 2016 EOL Playbook",
+              "company": "Atlas Systems",
+              "kind": "Playbook",
+              "image": "/images/work/sql-playbook.webp",
+              "url": "https://www.atlassystems.com/sql-playbook",
+              "label": "Read the playbook",
+              "description": "Built a SQL Server 2016 End-of-Life playbook targeting CIOs evaluating migration options. Created it as both a blog-format guide and a downloadable PDF. The page brought in steady organic traffic and directly led to a demo signup from a potential deal."
+            }
+          ]
+        },
+        {
+          "title": "Supporting articles",
+          "layout": "tiles",
+          "note": "Atlas Systems",
+          "items": [
+            {
+              "title": "Protect Your Data Post-SQL Server 2016 End of Support",
+              "url": "https://www.atlassystems.com/blog/sql-server-2016-end-of-support",
+              "company": "Atlas Systems",
+              "kind": "Blog",
+              "format": "Guide & explainer"
+            },
+            {
+              "title": "Your Guide to Upgrading from SQL Server 2016",
+              "url": "https://www.atlassystems.com/blog/sql-server-2016-upgrade-options",
+              "company": "Atlas Systems",
+              "kind": "Blog",
+              "format": "Buyer's guide"
+            },
+            {
+              "title": "SQL Server 2016 to Azure: Migration Options, Tools, and Best Practices",
+              "url": "https://www.atlassystems.com/blog/sql-server-2016-to-azure-migration-options",
+              "company": "Atlas Systems",
+              "kind": "Blog",
+              "format": "Guide & explainer"
+            },
+            {
+              "title": "The Real Cost of Staying on SQL Server 2016 vs Upgrading or Migrating",
+              "url": "https://www.atlassystems.com/blog/sql-server-2016-cost-vs-upgrade-migration",
+              "company": "Atlas Systems",
+              "kind": "Blog",
+              "format": "Buyer's guide"
+            },
+            {
+              "title": "SQL Server End of Life: What It Means and How to Prepare",
+              "url": "https://www.atlassystems.com/blog/sql-server-end-of-life",
+              "company": "Atlas Systems",
+              "kind": "Blog",
+              "format": "Guide & explainer"
+            },
+            {
+              "title": "SQL Server 2016 End of Support: Should You Buy ESU?",
+              "url": "https://www.atlassystems.com/blog/sql-server-2016-end-of-support-extended-security-updates",
+              "company": "Atlas Systems",
+              "kind": "Blog",
+              "format": "Buyer's guide"
+            },
+            {
+              "title": "SQL Server 2016 Compliance Risks: What You Need to Know After End of Support",
+              "url": "https://www.atlassystems.com/blog/sql-server-2016-compliance-risks-after-end-of-support",
+              "company": "Atlas Systems",
+              "kind": "Blog",
+              "format": "Guide & explainer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "conversion",
+      "name": "Conversion",
+      "tab": "Demo page revamp",
+      "blurb": "Fixing the page where interest turns into a meeting.",
+      "peek": "/images/work/demo-page.webp",
+      "kafka": "Fewer form fields. Finally, someone who understands me.",
+      "seoTitle": "Demo Page Revamp | Kiruthika Ramesh",
+      "seoDescription": "How Kiruthika Ramesh audited and rebuilt Atlas Systems' demo page: separate pages per product and service, less form friction and A/B tests.",
+      "groups": [
+        {
+          "title": "Project",
+          "layout": "cards",
+          "items": [
+            {
+              "title": "Demo page revamp",
+              "company": "Atlas Systems",
+              "kind": "Website",
+              "image": "/images/work/demo-page.webp",
+              "url": "https://www.behance.net/gallery/234735029/Demo-page",
+              "label": "See it on Behance",
+              "description": "Audited Atlas Systems' demo page after noticing a dip in signups. Found that the page wasn't tailored to specific ICPs: both products and all services were funnelled through one centralised page with too many form fields. Redesigned it into separate demo pages for each product and service, reduced form friction, and ran A/B tests. Weekly demo signups went up."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "design",
+      "name": "Design",
+      "tab": "Product images, pages and social",
+      "blurb": "Not everything here is words. Marketing design, made to ship.",
+      "peek": "/images/work/complyscore-images.webp",
+      "kafka": "She designs. I sit on the designs. A partnership.",
+      "seoTitle": "Marketing Design Work | Kiruthika Ramesh",
+      "seoDescription": "Marketing design by Kiruthika Ramesh: ComplyScore product images, the Atlas Systems demo page, and LinkedIn posts and carousels for featureOS.",
+      "groups": [
+        {
+          "title": "Projects",
+          "layout": "cards",
+          "items": [
+            {
+              "title": "ComplyScore® feature images",
+              "company": "Atlas Systems",
+              "kind": "Product design",
+              "image": "/images/work/complyscore-images.webp",
+              "url": "https://www.atlassystems.com/complyscore",
+              "label": "See them live",
+              "description": "Feature, framework, and industry page images designed for Atlas Systems' ComplyScore product. All live on the website."
+            },
+            {
+              "title": "Demo page design",
+              "company": "Atlas Systems",
+              "kind": "Web design",
+              "image": "/images/work/demo-page.webp",
+              "url": "https://www.behance.net/gallery/234735029/Demo-page",
+              "label": "See it on Behance",
+              "description": "The redesigned demo pages: one for each product and service, with a shorter form and the proof beside it."
+            },
+            {
+              "title": "LinkedIn carousels & posts",
+              "company": "Skcript",
+              "kind": "Social design",
+              "image": "/images/work/linkedin-posts.webp",
+              "url": "https://www.behance.net/gallery/205954861/LinkedIn-PostsCarousel-Edits",
+              "label": "See them on Behance",
+              "description": "Carousels & posts that I designed for featureOS's LinkedIn."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "case-studies",
+      "name": "Case studies",
+      "tab": "The whole process, end to end",
+      "blurb": "The long version of a few of these: the problem, the research, what I built and what happened.",
+      "peek": "/images/work/case-studies-cover.webp",
+      "kafka": "Under review. By me. It is going slowly.",
+      "sealed": true,
+      "sealedNote": "Being written. Kafka is reviewing them, which is not helping.",
+      "seoTitle": "Case Studies | Kiruthika Ramesh",
+      "seoDescription": "In-depth B2B marketing case studies by Kiruthika Ramesh: the problem, the research, the work and what happened. Coming soon.",
+      "groups": []
+    }
+  ],
+  "quote": {
+    "text": "Nobody reads ads. People read what interests them. Sometimes it’s an ad.",
+    "by": "Howard Gossage"
+  },
+  "kafka": {
+    "says": "Six folders. All hers. I just live here.",
+    "hint": "Commentary available. Hover, if you must.",
+    "hintTouch": "Commentary available. Tap, if you must."
+  }
+}

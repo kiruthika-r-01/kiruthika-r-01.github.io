@@ -10,17 +10,38 @@
  *   targets: CSS selector, looked up inside the crow's positioned parent
  *   at: where along each target's top edge the crow stands (0 = left, 1 = right)
  *   start: optional selector for where it first lands (otherwise the first target)
+ *   talk: show the target's data-says line beside the crow wherever it lands. talk="hover": quieter, the line only
+ *         appears when you hover or tap the crow herself; until then she shows the target's data-hint, if any
+ *         (data-hint-touch on touch screens). Used on Selected Works.
  * Dispatch "perching:arrive" on the parent to make it fly in from the top right corner (used when a menu opens).
  */
 import Crow from './Crow.astro';
-interface Props { targets: string; at?: number; size?: number; start?: string }
-const { targets, at = 0.62, size = 2.4, start } = Astro.props;
+interface Props { targets: string; at?: number; size?: number; start?: string; talk?: boolean | 'hover' }
+const { targets, at = 0.62, size = 2.4, start, talk = false } = Astro.props;
 ---
-<span class="perching" data-perching data-targets={targets} data-at={at} data-start={start} aria-hidden="true"><Crow size={size} mood="idle" flyer /></span>
+<span class="perching" data-perching data-targets={targets} data-at={at} data-start={start} data-talk={talk === 'hover' ? 'hover' : undefined} aria-hidden="true"><Crow size={size} mood="idle" flyer />{talk && <span class="perch-says" data-perch-says></span>}</span>
 
 <style>
   .perching { position: absolute; left: 0; top: 0; z-index: 3; line-height: 0; will-change: transform; opacity: 0; transition: opacity .3s ease; }
   .perching[data-ready] { opacity: 1; }
+  /* what she says where she lands: beside her, on whichever side has room; hidden while she flies */
+  .perch-says {
+    position: absolute; left: calc(100% + 10px); bottom: 58%; width: max-content; max-width: min(17em, 42vw);
+    font-size: 15px; font-style: italic; line-height: 1.35; letter-spacing: -.01em; color: var(--muted); text-wrap: balance;
+    opacity: 0; translate: -4px 0; transition: opacity .3s ease .15s, translate .3s var(--ease) .15s; pointer-events: none;
+  }
+  .perching[data-side='left'] .perch-says { left: auto; right: calc(100% + 10px); text-align: right; translate: 4px 0; }
+  /* talk=hover: a small frosted note standing at her feet, so it stays in the gap she is perched in and reads
+     cleanly over anything behind it */
+  .perching[data-talk='hover'] .perch-says {
+    bottom: 16px; max-width: min(21em, 44vw); padding: 7px 12px 8px; border-radius: 12px; font-size: 14px; line-height: 1.35; color: var(--ink); text-wrap: pretty;
+    background: color-mix(in srgb, var(--page) 74%, transparent);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4); backdrop-filter: blur(16px) saturate(1.4);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 0 0 1px color-mix(in srgb, var(--ink) 10%, transparent), 0 10px 24px -16px rgba(20, 10, 4, .45);
+  }
+  :global(:root[data-theme='dark']) .perching[data-talk='hover'] .perch-says { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16), inset 0 0 0 1px rgba(255, 255, 255, .09), 0 10px 24px -16px rgba(0, 0, 0, .6); }
+  .perching[data-talking] .perch-says { opacity: 1; translate: 0 0; }
+  .perching[data-moving] .perch-says { opacity: 0; transition-delay: 0s; }
 </style>
 
 <script>
@@ -46,12 +67,33 @@ const { targets, at = 0.62, size = 2.4, start } = Astro.props;
     };
     const place = (p: { x: number; y: number }) => { pos = p; el.style.transform = `translate(${p.x}px, ${p.y}px)`; };
 
+    const fine = matchMedia('(hover: hover) and (pointer: fine)');
+    const says = el.querySelector<HTMLElement>('[data-perch-says]');
+    const onHover = el.dataset.talk === 'hover';
+    const hintOf = (t: HTMLElement) => (!fine.matches && t.dataset.hintTouch) || t.dataset.hint || '';
+    const show = (text: string) => { if (!says) return; says.textContent = text; el.toggleAttribute('data-talking', !!text); };
+    const talk = (t: HTMLElement, x: number) => {
+      if (!says) return;
+      show(onHover ? hintOf(t) : t.dataset.says ?? '');
+      // talk=hover: always on her right (one consistent place to look); otherwise whichever side has room
+      el.dataset.side = onHover ? 'right' : x + el.offsetWidth / 2 > box.clientWidth * 0.62 ? 'left' : 'right';
+    };
+    // talk=hover: her remark only when you point at her (or tap her); back to the hint (or quiet) when you leave
+    if (onHover && says) {
+      let quiet = 0;
+      const speak = () => { clearTimeout(quiet); if (current?.dataset.says) show(current.dataset.says); };
+      const hush = (ms: number) => { clearTimeout(quiet); quiet = window.setTimeout(() => current && show(hintOf(current)), ms); };
+      bird.addEventListener('pointerenter', () => { if (fine.matches) speak(); });
+      bird.addEventListener('pointerleave', () => { if (fine.matches) hush(1600); });
+      bird.addEventListener('click', () => { speak(); if (!fine.matches) hush(4500); });
+    }
     const perch = (t: HTMLElement, fly: boolean) => {
       const to = spot(t);
       if (t === current && to.x === pos.x && to.y === pos.y) return;
       current = t;
+      talk(t, to.x);
       const from = pos;
-      if (!fly || still.matches || !el.hasAttribute('data-ready')) { place(to); return; }
+      if (!fly || still.matches || !el.hasAttribute('data-ready')) { el.getAnimations().forEach((a) => a.cancel()); el.removeAttribute('data-moving'); place(to); return; }
       const dist = Math.hypot(to.x - from.x, to.y - from.y);
       if (dist < 2) { place(to); return; }
       const lift = Math.min(70, 18 + dist * 0.18);
@@ -66,10 +108,10 @@ const { targets, at = 0.62, size = 2.4, start } = Astro.props;
         { transform: `translate(${to.x}px, ${to.y}px)` },
       ], { duration: Math.min(820, 380 + dist * 0.9), easing: 'cubic-bezier(.45, 0, .25, 1)' });
       place(to);
-      anim.finished.then(() => { bird.removeAttribute('data-flying'); bird.style.scale = ''; }).catch(() => {});
+      el.setAttribute('data-moving', '');
+      anim.finished.then(() => { bird.removeAttribute('data-flying'); bird.style.scale = ''; el.removeAttribute('data-moving'); }).catch(() => {});
     };
 
-    const fine = matchMedia('(hover: hover) and (pointer: fine)');
     box.addEventListener('pointerover', (e) => {
       if (!fine.matches) return;
       const t = (e.target as HTMLElement).closest<HTMLElement>(el.dataset.targets!);

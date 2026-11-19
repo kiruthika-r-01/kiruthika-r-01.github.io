@@ -4,13 +4,13 @@ import career from '../data/career.json';
 import now from '../data/now.json';
 import { getCollection } from 'astro:content';
 import { sections, published, newestFirst, hrefOf, excerpt } from '../lib/writings';
+import { folders, countOf } from '../lib/work';
 
 /**
  * /llms.txt: a plain-text map of the site for large language models (llmstxt.org format).
  * Built from the same JSON the pages use, so it never drifts from the site.
  */
 const site = 'https://imkiruthika.in';
-const portfolioUrl = 'https://ripe-stoat-21e.notion.site/Kiruthika-Ramesh-Portfolio-b938168891d8823892b08165cdc90adf?pvs=74';
 const intro = home.intro.split('\n\n')[0].trim();
 
 export const GET: APIRoute = async () => {
@@ -29,7 +29,11 @@ export const GET: APIRoute = async () => {
     `- [Career](${site}/career/): Career timeline with roles, results, tools and competencies.`,
     `- [Writings](${site}/writings/): Her essays and notes, in two sections: Personal (life, observations, books, films and series) and Work (marketing, B2B, GTM, product marketing, AI and experiments).`,
     `- [Résumé (PDF)](${site}/resume.pdf): Her current résumé.`,
-    `- [Selected works](${portfolioUrl}): Portfolio of selected projects (Notion).`,
+    `- [Selected works](${site}/work/): Her portfolio, filed by kind of work.`,
+    '',
+    '## Selected works',
+    '',
+    ...folders.map((f) => `- [${f.name}](${site}/work/${f.slug}/): ${f.blurb ?? ''}${countOf(f) ? ` (${countOf(f)} pieces)` : ' (coming soon)'}`),
     '',
     '## Writings',
     '',

@@ -53,7 +53,7 @@ const structuredData = {
     <div class="intro-copy">
       <p>{intro[0]}</p>
       <p class="intro-links">
-        <a href={portfolioUrl}>{home.worksLabel} <span aria-hidden="true">↗</span></a>
+        <a href={portfolioUrl}>{home.worksLabel} <span aria-hidden="true">{portfolioUrl.startsWith('http') ? '↗' : '→'}</span></a>
         <a href="/resume.pdf" target="_blank" rel="noopener">{home.resumeLabel} <span class="sr-only">(PDF, opens in a new tab)</span><span aria-hidden="true">↗</span></a>      </p>
     </div>
     <figure class="window" data-window>

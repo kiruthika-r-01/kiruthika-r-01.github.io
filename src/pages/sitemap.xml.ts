@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { execFileSync } from 'node:child_process';
 import { sectionKeys, published, hrefOf } from '../lib/writings';
+import { folders } from '../lib/work';
 
 const site = 'https://imkiruthika.in';
 const day = (d: Date) => d.toISOString().slice(0, 10);
@@ -25,6 +26,8 @@ export const GET: APIRoute = async () => {
     { path: '/', lastmod: lastCommit('src/pages/index.astro', 'src/data/home.json') },
     { path: '/about/', lastmod: lastCommit('src/pages/about.astro', 'src/data/about.json', 'src/data/now.json') },
     { path: '/career/', lastmod: lastCommit('src/pages/career.astro', 'src/data/career.json') },
+    { path: '/work/', lastmod: lastCommit('src/pages/work', 'src/data/work.json') },
+    ...folders.map((f) => ({ path: `/work/${f.slug}/`, lastmod: lastCommit('src/pages/work', 'src/data/work.json') })),
     { path: '/kafka/', lastmod: lastCommit('src/pages/kafka.astro', 'src/data/kafka.json') },
     { path: '/writings/', lastmod: newest(pieces) },
     ...sectionKeys.map((k) => ({ path: `/writings/${k}/`, lastmod: newest(pieces.filter((e) => e.data.section === k)) })),

@@ -12,6 +12,11 @@ media:
     input: public/images/writings/covers
     output: /images/writings/covers
     categories: [image]
+  - name: work-images
+    label: Selected works images
+    input: public/images/work
+    output: /images/work
+    categories: [image]
   - name: share-images
     label: Share images (1200 x 630)
     input: public/og
@@ -178,6 +183,97 @@ content:
         fields:
           - { name: text, label: Quote, type: text }
           - { name: by, label: By, type: string }
+  - name: work
+    label: Selected works
+    type: file
+    path: src/data/work.json
+    format: json
+    fields:
+      - name: seo
+        label: Search title and description (the folders page)
+        type: object
+        fields:
+          - { name: title, label: Search title, type: string }
+          - { name: description, label: Search description (about 150 characters), type: text }
+      - { name: kicker, label: Small label above the title, type: string }
+      - { name: title, label: Title (first part), type: string }
+      - { name: titleItalic, label: Title (italic end), type: string }
+      - { name: lede, label: Line under the title, type: text }
+      - name: kafka
+        label: Kafka by the heading (before you point at a folder)
+        type: object
+        fields:
+          - { name: hint, label: "Hint she shows (mouse)", type: string }
+          - { name: hintTouch, label: "Hint she shows (touch screens)", type: string }
+          - { name: says, label: What she says when hovered or tapped, type: string }
+      - name: quote
+        label: Closing quote (all Selected Works pages)
+        type: object
+        fields:
+          - { name: text, label: Quote, type: text }
+          - { name: by, label: By, type: string }
+      - name: companies
+        label: Companies (logo and one line, shown with their writing)
+        type: object
+        list: true
+        fields:
+          - { name: name, label: Name (must match the Company of each piece), type: string, required: true }
+          - { name: logo, label: Logo, type: image, options: { media: work-images } }
+          - { name: site, label: Website, type: string }
+          - { name: about, label: One line on what the company does, type: string }
+          - { name: reader, label: "Who the writing is for (e.g. CIOs and IT leaders)", type: string }
+          - { name: profile, label: Your author page there (optional), type: string }
+          - { name: profileLabel, label: Author page link text, type: string }
+      - name: folders
+        label: Folders (in order)
+        type: object
+        list: true
+        fields:
+          - { name: slug, label: "Web address (lowercase, dashes: becomes /work/<this>/)", type: string, required: true }
+          - { name: name, label: Folder name, type: string, required: true }
+          - { name: tab, label: What is inside (one short line), type: string }
+          - { name: blurb, label: Description, type: text }
+          - { name: peek, label: Image peeking out of the folder, type: image, options: { media: work-images } }
+          - { name: kafka, label: "What Kafka says about this folder (when you hover or tap her)", type: string }
+          - { name: sealed, label: Sealed (shows Under review until it has content), type: boolean }
+          - { name: sealedNote, label: Note shown while sealed, type: text }
+          - { name: seoTitle, label: Search title for this folder's page, type: string }
+          - { name: seoDescription, label: Search description for this folder's page, type: text }
+          - name: groups
+            label: Sections inside the folder
+            type: object
+            list: true
+            fields:
+              - { name: title, label: Section title, type: string, required: true }
+              - name: layout
+                label: Layout
+                type: select
+                options:
+                  values:
+                    - { value: cards, label: "Projects (image, description, links)" }
+                    - { value: tiles, label: "Glass cards (format, title, company)" }
+                    - { value: matchups, label: "Comparison / alternative cards (X vs Y)" }
+                    - { value: archive, label: "Full archive list, with company filters" }
+              - { name: note, label: Small note beside the title, type: string }
+              - { name: filter, label: "Show filters (by format, or by market for comparison cards)", type: boolean }
+              - name: items
+                label: Entries
+                type: object
+                list: true
+                fields:
+                  - { name: title, label: Title, type: string, required: true }
+                  - { name: url, label: Link, type: string }
+                  - { name: company, label: Company, type: string }
+                  - { name: kind, label: "Kind (e.g. Blog, Comparison, Alternatives, Playbook)", type: string }
+                  - { name: format, label: "Format (glass cards: e.g. Thought leadership, Buyer's guide, How-to)", type: string }
+                  - { name: product, label: "Comparison cards: your product (e.g. ComplyScore®)", type: string }
+                  - { name: rival, label: "Comparison cards: the competitor", type: string }
+                  - { name: market, label: "Comparison cards: market (e.g. Third-party risk)", type: string }
+                  - { name: image, label: "Image (projects only; 1500 x 600 works best)", type: image, options: { media: work-images } }
+                  - { name: description, label: "Description (projects only)", type: text }
+                  - { name: label, label: "Link button text (projects only)", type: string }
+                  - { name: url2, label: "Second link (optional)", type: string }
+                  - { name: label2, label: "Second link button text", type: string }
   - name: career
     label: Career page
     type: file

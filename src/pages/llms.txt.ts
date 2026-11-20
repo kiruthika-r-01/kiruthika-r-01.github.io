@@ -30,6 +30,7 @@ export const GET: APIRoute = async () => {
     `- [Writings](${site}/writings/): Her essays and notes, in two sections: Personal (life, observations, books, films and series) and Work (marketing, B2B, GTM, product marketing, AI and experiments).`,
     `- [Résumé (PDF)](${site}/resume.pdf): Her current résumé.`,
     `- [Selected works](${site}/work/): Her portfolio, filed by kind of work.`,
+    `- [Shelf](${site}/shelf/): What she is watching, reading and listening to, her favourite four of everything, the people and brands she learns from, and the desk she works at.`,
     '',
     '## Selected works',
     '',

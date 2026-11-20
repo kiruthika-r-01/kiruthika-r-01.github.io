@@ -1,0 +1,798 @@
+{
+  "seo": {
+    "title": "Shelf | Kiruthika Ramesh",
+    "description": "What Kiruthika Ramesh is watching, reading and listening to, the people and brands she learns from, and the desk she works at."
+  },
+  "kicker": "Shelf",
+  "title": "Off the",
+  "titleItalic": "clock.",
+  "lede": "What I'm into right now, my favourite four of everything, who I learn from, and where it all happens.",
+  "letterboxd": "kirthika_",
+  "currently": [
+    {
+      "label": "Last watched",
+      "title": "Colony",
+      "by": "2026",
+      "image": "/images/shelf/currently-colony.webp",
+      "url": "https://letterboxd.com/film/colony-2026/",
+      "note": "",
+      "fromLetterboxd": true
+    },
+    {
+      "label": "On repeat",
+      "title": "Vaa",
+      "by": "Siennor",
+      "image": "/images/shelf/currently-vaa.webp",
+      "url": "",
+      "note": "",
+      "spotify": "https://open.spotify.com/track/1ERO5LTQgM9OTOXi7DH9zc"
+    },
+    {
+      "label": "Reading",
+      "title": "A Little Life",
+      "by": "Hanya Yanagihara",
+      "image": "/images/shelf/books-a-little-life.webp",
+      "url": "",
+      "note": ""
+    },
+    {
+      "label": "Watching",
+      "title": "The Mentalist",
+      "by": "Series",
+      "image": "/images/shelf/currently-the-mentalist.webp",
+      "url": "",
+      "note": ""
+    }
+  ],
+  "shelves": [
+    {
+      "id": "films",
+      "name": "Films",
+      "items": [
+        {
+          "title": "Sarpatta Parambarai",
+          "by": "Pa. Ranjith",
+          "year": "2021",
+          "image": "/images/shelf/films-sarpatta-parambarai.webp",
+          "url": "https://letterboxd.com/film/sarpatta-parambarai/",
+          "note": ""
+        },
+        {
+          "title": "Cha Cha Real Smooth",
+          "by": "Cooper Raiff",
+          "year": "2022",
+          "image": "/images/shelf/films-cha-cha-real-smooth.webp",
+          "url": "https://letterboxd.com/film/cha-cha-real-smooth/",
+          "note": ""
+        },
+        {
+          "title": "Chungking Express",
+          "by": "Wong Kar-wai",
+          "year": "1994",
+          "image": "/images/shelf/films-chungking-express.webp",
+          "url": "https://letterboxd.com/film/chungking-express/",
+          "note": ""
+        },
+        {
+          "title": "Frances Ha",
+          "by": "Noah Baumbach",
+          "year": "2012",
+          "image": "/images/shelf/films-frances-ha.webp",
+          "url": "https://letterboxd.com/film/frances-ha/",
+          "note": ""
+        }
+      ],
+      "more": [
+        {
+          "title": "Piku",
+          "by": "Shoojit Sircar",
+          "year": "2015",
+          "image": "/images/shelf/films-piku.webp",
+          "url": "https://letterboxd.com/film/piku/",
+          "note": ""
+        },
+        {
+          "title": "Vaaranam Aayiram",
+          "by": "Gautham Vasudev Menon",
+          "year": "2008",
+          "image": "/images/shelf/films-vaaranam-aayiram.webp",
+          "url": "https://letterboxd.com/film/vaaranam-aayiram/",
+          "note": ""
+        },
+        {
+          "title": "Inside Out",
+          "by": "Pete Docter",
+          "year": "2015",
+          "image": "/images/shelf/films-inside-out.webp",
+          "url": "https://letterboxd.com/film/inside-out-2015/",
+          "note": ""
+        },
+        {
+          "title": "Bangalore Days",
+          "by": "Anjali Menon",
+          "year": "2014",
+          "image": "/images/shelf/films-bangalore-days.webp",
+          "url": "https://letterboxd.com/film/bangalore-days/",
+          "note": ""
+        },
+        {
+          "title": "Arrival",
+          "by": "Denis Villeneuve",
+          "year": "2016",
+          "image": "/images/shelf/films-arrival.webp",
+          "url": "https://letterboxd.com/film/arrival-2016/",
+          "note": ""
+        },
+        {
+          "title": "Requiem for a Dream",
+          "by": "Darren Aronofsky",
+          "year": "2000",
+          "image": "/images/shelf/films-requiem-for-a-dream.webp",
+          "url": "https://letterboxd.com/film/requiem-for-a-dream/",
+          "note": ""
+        },
+        {
+          "title": "Home Alone",
+          "by": "Chris Columbus",
+          "year": "1990",
+          "image": "/images/shelf/films-home-alone.webp",
+          "url": "https://letterboxd.com/film/home-alone/",
+          "note": ""
+        },
+        {
+          "title": "Mustang",
+          "by": "Deniz Gamze Ergüven",
+          "year": "2015",
+          "image": "/images/shelf/films-mustang.webp",
+          "url": "https://letterboxd.com/film/mustang-2015/",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "series",
+      "name": "Series",
+      "items": [
+        {
+          "title": "Schitt's Creek",
+          "by": "",
+          "year": "2015",
+          "image": "/images/shelf/series-schitt-s-creek.webp",
+          "url": "",
+          "note": ""
+        },
+        {
+          "title": "As I'm Suffering From Kadhal",
+          "by": "Balaji Mohan",
+          "year": "2017",
+          "image": "/images/shelf/series-as-i-m-suffering-from-kadhal.webp",
+          "url": "",
+          "note": ""
+        },
+        {
+          "title": "Succession",
+          "by": "",
+          "year": "2018",
+          "image": "/images/shelf/series-succession.webp",
+          "url": "",
+          "note": ""
+        },
+        {
+          "title": "Mr. Robot",
+          "by": "",
+          "year": "2015",
+          "image": "/images/shelf/series-mr-robot.webp",
+          "url": "",
+          "note": ""
+        }
+      ],
+      "more": [
+        {
+          "title": "Pluribus",
+          "by": "",
+          "year": "2025",
+          "image": "/images/shelf/series-pluribus.webp",
+          "url": "",
+          "note": ""
+        },
+        {
+          "title": "Slow Horses",
+          "by": "",
+          "year": "2022",
+          "image": "/images/shelf/series-slow-horses.webp",
+          "url": "",
+          "note": ""
+        },
+        {
+          "title": "Brooklyn Nine-Nine",
+          "by": "",
+          "year": "2013",
+          "image": "/images/shelf/series-brooklyn-nine-nine.webp",
+          "url": "",
+          "note": ""
+        },
+        {
+          "title": "The Big Bang Theory",
+          "by": "",
+          "year": "2007",
+          "image": "/images/shelf/series-the-big-bang-theory.webp",
+          "url": "",
+          "note": ""
+        },
+        {
+          "title": "Friends",
+          "by": "",
+          "year": "1994",
+          "image": "/images/shelf/series-friends.webp",
+          "url": "",
+          "note": ""
+        },
+        {
+          "title": "Breaking Bad",
+          "by": "",
+          "year": "2008",
+          "image": "/images/shelf/series-breaking-bad.webp",
+          "url": "",
+          "note": ""
+        },
+        {
+          "title": "Stranger Things",
+          "by": "",
+          "year": "2016",
+          "image": "/images/shelf/series-stranger-things.webp",
+          "url": "",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "books",
+      "name": "Books",
+      "items": [
+        {
+          "title": "A Little Life",
+          "by": "Hanya Yanagihara",
+          "year": "",
+          "image": "/images/shelf/books-a-little-life.webp",
+          "url": "",
+          "note": ""
+        },
+        {
+          "title": "The Vegetarian",
+          "by": "Han Kang",
+          "year": "",
+          "image": "/images/shelf/books-the-vegetarian.webp",
+          "url": "",
+          "note": ""
+        }
+      ],
+      "more": [
+        {
+          "title": "Norwegian Wood",
+          "by": "Haruki Murakami",
+          "year": "",
+          "image": "/images/shelf/books-norwegian-wood.webp",
+          "url": "",
+          "note": ""
+        },
+        {
+          "title": "Kafka on the Shore",
+          "by": "Haruki Murakami",
+          "year": "",
+          "image": "/images/shelf/books-kafka-on-the-shore.webp",
+          "url": "",
+          "note": ""
+        },
+        {
+          "title": "Ham on Rye",
+          "by": "Charles Bukowski",
+          "year": "",
+          "image": "/images/shelf/books-ham-on-rye.webp",
+          "url": "",
+          "note": ""
+        },
+        {
+          "title": "Yesteryear",
+          "by": "Caro Claire Burke",
+          "year": "",
+          "image": "/images/shelf/books-yesteryear.webp",
+          "url": "",
+          "note": ""
+        },
+        {
+          "title": "Letters to Milena",
+          "by": "Franz Kafka",
+          "year": "",
+          "image": "/images/shelf/books-letters-to-milena.webp",
+          "url": "",
+          "note": ""
+        },
+        {
+          "title": "Crime and Punishment",
+          "by": "Fyodor Dostoevsky",
+          "year": "",
+          "image": "/images/shelf/books-crime-and-punishment.webp",
+          "url": "",
+          "note": ""
+        },
+        {
+          "title": "Welcome to the Monkey House",
+          "by": "Kurt Vonnegut",
+          "year": "",
+          "image": "/images/shelf/books-welcome-to-the-monkey-house.webp",
+          "url": "",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "music",
+      "name": "Music",
+      "items": [
+        {
+          "title": "Ninaivo Oru Paravai",
+          "by": "Ilaiyaraaja",
+          "year": "",
+          "image": "/images/shelf/music-ninaivo-oru-paravai.webp",
+          "url": "",
+          "note": "",
+          "spotify": "https://open.spotify.com/track/4Up52aK3teyLA0FHa9qaBt"
+        },
+        {
+          "title": "Anthaathi",
+          "by": "Govind Vasantha, from 96",
+          "year": "",
+          "image": "/images/shelf/music-anthaathi.webp",
+          "url": "",
+          "note": "",
+          "spotify": "https://open.spotify.com/track/7ciXqAPQXQVLrl5vGYmlh4"
+        },
+        {
+          "title": "Innum Enna",
+          "by": "Siennor",
+          "year": "",
+          "image": "/images/shelf/music-innum-enna.webp",
+          "url": "",
+          "note": "",
+          "spotify": "https://open.spotify.com/track/7cN5Fsk1k5xDbrNGWT80rK"
+        },
+        {
+          "title": "Time",
+          "by": "Pink Floyd",
+          "year": "",
+          "image": "/images/shelf/music-time.webp",
+          "url": "",
+          "note": "",
+          "spotify": "https://open.spotify.com/track/3TO7bbrUKrOSPGRTB5MeCz"
+        }
+      ],
+      "more": [
+        {
+          "title": "Vasanam",
+          "by": "Kaber Vasuki",
+          "year": "",
+          "image": "/images/shelf/music-vasanam.webp",
+          "url": "",
+          "note": "",
+          "spotify": "https://open.spotify.com/track/5jZZ5aCbYCnCKgZTmlA0eH"
+        },
+        {
+          "title": "Kun Faya Kun",
+          "by": "A. R. Rahman",
+          "year": "",
+          "image": "/images/shelf/music-kun-faya-kun.webp",
+          "url": "",
+          "note": "",
+          "spotify": "https://open.spotify.com/track/7F8RNvTQlvbeBLeenycvN6"
+        },
+        {
+          "title": "Ye Rasa",
+          "by": "Yuvan Shankar Raja",
+          "year": "",
+          "image": "/images/shelf/music-ye-rasa.webp",
+          "url": "",
+          "note": "",
+          "spotify": "https://open.spotify.com/track/0A0fukU8m9V1DHzzIOFUHq"
+        },
+        {
+          "title": "Para Para Para Pattampoochi",
+          "by": "Yuvan Shankar Raja",
+          "year": "",
+          "image": "/images/shelf/music-para-para-para-pattampoochi.webp",
+          "url": "",
+          "note": "",
+          "spotify": "https://open.spotify.com/track/6Jxd7wVisXOT306ncXCHzt"
+        },
+        {
+          "title": "Visions of Gideon",
+          "by": "Sufjan Stevens",
+          "year": "",
+          "image": "/images/shelf/music-visions-of-gideon.webp",
+          "url": "",
+          "note": "",
+          "spotify": "https://open.spotify.com/track/5c9qm0bMYawSyRNUTmUMs5"
+        },
+        {
+          "title": "Iru Vizhigalile",
+          "by": "Siennor",
+          "year": "",
+          "image": "/images/shelf/music-iru-vizhigalile.webp",
+          "url": "",
+          "note": "",
+          "spotify": "https://open.spotify.com/track/5745UG9xj0sdKOjj7cuo5C"
+        }
+      ]
+    },
+    {
+      "id": "podcasts",
+      "name": "Podcasts",
+      "items": [
+        {
+          "title": "Vocal Oli",
+          "by": "Vijay Varadharaj",
+          "year": "",
+          "image": "/images/shelf/podcasts-vocal-oli.webp",
+          "url": "",
+          "note": ""
+        },
+        {
+          "title": "Ice Biriyani",
+          "by": "Tamil podcast",
+          "year": "",
+          "image": "/images/shelf/podcasts-ice-biriyani.webp",
+          "url": "",
+          "note": ""
+        },
+        {
+          "title": "Diabolical Lies",
+          "by": "Katie Gatti Tassin and Caro Claire Burke",
+          "year": "",
+          "image": "/images/shelf/podcasts-diabolical-lies.webp",
+          "url": "",
+          "note": ""
+        },
+        {
+          "title": "The Joe Rogan Experience",
+          "by": "Joe Rogan",
+          "year": "",
+          "image": "/images/shelf/podcasts-the-joe-rogan-experience.webp",
+          "url": "",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "youtube",
+      "name": "YouTube",
+      "items": [
+        {
+          "title": "Sudhir Srinivasan",
+          "by": "YouTube",
+          "year": "",
+          "image": "/images/shelf/youtube-sudhir-srinivasan.webp",
+          "url": "https://www.youtube.com/@SudhirSrinivasanOfficial",
+          "note": ""
+        },
+        {
+          "title": "Temple Monkeys",
+          "by": "YouTube",
+          "year": "",
+          "image": "/images/shelf/youtube-temple-monkeys.webp",
+          "url": "https://www.youtube.com/@TempleMonkeys",
+          "note": ""
+        },
+        {
+          "title": "Q Head",
+          "by": "YouTube",
+          "year": "",
+          "image": "/images/shelf/youtube-q-head.webp",
+          "url": "https://www.youtube.com/@QHead-007",
+          "note": ""
+        },
+        {
+          "title": "Big Think",
+          "by": "YouTube",
+          "year": "",
+          "image": "/images/shelf/youtube-big-think.webp",
+          "url": "https://www.youtube.com/@bigthink",
+          "note": ""
+        }
+      ]
+    }
+  ],
+  "missingNote": "Still searching.",
+  "bookmarks": [
+    {
+      "group": "The bar",
+      "note": "Standards so high that I have only two as of now.",
+      "people": [
+        {
+          "name": "Jason Fried",
+          "knownFor": "Co-founder of 37signals",
+          "note": "",
+          "url": "https://x.com/jasonfried",
+          "image": "/images/shelf/people/jason-fried.webp"
+        },
+        {
+          "name": "Karthik Kamalakannan",
+          "knownFor": "Founder of Skcript",
+          "note": "",
+          "url": "https://imkarthikk.com/",
+          "image": "/images/shelf/people/karthik-kamalakannan.webp"
+        }
+      ]
+    },
+    {
+      "group": "Writers",
+      "note": "",
+      "people": [
+        {
+          "name": "Dan Shipper",
+          "knownFor": "Every",
+          "note": "",
+          "url": "https://every.to",
+          "image": "/images/shelf/people/dan-shipper.webp"
+        },
+        {
+          "name": "Jason Cohen",
+          "knownFor": "A Smart Bear",
+          "note": "",
+          "url": "https://longform.asmartbear.com",
+          "image": "/images/shelf/people/jason-cohen.webp"
+        },
+        {
+          "name": "David Perell",
+          "knownFor": "Writer and teacher",
+          "note": "",
+          "url": "https://perell.com",
+          "image": "/images/shelf/people/david-perell.webp"
+        },
+        {
+          "name": "Farnam Street",
+          "knownFor": "Shane Parrish",
+          "note": "",
+          "url": "https://fs.blog",
+          "image": "/images/shelf/people/farnam-street.webp"
+        },
+        {
+          "name": "Tim Ferriss",
+          "knownFor": "tim.blog",
+          "note": "",
+          "url": "https://tim.blog",
+          "image": "/images/shelf/people/tim-ferriss.webp"
+        },
+        {
+          "name": "Seth Godin",
+          "knownFor": "seths.blog",
+          "note": "",
+          "url": "https://seths.blog",
+          "image": "/images/shelf/people/seth-godin.webp"
+        },
+        {
+          "name": "Paul Graham",
+          "knownFor": "Essays",
+          "note": "",
+          "url": "https://paulgraham.com/articles.html",
+          "image": "/images/shelf/people/paul-graham.webp"
+        }
+      ]
+    },
+    {
+      "group": "Brands",
+      "note": "",
+      "people": [
+        {
+          "name": "37signals",
+          "knownFor": "Basecamp, HEY",
+          "note": "",
+          "url": "https://37signals.com",
+          "image": "/images/shelf/people/37signals.webp"
+        },
+        {
+          "name": "The Browser Company",
+          "knownFor": "Arc, Dia",
+          "note": "",
+          "url": "https://thebrowser.company",
+          "image": "/images/shelf/people/the-browser-company.webp"
+        },
+        {
+          "name": "Samsung",
+          "knownFor": "",
+          "note": "",
+          "url": "https://www.samsung.com",
+          "image": "/images/shelf/people/samsung.webp"
+        },
+        {
+          "name": "Letterboxd",
+          "knownFor": "",
+          "note": "",
+          "url": "https://letterboxd.com",
+          "image": "/images/shelf/people/letterboxd.webp"
+        },
+        {
+          "name": "Linear",
+          "knownFor": "",
+          "note": "",
+          "url": "https://linear.app",
+          "image": "/images/shelf/people/linear.webp"
+        }
+      ]
+    },
+    {
+      "group": "Podcasts and channels",
+      "note": "",
+      "people": [
+        {
+          "name": "Lenny's Podcast",
+          "knownFor": "Lenny Rachitsky",
+          "note": "",
+          "url": "https://www.lennysnewsletter.com/podcast",
+          "image": "/images/shelf/people/lennys-podcast.webp"
+        },
+        {
+          "name": "The Tim Ferriss Show",
+          "knownFor": "Tim Ferriss",
+          "note": "",
+          "url": "https://tim.blog/podcast",
+          "image": "/images/shelf/people/the-tim-ferriss-show.webp"
+        },
+        {
+          "name": "How I Built This",
+          "knownFor": "Guy Raz",
+          "note": "",
+          "url": "https://wondery.com/shows/how-i-built-this/",
+          "image": "/images/shelf/people/how-i-built-this.webp"
+        },
+        {
+          "name": "MicroConf On Air",
+          "knownFor": "MicroConf",
+          "note": "",
+          "url": "https://www.youtube.com/@MicroConf",
+          "image": "/images/shelf/people/microconf-on-air.webp"
+        },
+        {
+          "name": "Indie Hackers",
+          "knownFor": "",
+          "note": "",
+          "url": "https://www.indiehackers.com",
+          "image": "/images/shelf/people/indie-hackers.webp"
+        },
+        {
+          "name": "REWORK",
+          "knownFor": "37signals",
+          "note": "",
+          "url": "https://37signals.com/podcast",
+          "image": "/images/shelf/people/rework.webp"
+        },
+        {
+          "name": "Sanjeev NC",
+          "knownFor": "YouTube",
+          "note": "",
+          "url": "https://www.youtube.com/@sanjeevnctamil",
+          "image": "/images/shelf/people/sanjeev-nc.webp"
+        },
+        {
+          "name": "a16z",
+          "knownFor": "YouTube",
+          "note": "",
+          "url": "https://www.youtube.com/@a16z",
+          "image": "/images/shelf/people/a16z.webp"
+        },
+        {
+          "name": "Y Combinator",
+          "knownFor": "YouTube",
+          "note": "",
+          "url": "https://www.youtube.com/@ycombinator",
+          "image": "/images/shelf/people/y-combinator.webp"
+        }
+      ]
+    }
+  ],
+  "desk": {
+    "kafka": "I sit on the monitor. It is warm. That is the whole reason.",
+    "items": [
+      {
+        "id": "monitor",
+        "kind": "Monitor",
+        "name": "BenQ GW2790Q",
+        "note": ""
+      },
+      {
+        "id": "laptop",
+        "kind": "Laptop",
+        "name": "HP 14s",
+        "note": ""
+      },
+      {
+        "id": "phone",
+        "kind": "Phone",
+        "name": "Samsung Galaxy S25",
+        "note": ""
+      },
+      {
+        "id": "stand",
+        "kind": "Phone stand",
+        "name": "Ambrane",
+        "note": ""
+      },
+      {
+        "id": "keyboard",
+        "kind": "Keyboard",
+        "name": "Logitech Pebble Keys 2 K380s",
+        "note": ""
+      },
+      {
+        "id": "mouse",
+        "kind": "Mouse",
+        "name": "Lenovo 130 wireless",
+        "note": ""
+      },
+      {
+        "id": "earphones",
+        "kind": "Earphones",
+        "name": "Portronics Conch Theta C",
+        "note": ""
+      },
+      {
+        "id": "can",
+        "kind": "On the desk, always",
+        "name": "Diet Coke",
+        "note": ""
+      },
+      {
+        "id": "pens",
+        "kind": "Pen holder",
+        "name": "Pen holder",
+        "note": ""
+      },
+      {
+        "id": "press",
+        "kind": "French press",
+        "name": "Agaro French press",
+        "note": ""
+      },
+      {
+        "id": "mug",
+        "kind": "Mug",
+        "name": "The cat mug",
+        "note": "Diet Coke is her emotional support, but coffee is her true soulmate."
+      },
+      {
+        "id": "frame",
+        "kind": "Photo frame",
+        "name": "Kiruthika and Kafka",
+        "note": ""
+      }
+    ],
+    "monitorApps": [
+      "Notion",
+      "Obsidian",
+      "Claude",
+      "Wispr Flow",
+      "Todoist",
+      "Google Chrome",
+      "Figma",
+      "Spotify"
+    ],
+    "laptopApps": [
+      "Sudoku",
+      "X",
+      "Reddit",
+      "NYT Games"
+    ],
+    "kafkaWindow": "Outside has weather, traffic and pigeons. Inside has a warm monitor. I made my choice.",
+    "kafkaWindowNight": "I counted the lit windows twice. There is one more now.",
+    "kafkaCorner": "I never sit here. It matters that it is here.",
+    "shelfLine": "My shelf of obsessions",
+    "shelfNote": "Favourite fours face out. Click anything on it.",
+    "trex": {
+      "kind": "On the shelf",
+      "name": "The T-rex",
+      "note": "Kafka hates me. I'd shrug, but look at my arms."
+    }
+  },
+  "quote": {
+    "text": "A book must be the axe for the frozen sea within us.",
+    "by": "Franz Kafka"
+  }
+}

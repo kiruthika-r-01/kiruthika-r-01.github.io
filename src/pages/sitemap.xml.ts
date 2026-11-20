@@ -28,6 +28,7 @@ export const GET: APIRoute = async () => {
     { path: '/career/', lastmod: lastCommit('src/pages/career.astro', 'src/data/career.json') },
     { path: '/work/', lastmod: lastCommit('src/pages/work', 'src/data/work.json') },
     ...folders.map((f) => ({ path: `/work/${f.slug}/`, lastmod: lastCommit('src/pages/work', 'src/data/work.json') })),
+    { path: '/shelf/', lastmod: lastCommit('src/pages/shelf.astro', 'src/data/shelf.json') },
     { path: '/kafka/', lastmod: lastCommit('src/pages/kafka.astro', 'src/data/kafka.json') },
     { path: '/writings/', lastmod: newest(pieces) },
     ...sectionKeys.map((k) => ({ path: `/writings/${k}/`, lastmod: newest(pieces.filter((e) => e.data.section === k)) })),

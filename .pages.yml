@@ -17,6 +17,11 @@ media:
     input: public/images/work
     output: /images/work
     categories: [image]
+  - name: shelf-images
+    label: Shelf covers and posters
+    input: public/images/shelf
+    output: /images/shelf
+    categories: [image]
   - name: share-images
     label: Share images (1200 x 630)
     input: public/og
@@ -274,6 +279,119 @@ content:
                   - { name: label, label: "Link button text (projects only)", type: string }
                   - { name: url2, label: "Second link (optional)", type: string }
                   - { name: label2, label: "Second link button text", type: string }
+  - name: shelf
+    label: Shelf
+    type: file
+    path: src/data/shelf.json
+    format: json
+    fields:
+      - name: seo
+        label: Search title and description
+        type: object
+        fields:
+          - { name: title, label: Search title, type: string }
+          - { name: description, label: Search description, type: text }
+      - { name: kicker, label: Small label above the title, type: string }
+      - { name: title, label: Title (first part), type: string }
+      - { name: titleItalic, label: Title (italic end), type: string }
+      - { name: lede, label: Line under the title, type: text }
+      - { name: letterboxd, label: Letterboxd username (recent films are read from it automatically), type: string }
+      - name: currently
+        label: Currently (the four cards at the top)
+        type: object
+        list: true
+        fields:
+          - { name: label, label: "Label (e.g. Watching, On repeat)", type: string }
+          - { name: title, label: Title, type: string }
+          - { name: by, label: "By / from (artist, author, channel)", type: string }
+          - { name: note, label: Your one line, type: text }
+          - { name: image, label: Cover, type: image, options: { media: shelf-images } }
+          - { name: url, label: Link (optional), type: string }
+          - { name: spotify, label: "Spotify link (if it's a song; plays on the page)", type: string }
+          - { name: fromLetterboxd, label: "Fill from Letterboxd automatically (last watched)", type: boolean }
+      - name: shelves
+        label: Favourite four (one shelf per type)
+        type: object
+        list: true
+        fields:
+          - { name: id, label: "Id (films, series, books, music, podcasts, youtube)", type: string }
+          - { name: name, label: Name on the switch, type: string }
+          - name: items
+            label: Your four
+            type: object
+            list: true
+            fields:
+              - { name: title, label: Title, type: string, required: true }
+              - { name: by, label: "By (director, author, artist, host)", type: string }
+              - { name: year, label: Year, type: string }
+              - { name: image, label: "Cover or poster (2:3)", type: image, options: { media: shelf-images } }
+              - { name: url, label: Link, type: string }
+              - { name: spotify, label: "Spotify link (songs only; plays on the page)", type: string }
+              - { name: note, label: Your one line, type: text }
+          - name: more
+            label: More (shown only in the room, as spines, tapes and records)
+            type: object
+            list: true
+            fields:
+              - { name: title, label: Title, type: string, required: true }
+              - { name: by, label: "By (director, author, artist)", type: string }
+              - { name: year, label: Year, type: string }
+              - { name: image, label: "Cover or poster", type: image, options: { media: shelf-images } }
+              - { name: url, label: Link, type: string }
+              - { name: spotify, label: "Spotify link (songs only; plays on the page)", type: string }
+              - { name: note, label: Your one line, type: text }
+      - { name: missingNote, label: Text for an empty slot on the shelf, type: string }
+      - name: bookmarks
+        label: Bookmarks (people and brands you learn from)
+        type: object
+        list: true
+        fields:
+          - { name: group, label: Group name, type: string }
+          - { name: note, label: Line under the group (optional), type: string }
+          - name: people
+            label: Entries
+            type: object
+            list: true
+            fields:
+              - { name: name, label: Name, type: string, required: true }
+              - { name: knownFor, label: Known for (a few words), type: string }
+              - { name: note, label: What you took from them (one line), type: text }
+              - { name: url, label: Link, type: string }
+              - { name: image, label: "Photo or logo (square; shown black and white, colour on hover)", type: image, options: { media: shelf-images } }
+      - name: desk
+        label: On the desk
+        type: object
+        fields:
+          - { name: kafka, label: What Kafka says on the monitor, type: string }
+          - { name: kafkaWindow, label: What Kafka says at the window by day (when the blind is up), type: string }
+          - { name: kafkaWindowNight, label: What Kafka says at the window at night, type: string }
+          - { name: kafkaCorner, label: What Kafka says about her corner (the perch on the left wall), type: string }
+          - { name: shelfLine, label: Line when you point at the bookcase itself, type: string }
+          - { name: shelfNote, label: Second line on the bookcase card, type: string }
+          - name: trex
+            label: The T-rex on the shelf
+            type: object
+            fields:
+              - { name: kind, label: Small label, type: string }
+              - { name: name, label: Name, type: string }
+              - { name: note, label: Its line, type: text }
+          - name: items
+            label: Things on the desk and shelf
+            type: object
+            list: true
+            fields:
+              - { name: id, label: "Object in the room (monitor, laptop, phone, stand, keyboard, mouse, earphones, can, pens, press, mug, frame)", type: string }
+              - { name: kind, label: "Label (e.g. Monitor)", type: string }
+              - { name: name, label: Product name, type: string }
+              - { name: note, label: Your one line, type: text }
+          - { name: monitorApps, label: Apps on the monitor (work), type: string, list: true }
+          - { name: laptopApps, label: Apps on the laptop (after hours), type: string, list: true }
+      - name: quote
+        label: Closing quote (leave empty for the default)
+        type: object
+        fields:
+          - { name: text, label: Quote, type: text }
+          - { name: by, label: By, type: string }
   - name: career
     label: Career page
     type: file
